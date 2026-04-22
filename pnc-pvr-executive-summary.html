@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PNC Financial Services Group — Executive Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:#fff5e3;
+  color:#2d2a27;
+  font-family:'DM Sans','Inter',system-ui,sans-serif;
+  min-height:100vh;
+  padding:28px 24px;
+}
+/* ── grid ── */
+.tile-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:340px 340px;
+  gap:16px;
+}
+/* ── tile card ── */
+.tile{
+  background:#fff5e3;
+  border:1.5px solid #e7e3dc;
+  border-radius:14px;
+  padding:20px 22px;
+  cursor:pointer;
+  transition:border-color 0.15s;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  position:relative;
+}
+.tile:hover{border-color:var(--accent-color);}
+.tile-label{
+  font-size:11px;font-weight:600;color:#73716f;
+  letter-spacing:0.04em;text-transform:uppercase;margin-bottom:6px;
+}
+.tile-headline{
+  font-size:40px;font-weight:800;line-height:1;margin-bottom:4px;
+}
+.tile-sub{font-size:11px;color:#73716f;white-space:nowrap;margin-bottom:0;}
+.tile-viz{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;margin-top:10px;}
+
+/* surface tooltip */
+.surface-tip{
+  position:absolute;bottom:14px;left:16px;right:16px;
+  padding:5px 10px;
+  background:rgba(240,236,229,0.95);
+  border:1px solid #e7e3dc;
+  border-radius:6px;
+  font-size:11px;font-weight:600;
+  pointer-events:none;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  display:none;
+}
+
+/* ── modal ── */
+.modal-backdrop{
+  position:fixed;inset:0;
+  background:rgba(45,42,39,0.5);
+  z-index:10000;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding:32px 24px;
+  overflow-y:auto;
+}
+.modal-backdrop.open{display:flex;}
+.modal-card{
+  background:#fffdf9;
+  border:1px solid #e7e3dc;
+  border-radius:16px;
+  padding:24px 28px;
+  width:100%;max-width:960px;
+  box-shadow:0 16px 48px rgba(45,42,39,0.18);
+  flex-shrink:0;
+}
+.modal-header{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  margin-bottom:20px;
+}
+.modal-title{font-size:15px;font-weight:700;color:#2d2a27;}
+.modal-sub{font-size:11px;color:#73716f;margin-top:3px;}
+.modal-close{
+  background:transparent;border:1px solid #e7e3dc;border-radius:6px;
+  padding:4px 12px;font-size:12px;color:#73716f;cursor:pointer;
+  font-family:inherit;flex-shrink:0;margin-left:16px;
+}
+.modal-close:hover{color:#2d2a27;}
+
+/* ── kpi card ── */
+.kpi-card{
+  background:#f0ece5;border:1px solid #e7e3dc;
+  border-radius:8px;padding:10px 16px;flex:1 1 110px;
+}
+.kpi-label{font-size:11px;color:#73716f;margin-bottom:4px;}
+.kpi-value{font-size:20px;font-weight:600;}
+
+/* ── heatmap ── */
+.heatmap-row{display:flex;align-items:center;margin-bottom:2px;gap:3px;}
+.heatmap-month{width:22px;font-size:8px;color:#73716f;flex-shrink:0;text-align:right;padding-right:3px;}
+.heatmap-cells{display:flex;gap:1.5px;flex-wrap:nowrap;}
+.heatmap-cell{
+  width:8px;height:8px;border-radius:1.5px;flex-shrink:0;cursor:default;
+  transition:transform 0.1s;
+}
+.heatmap-cell.outage{cursor:pointer;}
+.heatmap-cell.outage:hover{transform:scale(1.6);}
+
+/* ── legend ── */
+.legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#73716f;}
+.legend-dot{width:10px;height:10px;border-radius:2px;}
+
+/* ── fleet bars ── */
+.fleet-bars-wrap{flex:1;min-height:0;display:flex;flex-direction:column;}
+.alert-dots{display:flex;gap:1px;margin-bottom:4px;flex-shrink:0;}
+.alert-dot-cell{width:5px;flex-shrink:0;display:flex;justify-content:center;}
+.alert-dot{width:4px;height:4px;border-radius:50%;background:#da4d72;margin-top:1px;}
+
+/* ── ndu bars ── */
+.ndu-wrap{flex:1;min-height:0;display:flex;flex-direction:column;}
+.ndu-year-labels{display:flex;padding-top:4px;flex-shrink:0;}
+.ndu-year{flex:1;text-align:center;font-size:9px;color:#73716f;cursor:pointer;}
+
+/* ── map ── */
+.map-wrap{flex:1;min-height:0;border-radius:8px;overflow:hidden;border:1px solid #e7e3dc;position:relative;}
+.map-tooltip{
+  position:absolute;bottom:8px;left:8px;
+  background:#fff5e3;border:1px solid #e7e3dc;border-radius:8px;
+  padding:8px 10px;font-size:11px;color:#2d2a27;
+  box-shadow:0 4px 12px rgba(45,42,39,0.1);min-width:130px;
+  pointer-events:none;display:none;
+}
+
+/* ── donut ── */
+.donut-wrap{display:flex;align-items:center;justify-content:center;flex:1;}
+
+/* ── shield ── */
+.shield-wrap{display:flex;align-items:center;justify-content:center;flex:1;}
+
+/* ── detail modal content ── */
+.detail-kpi-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
+.detail-kpi{background:#f0ece5;border:1px solid #e7e3dc;border-radius:8px;padding:10px 16px;flex:1 1 110px;}
+.detail-kpi .label{font-size:11px;color:#73716f;margin-bottom:4px;}
+.detail-kpi .value{font-size:20px;font-weight:600;}
+
+/* support quadrants */
+.quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;position:relative;margin-top:24px;}
+.quad{border-radius:8px;padding:12px 14px;min-height:100px;}
+.quad-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.block-grid{display:flex;flex-wrap:wrap;gap:1.5px;}
+.sev-block{width:7px;height:7px;border-radius:1.5px;flex-shrink:0;cursor:pointer;transition:transform 0.1s;}
+.sev-block:hover{transform:scale(1.4);}
+.cat-tags{display:flex;flex-wrap:wrap;gap:3px 6px;margin-top:8px;}
+.cat-tag{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;}
+
+/* security */
+.sec-grid{display:grid;grid-template-columns:160px 1fr 1fr;gap:24px;}
+.rec-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:0.5px solid #e7e3dc;}
+.hex-badge{
+  border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+}
+
+/* fleet detail */
+.fleet-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;}
+.widget-card{border-radius:12px;padding:16px 18px;}
+
+/* ndu detail */
+.ndu-bar-wrap{position:relative;overflow-x:auto;}
+
+/* topology */
+.topo-sites{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
+.topo-site-card{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:12px 14px;display:inline-flex;flex-direction:column;gap:8px;}
+
+/* filter buttons */
+.filter-btn{
+  padding:2px 10px;border-radius:20px;font-size:11px;cursor:pointer;
+  font-family:inherit;font-weight:500;border:1px solid #e7e3dc;
+  background:transparent;color:#73716f;
+}
+.filter-btn.active{border-color:#d55d1d;background:#d55d1d;color:#fff5e3;}
+
+/* scrollable content */
+.scroll-y{overflow-y:auto;max-height:200px;}
+
+/* header badge */
+.uptime-badge{
+  display:flex;align-items:center;gap:6px;
+  background:#f0ece5;border-radius:8px;padding:6px 12px;font-size:12px;
+}
+.uptime-dot{width:8px;height:8px;border-radius:50%;}
+
+/* site-detail cards */
+.site-cards{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.site-card{flex:1 1 100px;background:#f0ece5;border:1px solid #e7e3dc;border-radius:8px;padding:10px 12px;}
+.site-card.has-critical{background:#fce8ee;border-color:#f0c4cc;}
+
+/* cat-bar security */
+.cat-bar-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #e7e3dc;}
+.cat-dots{display:flex;gap:4px;}
+.cat-dot{width:18px;height:5px;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  HEADER                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div style="margin-bottom:28px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+  <div>
+    <h1 style="font-size:22px;font-weight:700;color:#2d2a27;">PNC Financial Services Group</h1>
+    <p style="font-size:13px;color:#73716f;margin-top:4px;">Executive Summary · Pure Storage fleet overview</p>
+  </div>
+  <div class="uptime-badge">
+    <div class="uptime-dot" style="background:#8fa596;"></div>
+    <span style="color:#5a6359;font-weight:600;">99.9997% uptime</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  TILE GRID                                                     -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="tile-grid">
+
+  <!-- TILE 1: UPTIME -->
+  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('uptime')">
+    <div class="tile-label">Uptime</div>
+    <div class="tile-headline" style="color:#5a6359;">99.9997%</div>
+    <div class="tile-sub">array uptime</div>
+    <div class="tile-viz" id="mini-heatmap-container"><!-- built by JS --></div>
+    <div class="surface-tip" id="tip-uptime"></div>
+  </div>
+
+  <!-- TILE 2: TOPOLOGY -->
+  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('topology')">
+    <div class="tile-label">Appliance Locations</div>
+    <div class="tile-headline" style="color:#8fa596;">50</div>
+    <div class="tile-sub">total appliances</div>
+    <div class="tile-viz">
+      <div class="map-wrap" id="mini-map-container"><!-- built by JS --></div>
+    </div>
+  </div>
+
+  <!-- TILE 3: FLEET -->
+  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('fleet')">
+    <div class="tile-label">Fleet Utilization</div>
+    <div class="tile-headline" style="color:#bd673d;">30.2%</div>
+    <div class="tile-sub">avg utilization</div>
+    <div class="tile-viz fleet-bars-wrap" id="mini-fleet-container"><!-- built by JS --></div>
+    <div class="surface-tip" id="tip-fleet"></div>
+  </div>
+
+  <!-- TILE 4: SUPPORT -->
+  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('support')">
+    <div class="tile-label">Support Health</div>
+    <div class="tile-headline" style="color:#5a6359;">80.6%</div>
+    <div class="tile-sub">proactive cases</div>
+    <div class="tile-viz donut-wrap">
+      <svg viewBox="0 0 120 120" width="140" height="140" style="display:block;">
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#d0c8ba" stroke-width="10"/>
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#bd673d" stroke-width="10"
+          stroke-dasharray="276.5" stroke-dashoffset="0" stroke-linecap="round"
+          transform="rotate(-90 60 60)" opacity="0.35"/>
+        <!-- 80.6% of 276.5 = 222.9 -->
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#5a6359" stroke-width="10"
+          stroke-dasharray="222.9 276.5" stroke-dashoffset="0" stroke-linecap="round"
+          transform="rotate(-90 60 60)"/>
+        <text x="60" y="56" text-anchor="middle" font-size="15" font-weight="700" fill="#5a6359">80.6%</text>
+        <text x="60" y="70" text-anchor="middle" font-size="9" fill="#73716f">proactive</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- TILE 5: SECURITY -->
+  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('security')">
+    <div class="tile-label">Security Score</div>
+    <div class="tile-headline" style="color:#bd673d;">57%</div>
+    <div class="tile-sub">checks passing</div>
+    <div class="tile-viz shield-wrap">
+      <svg viewBox="0 0 140 160" width="120" height="136" style="display:block;">
+        <path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z"
+          fill="#fff5e3" stroke="#bd673d" stroke-width="2.5"/>
+        <clipPath id="sc-tile"><path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z"/></clipPath>
+        <!-- 2.6/5.0 = 52% fill from bottom -->
+        <rect x="0" y="77" width="140" height="83" fill="#bd673d" opacity="0.15" clip-path="url(#sc-tile)"/>
+        <text x="70" y="82" text-anchor="middle" font-size="32" font-weight="800" fill="#bd673d">2.6</text>
+        <text x="70" y="100" text-anchor="middle" font-size="11" fill="#73716f">out of 5.0</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- TILE 6: NDU -->
+  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('ndu')">
+    <div class="tile-label">Non-Disruptive Upgrades</div>
+    <div class="tile-headline" style="color:#8fa596;">715</div>
+    <div class="tile-sub">total NDUs since 2019</div>
+    <div class="tile-viz ndu-wrap" id="mini-ndu-container"><!-- built by JS --></div>
+    <div class="surface-tip" id="tip-ndu"></div>
+  </div>
+
+</div><!-- end tile-grid -->
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  MODALS                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+
+<!-- MODAL: UPTIME -->
+<div class="modal-backdrop" id="modal-uptime" onclick="closeModal(event,'uptime')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Daily uptime heatmap</div>
+        <div class="modal-sub">Red = outage day · Past 12 months</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('uptime')">✕ close</button>
+    </div>
+    <!-- KPI row -->
+    <div class="detail-kpi-row">
+      <div class="detail-kpi"><div class="label">Array Uptime</div><div class="value" style="color:#5a6359;">99.9997%</div></div>
+      <div class="detail-kpi"><div class="label">Total Outage Time</div><div class="value" style="color:#da4d72;">25h 57m</div></div>
+      <div class="detail-kpi"><div class="label">Outage Events</div><div class="value" style="color:#bd673d;">5</div></div>
+    </div>
+    <!-- full heatmap -->
+    <div id="full-heatmap"><!-- built by JS --></div>
+    <div class="legend" style="margin-top:12px;">
+      <div class="legend-item"><div class="legend-dot" style="background:#8fa596;"></div>Operational</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#da4d72;"></div>Outage</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#e7e3dc;"></div>Outside window</div>
+    </div>
+    <div id="uptime-tooltip" style="display:none;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:10px 13px;font-size:12px;color:#2d2a27;margin-top:12px;max-width:280px;box-shadow:0 4px 16px rgba(45,42,39,0.1);"></div>
+  </div>
+</div>
+
+<!-- MODAL: TOPOLOGY -->
+<div class="modal-backdrop" id="modal-topology" onclick="closeModal(event,'topology')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Appliance topology & locations</div>
+        <div class="modal-sub">50 appliances across 4 data center sites</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('topology')">✕ close</button>
+    </div>
+    <!-- site map -->
+    <div style="position:relative;background:#f0ece5;border-radius:10px;overflow:hidden;border:1px solid #e7e3dc;margin-bottom:16px;">
+      <svg id="detail-map-svg" viewBox="0 0 520 280" width="100%" style="display:block;">
+        <!-- background built by JS -->
+      </svg>
+      <div id="detail-map-tooltip" class="map-tooltip"></div>
+    </div>
+    <!-- site cards -->
+    <div class="site-cards" id="site-cards-row"><!-- built by JS --></div>
+    <!-- hex topology -->
+    <div style="margin-top:24px;border-top:1px solid #e7e3dc;padding-top:20px;">
+      <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
+        <span style="font-size:11px;color:#73716f;">Filter:</span>
+        <button class="filter-btn active" onclick="topoFilter('all',this)">all</button>
+        <button class="filter-btn" onclick="topoFilter('FA-XL',this)">FA-XL</button>
+        <button class="filter-btn" onclick="topoFilter('FA-X',this)">FA-X</button>
+        <button class="filter-btn" onclick="topoFilter('FA-C',this)">FA-C</button>
+        <button class="filter-btn" onclick="topoFilter('FB',this)">FB</button>
+        <button class="filter-btn" onclick="topoFilter('critical',this)">critical</button>
+        <button class="filter-btn" onclick="topoFilter('caution',this)">caution</button>
+      </div>
+      <div class="topo-sites" id="topo-hex-container"><!-- built by JS --></div>
+      <div id="topo-tooltip" style="display:none;margin-top:12px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:12px 14px;font-size:12px;color:#2d2a27;max-width:270px;box-shadow:0 4px 16px rgba(45,42,39,0.1);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: FLEET -->
+<div class="modal-backdrop" id="modal-fleet" onclick="closeModal(event,'fleet')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Array fleet utilization</div>
+        <div class="modal-sub">127 appliances · sorted by utilization</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('fleet')">✕ close</button>
+    </div>
+    <!-- KPIs -->
+    <div class="detail-kpi-row">
+      <div class="detail-kpi"><div class="label">Fleet avg</div><div class="value" style="color:#8fa596;">30.2%</div></div>
+      <div class="detail-kpi"><div class="label">Healthy &lt;60%</div><div class="value" style="color:#8fa596;">100</div></div>
+      <div class="detail-kpi"><div class="label">Caution 60–80%</div><div class="value" style="color:#bd673d;">24</div></div>
+      <div class="detail-kpi"><div class="label">Critical &gt;80%</div><div class="value" style="color:#da4d72;">3</div></div>
+    </div>
+    <!-- hover chip placeholder -->
+    <div id="fleet-hover-chip" style="height:32px;margin-bottom:6px;display:flex;align-items:center;"></div>
+    <!-- bar chart -->
+    <div style="position:relative;overflow-x:auto;">
+      <svg id="fleet-detail-svg" height="120" style="display:block;width:100%;overflow:visible;"></svg>
+    </div>
+    <!-- two widgets -->
+    <div class="fleet-detail-grid">
+      <!-- critical arrays -->
+      <div class="widget-card" style="background:#fce8ee;border:1.5px solid rgba(218,77,114,0.13);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#da4d72;flex-shrink:0;"></div>
+          <div style="font-size:14px;font-weight:700;color:#2d2a27;">Critical Arrays</div>
+          <div style="margin-left:auto;font-size:14px;font-weight:700;color:#da4d72;">3 arrays</div>
+        </div>
+        <div style="font-size:13px;color:#73716f;margin-bottom:14px;line-height:1.5;">Arrays with active alerts requiring immediate attention.</div>
+        <!-- array 1 -->
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(218,77,114,0.1);">
+          <div style="width:44px;height:44px;border-radius:8px;background:#fff5e3;border:1.5px solid rgba(218,77,114,0.27);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="font-size:13px;font-weight:800;color:#da4d72;line-height:1;">91.2%</div>
+            <div style="font-size:10px;color:#73716f;margin-top:2px;">util</div>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:4px;">gf0-purefb024-01 <span style="color:#73716f;font-weight:400;">FB · PIT</span></div>
+            <div style="font-size:12px;color:#73716f;line-height:1.6;"><span style="color:#da4d72;margin-right:5px;">⚠</span>Drive wear threshold exceeded — multiple high-wear SSDs approaching EOL</div>
+          </div>
+        </div>
+        <!-- array 2 -->
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid rgba(218,77,114,0.1);">
+          <div style="width:44px;height:44px;border-radius:8px;background:#fff5e3;border:1.5px solid rgba(218,77,114,0.27);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="font-size:13px;font-weight:800;color:#da4d72;line-height:1;">88.7%</div>
+            <div style="font-size:10px;color:#73716f;margin-top:2px;">util</div>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:4px;">gf1-purefb042-01 <span style="color:#73716f;font-weight:400;">FB · PIT</span></div>
+            <div style="font-size:12px;color:#73716f;line-height:1.6;"><span style="color:#da4d72;margin-right:5px;">⚠</span>Capacity headroom &lt; 5% — workload growth outpacing provisioned space</div>
+          </div>
+        </div>
+        <!-- array 3 -->
+        <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;">
+          <div style="width:44px;height:44px;border-radius:8px;background:#fff5e3;border:1.5px solid rgba(218,77,114,0.27);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;">
+            <div style="font-size:13px;font-weight:800;color:#da4d72;line-height:1;">85.4%</div>
+            <div style="font-size:10px;color:#73716f;margin-top:2px;">util</div>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:4px;">gf2-purefb060-01 <span style="color:#73716f;font-weight:400;">FB · SAN</span></div>
+            <div style="font-size:12px;color:#73716f;line-height:1.6;"><span style="color:#da4d72;margin-right:5px;">⚠</span>Replication lag detected — target array falling behind RPO window</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;border-top:1px solid rgba(218,77,114,0.1);padding-top:12px;">
+          <div style="font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:6px;">Recommended actions</div>
+          <div style="font-size:13px;color:#73716f;line-height:1.8;">· Add capacity shelves or migrate workloads<br/>· Review Pure1 AI workload forecasting<br/>· Open proactive support case for expansion planning</div>
+        </div>
+      </div>
+      <!-- cost savings -->
+      <div class="widget-card" style="background:#eef5f0;border:1.5px solid rgba(143,165,150,0.27);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <div style="width:8px;height:8px;border-radius:50%;background:#8fa596;flex-shrink:0;"></div>
+          <div style="font-size:14px;font-weight:700;color:#2d2a27;">Cost Savings Opportunity</div>
+          <div style="margin-left:auto;font-size:14px;font-weight:700;color:#5a6359;">48 arrays</div>
+        </div>
+        <div style="font-size:13px;color:#73716f;margin-bottom:14px;line-height:1.5;">Arrays under 30% utilization on EG//Forever. Converting to EG//Foundation could reduce annual subscription spend.</div>
+        <!-- cost comparison -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
+          <div style="background:#fff5e3;border:1px solid #e7e3dc;border-radius:8px;padding:10px 12px;">
+            <div style="font-size:12px;color:#73716f;margin-bottom:4px;">Current annual</div>
+            <div style="font-size:16px;font-weight:800;color:#bd673d;line-height:1;">$8,640K</div>
+            <div style="font-size:12px;color:#73716f;margin-top:4px;">48 × $180K</div>
+          </div>
+          <div style="background:#fff5e3;border:1px solid #e7e3dc;border-radius:8px;padding:10px 12px;">
+            <div style="font-size:12px;color:#73716f;margin-bottom:4px;">Proposed annual</div>
+            <div style="font-size:16px;font-weight:800;color:#5a6359;line-height:1;">$4,320K</div>
+            <div style="font-size:12px;color:#73716f;margin-top:4px;">48 × $90K</div>
+          </div>
+          <div style="background:#fff5e3;border:1px solid #e7e3dc;border-radius:8px;padding:10px 12px;">
+            <div style="font-size:12px;color:#73716f;margin-bottom:4px;">Est. savings/yr</div>
+            <div style="font-size:16px;font-weight:800;color:#8fa596;line-height:1;">$4,320K</div>
+            <div style="font-size:12px;color:#73716f;margin-top:4px;">50% reduction</div>
+          </div>
+        </div>
+        <!-- sample low-util arrays -->
+        <div class="scroll-y">
+          <div id="low-util-list"><!-- built by JS --></div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:#73716f;line-height:1.5;">* Indicative pricing. Consult your Pure Storage account team for exact terms.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: SUPPORT -->
+<div class="modal-backdrop" id="modal-support" onclick="closeModal(event,'support')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Support health</div>
+        <div class="modal-sub">2,019 cases · colour = severity</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('support')">✕ close</button>
+    </div>
+    <div style="display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
+      <!-- donut -->
+      <div style="background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:20px;flex-shrink:0;">
+        <svg width="120" height="120">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#efede8" stroke-width="8"/>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#bd673d" stroke-width="8"
+            stroke-dasharray="326.7" stroke-dashoffset="0" stroke-linecap="round"
+            transform="rotate(-90 60 60)" opacity="0.35"/>
+          <!-- 80.6% dash -->
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#5a6359" stroke-width="8"
+            stroke-dasharray="263.3 326.7" stroke-dashoffset="0" stroke-linecap="round"
+            transform="rotate(-90 60 60)"/>
+          <text x="60" y="56" text-anchor="middle" font-size="16" font-weight="700" fill="#5a6359">80.6%</text>
+          <text x="60" y="72" text-anchor="middle" font-size="10" fill="#73716f">proactive</text>
+        </svg>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#5a6359;"></div>
+            <span style="font-size:12px;color:#73716f;">Proactive</span>
+            <span style="font-size:14px;font-weight:700;color:#5a6359;margin-left:4px;">80.6%</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:#bd673d;"></div>
+            <span style="font-size:12px;color:#73716f;">Reactive</span>
+            <span style="font-size:14px;font-weight:700;color:#bd673d;margin-left:4px;">19.4%</span>
+          </div>
+          <div style="margin-top:10px;font-size:11px;color:#73716f;">2,019 total cases</div>
+        </div>
+      </div>
+      <!-- stat cards -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;flex:1;">
+        <div class="detail-kpi"><div class="label">Total</div><div class="value" style="color:#2d2a27;">2,019</div></div>
+        <div class="detail-kpi"><div class="label">Proactive</div><div class="value" style="color:#5a6359;">1,627</div></div>
+        <div class="detail-kpi"><div class="label">Open</div><div class="value" style="color:#ff7023;">10</div></div>
+        <div class="detail-kpi"><div class="label">Closed</div><div class="value" style="color:#73716f;">2,009</div></div>
+      </div>
+    </div>
+    <!-- quadrant grid -->
+    <div style="position:relative;">
+      <div style="position:absolute;top:-18px;left:25%;font-size:10px;font-weight:600;color:#ff7023;transform:translateX(-50%);">OPEN</div>
+      <div style="position:absolute;top:-18px;right:25%;font-size:10px;font-weight:600;color:#73716f;transform:translateX(50%);">CLOSED</div>
+      <div class="quad-grid">
+        <!-- Proactive Open -->
+        <div class="quad" style="background:#eef5f0;border:1px solid #8fa596;">
+          <div class="quad-header">
+            <span style="font-size:11px;font-weight:700;color:#5a6359;">Proactive · Open</span>
+            <span style="font-size:15px;font-weight:700;color:#ff7023;">5</span>
+          </div>
+          <div class="block-grid">
+            <!-- Sev2: 3 blocks -->
+            <div class="sev-block" style="background:#ff7023;" title="Sev 2"></div>
+            <div class="sev-block" style="background:#ff7023;" title="Sev 2"></div>
+            <div class="sev-block" style="background:#ff7023;" title="Sev 2"></div>
+            <!-- Sev4: 1 block (count 1 in data but showing hint) -->
+            <div class="sev-block" style="background:#8fa596;" title="Sev 4"></div>
+          </div>
+          <div class="cat-tags">
+            <span class="cat-tag" style="background:rgba(122,154,184,0.16);color:#7a9ab8;border:1px solid rgba(122,154,184,0.33);">Hardware 2</span>
+            <span class="cat-tag" style="background:rgba(143,165,150,0.16);color:#8fa596;border:1px solid rgba(143,165,150,0.33);">Software 1</span>
+            <span class="cat-tag" style="background:rgba(154,130,176,0.16);color:#9a82b0;border:1px solid rgba(154,130,176,0.33);">Upgrade 1</span>
+          </div>
+        </div>
+        <!-- Proactive Closed -->
+        <div class="quad" style="background:#f4f6f4;border:1px solid #e7e3dc;">
+          <div class="quad-header">
+            <span style="font-size:11px;font-weight:700;color:#5a6359;">Proactive · Closed</span>
+            <span style="font-size:15px;font-weight:700;color:#73716f;">1,622</span>
+          </div>
+          <div class="block-grid" id="pro-closed-blocks"><!-- built by JS --></div>
+          <div class="cat-tags">
+            <span class="cat-tag" style="background:rgba(122,154,184,0.16);color:#7a9ab8;border:1px solid rgba(122,154,184,0.33);">Hardware 642</span>
+            <span class="cat-tag" style="background:rgba(189,103,61,0.16);color:#bd673d;border:1px solid rgba(189,103,61,0.33);">Environ. 595</span>
+            <span class="cat-tag" style="background:rgba(143,165,150,0.16);color:#8fa596;border:1px solid rgba(143,165,150,0.33);">Software 333</span>
+            <span class="cat-tag" style="background:rgba(154,130,176,0.16);color:#9a82b0;border:1px solid rgba(154,130,176,0.33);">Upgrade 45</span>
+          </div>
+        </div>
+        <!-- Reactive Open -->
+        <div class="quad" style="background:#fdf3ec;border:1px solid #bd673d;">
+          <div class="quad-header">
+            <span style="font-size:11px;font-weight:700;color:#bd673d;">Reactive · Open</span>
+            <span style="font-size:15px;font-weight:700;color:#ff7023;">5</span>
+          </div>
+          <div class="block-grid">
+            <div class="sev-block" style="background:#ff7023;" title="Sev 2"></div>
+            <div class="sev-block" style="background:#bd673d;" title="Sev 3"></div>
+            <div class="sev-block" style="background:#8fa596;" title="Sev 4"></div>
+            <div class="sev-block" style="background:#8fa596;" title="Sev 4"></div>
+          </div>
+          <div class="cat-tags">
+            <span class="cat-tag" style="background:rgba(143,165,150,0.16);color:#8fa596;border:1px solid rgba(143,165,150,0.33);">Software 2</span>
+            <span class="cat-tag" style="background:rgba(122,154,184,0.16);color:#7a9ab8;border:1px solid rgba(122,154,184,0.33);">Hardware 2</span>
+          </div>
+        </div>
+        <!-- Reactive Closed -->
+        <div class="quad" style="background:#faf8f5;border:1px solid #e7e3dc;">
+          <div class="quad-header">
+            <span style="font-size:11px;font-weight:700;color:#bd673d;">Reactive · Closed</span>
+            <span style="font-size:15px;font-weight:700;color:#73716f;">387</span>
+          </div>
+          <div class="block-grid" id="rea-closed-blocks"><!-- built by JS --></div>
+          <div class="cat-tags">
+            <span class="cat-tag" style="background:rgba(143,165,150,0.16);color:#8fa596;border:1px solid rgba(143,165,150,0.33);">Software 232</span>
+            <span class="cat-tag" style="background:rgba(122,154,184,0.16);color:#7a9ab8;border:1px solid rgba(122,154,184,0.33);">Hardware 121</span>
+            <span class="cat-tag" style="background:rgba(189,103,61,0.16);color:#bd673d;border:1px solid rgba(189,103,61,0.33);">Environ. 26</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- sev legend -->
+    <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap;align-items:center;">
+      <span style="font-size:10px;color:#73716f;font-weight:600;">SEVERITY:</span>
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:7px;height:7px;border-radius:1.5px;background:#da4d72;"></div><span style="font-size:10px;color:#73716f;">Sev 1</span></div>
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:7px;height:7px;border-radius:1.5px;background:#ff7023;"></div><span style="font-size:10px;color:#73716f;">Sev 2</span></div>
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:7px;height:7px;border-radius:1.5px;background:#bd673d;"></div><span style="font-size:10px;color:#73716f;">Sev 3</span></div>
+      <div style="display:flex;align-items:center;gap:4px;"><div style="width:7px;height:7px;border-radius:1.5px;background:#8fa596;"></div><span style="font-size:10px;color:#73716f;">Sev 4</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: SECURITY -->
+<div class="modal-backdrop" id="modal-security" onclick="closeModal(event,'security')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Security score detail</div>
+        <div class="modal-sub">Compliance · Operational · recommendations</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('security')">✕ close</button>
+    </div>
+    <div class="sec-grid">
+      <!-- shield + score -->
+      <div>
+        <div style="position:relative;width:140px;height:156px;margin:0 auto;">
+          <svg viewBox="0 0 140 160" width="140" height="156">
+            <path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z" fill="#fff5e3" stroke="#e7e3dc" stroke-width="1.5"/>
+            <clipPath id="sc-modal"><path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z"/></clipPath>
+            <!-- 2.6/5 = 52% → y = 160 - 160*0.52 = 76.8 -->
+            <rect x="0" y="76.8" width="140" height="83.2" fill="#bd673d" opacity="0.15" clip-path="url(#sc-modal)"/>
+          </svg>
+          <div style="position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+            <div style="font-size:36px;font-weight:800;color:#bd673d;line-height:1;">2.6</div>
+            <div style="font-size:11px;color:#73716f;margin-top:2px;">out of 5.0</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;">
+          <!-- compliance cat bar -->
+          <div class="cat-bar-row">
+            <span style="font-size:13px;color:#73716f;">⊙</span>
+            <span style="font-size:12px;color:#2d2a27;flex:1;">Compliance</span>
+            <div class="cat-dots">
+              <div class="cat-dot" style="background:#bd673d;"></div>
+              <div class="cat-dot" style="background:#bd673d;"></div>
+              <div class="cat-dot" style="background:#e7e3dc;"></div>
+            </div>
+            <span style="font-size:11px;font-weight:600;color:#bd673d;min-width:32px;text-align:right;">2/3</span>
+          </div>
+          <!-- operational cat bar -->
+          <div class="cat-bar-row">
+            <span style="font-size:13px;color:#73716f;">⚙</span>
+            <span style="font-size:12px;color:#2d2a27;flex:1;">Operational</span>
+            <div class="cat-dots">
+              <div class="cat-dot" style="background:#da4d72;"></div>
+              <div class="cat-dot" style="background:#e7e3dc;"></div>
+            </div>
+            <span style="font-size:11px;font-weight:600;color:#da4d72;min-width:32px;text-align:right;">0.6/2</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#73716f;padding:7px 0;border-bottom:0.5px solid #e7e3dc;">
+            <span>Scored appliances</span><span style="font-weight:600;color:#2d2a27;">8</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#73716f;padding:7px 0;border-bottom:0.5px solid #e7e3dc;">
+            <span>Not phoning home</span><span style="font-weight:600;color:#2d2a27;">0</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#73716f;padding:7px 0;border-bottom:0.5px solid #e7e3dc;">
+            <span>Excluded</span><span style="font-weight:600;color:#2d2a27;">0</span>
+          </div>
+        </div>
+      </div>
+      <!-- compliance -->
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:12px;">⊙ Compliance</div>
+        <div style="font-size:10px;color:#73716f;font-weight:600;margin-bottom:6px;">BASIC</div>
+        <!-- rows -->
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#eef5f0;border:1.5px solid #8fa596;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Data at Rest Encryption</div><div style="font-size:11px;color:#73716f;">All appliances are encrypted with DARE</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#eef5f0;border:1.5px solid #8fa596;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">End-of-Life Purity version</div><div style="font-size:11px;color:#73716f;">No appliance is running End-of-life Purity version</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">CVEs Critical &amp; High</div><div style="font-size:11px;color:#da4d72;">Review 4 appliances for critical or high CVEs</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Purity Optimizations</div><div style="font-size:11px;color:#da4d72;">4 appliances need Purity optimizations</div></div>
+        </div>
+        <div style="font-size:10px;color:#73716f;font-weight:600;margin-top:14px;margin-bottom:6px;">ADVANCED</div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#f7f0e0;border:1.5px solid #bd673d;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">5</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Access Control – Remote</div><div style="font-size:11px;color:#bd673d;">5 appliances need remote access control review</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#f7f0e0;border:1.5px solid #bd673d;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">8</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">NTP Server – Configured and Synchronized</div><div style="font-size:11px;color:#bd673d;">8 appliances need NTP configuration</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#efede8;border:1.5px solid #d0c8ba;"><span style="font-size:10.6px;font-weight:800;color:#73716f;">0</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Rapid Data Locking (RDL) Enabled</div><div style="font-size:11px;color:#73716f;">No appliances with RDL enabled</div></div>
+        </div>
+      </div>
+      <!-- operational -->
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:12px;">⚙ Operational</div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">8</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Password Hygiene</div><div style="font-size:11px;color:#da4d72;">8 appliances have unsafe password configurations</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">1</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Public or Open Access to Buckets</div><div style="font-size:11px;color:#da4d72;">1 appliance has open or public access to buckets</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#eef5f0;border:1.5px solid #8fa596;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Remote Assist Activity 8+ hrs</div><div style="font-size:11px;color:#73716f;">No appliance with remote assist exceeding 8 hrs</div></div>
+        </div>
+        <div class="rec-row">
+          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">6</span></div>
+          <div style="flex:1;"><div style="font-size:12px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Critical Alerts</div><div style="font-size:11px;color:#da4d72;">6 appliances have active critical alerts</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: NDU -->
+<div class="modal-backdrop" id="modal-ndu" onclick="closeModal(event,'ndu')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Non-disruptive upgrades</div>
+        <div class="modal-sub">715 total NDUs · 2019–2026</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
+    </div>
+    <div class="detail-kpi-row">
+      <div class="detail-kpi"><div class="label">Total NDUs</div><div class="value" style="color:#2d2a27;">715</div></div>
+      <div class="detail-kpi" style="background:#eef5f0;"><div class="label">Software (SwNDU)</div><div class="value" style="color:#5a6359;">620</div></div>
+      <div class="detail-kpi" style="background:#f7ece0;"><div class="label">Hardware (HwNDU)</div><div class="value" style="color:#bd673d;">95</div></div>
+      <div class="detail-kpi"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
+    </div>
+    <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
+      <!-- reference lines -->
+      <div style="position:absolute;left:0;right:0;top:0;pointer-events:none;">
+        <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">223</span></div>
+        <div style="position:absolute;left:0;right:0;top:40px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">167</span></div>
+        <div style="position:absolute;left:0;right:0;top:80px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">112</span></div>
+        <div style="position:absolute;left:0;right:0;top:120px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">56</span></div>
+        <div style="position:absolute;left:0;right:0;top:160px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">0</span></div>
+      </div>
+      <svg id="ndu-detail-svg" width="100%" height="188" style="display:block;overflow:visible;"></svg>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;align-items:center;">
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#8fa596;"></div><span style="font-size:11px;color:#73716f;">Software NDU</span><span style="font-size:11px;font-weight:700;color:#2d2a27;">620</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#bd673d;"></div><span style="font-size:11px;color:#73716f;">Hardware NDU</span><span style="font-size:11px;font-weight:700;color:#2d2a27;">95</span></div>
+      <span style="font-size:10px;color:#73716f;margin-left:auto;">2019 – 2026 · 2026 YTD</span>
+    </div>
+    <div id="ndu-tooltip" style="display:none;margin-top:10px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.1);display:inline-block;min-width:140px;"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!--  JAVASCRIPT                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const OUTAGES = [
+  {id:"579d7a17",     name:"gf1-purefb041-01", date:"2025-04-24", cause:"SW – Configuration",    summary:"CH4 went down while awaiting FB11 replacement",                    minutes:15},
+  {id:"9ae6638f-feb", name:"gf0-purefb024-01", date:"2023-02-10", cause:"SW – Purity / Firmware", summary:"FlashRecovery outage – FPGA causing CH6 to exceed N-2",             minutes:60},
+  {id:"1014397",      name:"gf2-pureaz101-03", date:"2025-11-07", cause:"Human – Partner",        summary:"CT0 offline – wrong cables pulled during controller replacement",   minutes:106.25},
+  {id:"a5f5bf2d",     name:"gf2-purefb061-01", date:"2025-05-29", cause:"SW – Purity / Firmware", summary:"Upgrade failed – congo-up etcd conversion issue",                  minutes:145},
+  {id:"9ae6638f-jan", name:"gf0-purefb024-01", date:"2023-01-18", cause:"SW – Purity / Firmware", summary:"No authorities running on all blades – CH6-FM2 failed boot drive", minutes:1231},
+];
+const OUTAGE_MAP = {};
+OUTAGES.forEach(o => { OUTAGE_MAP[o.date] = o; });
+
+const SITES = [
+  {site:"Pittsburgh, PA", abbr:"PIT", address:"35 Summit Park Dr", lat:40.44, lng:-79.99,
+   appliances:[
+    {id:"A01",hw:"FA-XL",sub:"EG//Forever",status:"caution",name:"gf0-pure-xl170-01"},
+    {id:"A02",hw:"FA-C", sub:"EG//Forever",status:"caution",name:"gf0-cleanrm-pure01"},
+    {id:"A03",hw:"FA-X", sub:"EG//Forever",status:"caution",name:"p-prdc-pure05"},
+    {id:"A04",hw:"FA-X", sub:"EG//Forever",status:"caution",name:"gf0-pure119-01"},
+    {id:"A05",hw:"FA-XL",sub:"Standard",   status:"caution",name:"gf0-pure161"},
+    {id:"A06",hw:"FA-X", sub:"EG//Forever",status:"caution",name:"gf0-purelab-01"},
+    {id:"A07",hw:"FA-X", sub:"EG//Forever",status:"caution",name:"gf0-ucp13-pure01"},
+    {id:"A08",hw:"FA-X", sub:"EG//Forever",status:"ok",     name:"p-prdc-pure02"},
+    {id:"A09",hw:"FB-S", sub:"EG//Foundation",status:"caution",name:"gf0-nas02"},
+    {id:"A10",hw:"FA-XL",sub:"EG//Forever",status:"caution",name:"gf0-pureaz101-04"},
+    {id:"A11",hw:"FA-X", sub:"EG//Forever",status:"caution",name:"p-prdc-pure03"},
+    {id:"579d7a17",hw:"FB",sub:"EG//Forever",status:"caution",name:"gf1-purefb041-01"},
+    {id:"9ae6638f-jan",hw:"FB",sub:"EG//Foundation",status:"critical",name:"gf0-purefb024-01"},
+    {id:"A14",hw:"FA-C", sub:"EG//Forever",status:"ok",     name:"gf0-pure-c60-01"},
+    {id:"A15",hw:"FA-C", sub:"EG//Forever",status:"ok",     name:"gf0-pure-c60-02"},
+    {id:"A16",hw:"FB",   sub:"EG//Foundation",status:"ok",  name:"gf0-nas01"},
+    {id:"A17",hw:"FA-XL",sub:"EG//Forever",status:"ok",     name:"gf0-xl170-02"},
+    {id:"A18",hw:"FA-XL",sub:"EG//Forever",status:"ok",     name:"gf0-xl170-03"},
+    {id:"A19",hw:"FA-X", sub:"EG//Forever",status:"ok",     name:"gf0-x90-01"},
+    {id:"A20",hw:"FA-X", sub:"EG//Forever",status:"ok",     name:"gf0-x90-02"},
+   ]},
+  {site:"Sandston, VA", abbr:"SAN", address:"6000 Technology Blvd", lat:37.52, lng:-77.31,
+   appliances:[
+    {id:"B01",hw:"FA-XL",sub:"EG//Forever",status:"caution",name:"de3-pure-n110-01"},
+    {id:"B02",hw:"FA-XL",sub:"EG//Forever",status:"caution",name:"gf1-pureaz203-02"},
+    {id:"B03",hw:"FA-XL",sub:"EG//Forever",status:"caution",name:"gf1-pureaz205-01"},
+    {id:"1014397",hw:"FA-XL",sub:"EG//Forever",status:"critical",name:"gf2-pureaz101-03"},
+    {id:"a5f5bf2d",hw:"FB-S",sub:"EG//Forever",status:"critical",name:"gf2-purefb061-01"},
+    {id:"B06",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf1-xl170-01"},
+    {id:"B07",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf1-xl170-02"},
+    {id:"B08",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf1-x90-01"},
+    {id:"B09",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf1-x90-02"},
+    {id:"B10",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf1-x90-03"},
+    {id:"B11",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf1-x90-04"},
+    {id:"B12",hw:"FA-C", sub:"EG//Forever",status:"ok",name:"gf1-c60-01"},
+    {id:"B13",hw:"FA-C", sub:"EG//Forever",status:"ok",name:"gf1-c60-02"},
+    {id:"B14",hw:"FB",   sub:"EG//Foundation",status:"ok",name:"gf1-nas01"},
+    {id:"B15",hw:"FB",   sub:"EG//Foundation",status:"ok",name:"gf1-nas02"},
+   ]},
+  {site:"Ashburn, VA", abbr:"ASH", address:"3 colocation facilities", lat:39.04, lng:-77.48,
+   appliances:[
+    {id:"C01",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf2-xl170-01"},
+    {id:"C02",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf2-xl170-02"},
+    {id:"C03",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf2-xl170-03"},
+    {id:"C04",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf2-x90-01"},
+    {id:"C05",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf2-x90-02"},
+    {id:"C06",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf2-x90-03"},
+    {id:"C07",hw:"FA-X", sub:"EG//Forever",status:"ok",name:"gf2-x90-04"},
+    {id:"C08",hw:"FA-C", sub:"EG//Forever",status:"ok",name:"gf2-c60-01"},
+    {id:"C09",hw:"FA-C", sub:"EG//Forever",status:"ok",name:"gf2-c60-02"},
+    {id:"C10",hw:"FA-C", sub:"EG//Forever",status:"ok",name:"gf2-c60-03"},
+    {id:"C11",hw:"FB",   sub:"EG//Foundation",status:"ok",name:"gf2-nas01"},
+    {id:"C12",hw:"FB",   sub:"EG//Foundation",status:"ok",name:"gf2-nas02"},
+   ]},
+  {site:"Rogers, AR", abbr:"ROG", address:"1701 W Commerce Dr", lat:36.33, lng:-94.12,
+   appliances:[
+    {id:"D01",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf3-xl170-01"},
+    {id:"D02",hw:"FA-XL",sub:"EG//Forever",status:"ok",name:"gf3-xl170-02"},
+    {id:"D03",hw:"FB",   sub:"EG//Foundation",status:"ok",name:"gf3-nas01"},
+   ]},
+];
+
+const FLEET = [
+  {n:"de3-pure-n109-01",hw:"FA-XL",u:1.0},{n:"de3-pure-n110-01",hw:"FA-XL",u:1.2},
+  {n:"de3-pure-n111-01",hw:"FA-XL",u:0.3},{n:"de3-pure-n112-01",hw:"FA-XL",u:0.3},
+  {n:"gf0-cleanrm-pure01",hw:"FA-C",u:0.2},{n:"gf0-cleanrm-pure02",hw:"FA-C",u:0.1},
+  {n:"gf0-cleanrm-pure03",hw:"FA-C",u:0.1},{n:"gf0-nas01",hw:"FB-S",u:0.0},
+  {n:"gf0-nas02",hw:"FB-S",u:0.0},{n:"gf0-pure-xl170-01",hw:"FA-XL",u:51.2},
+  {n:"gf0-pure030-01",hw:"FA-X",u:1.8},{n:"gf0-pure030-02",hw:"FA-X",u:1.4},
+  {n:"gf0-pure030-03",hw:"FA-X",u:1.9},{n:"gf0-pure030-04",hw:"FA-X",u:0.0},
+  {n:"gf0-pure11-01a",hw:"FA-X",u:0.0},{n:"gf0-pure113-01",hw:"FA-X",u:0.0},
+  {n:"gf0-pure113-02",hw:"FA-X",u:0.0},{n:"gf0-pure119-01",hw:"FA-X",u:36.4},
+  {n:"gf0-pure119-02",hw:"FA-C",u:0.0},{n:"gf0-pure132-01",hw:"FA-C",u:3.4},
+  {n:"gf0-pure155",hw:"FA-X",u:44.6},{n:"gf0-pure157-01",hw:"FA-X",u:14.2},
+  {n:"gf0-pure157-02",hw:"FA-X",u:14.1},{n:"gf0-pure160",hw:"FA-XL",u:41.9},
+  {n:"gf0-pure161",hw:"FA-XL",u:57.9},{n:"gf0-pure162",hw:"FA-XL",u:50.9},
+  {n:"gf0-pure169-01",hw:"FA-XL",u:8.1},{n:"gf0-pure17",hw:"FA-X",u:0.6},
+  {n:"gf0-pureaz101-01",hw:"FA-XL",u:29.8},{n:"gf0-pureaz101-02",hw:"FA-XL",u:31.4},
+  {n:"gf0-pureaz101-03",hw:"FA-XL",u:40.9},{n:"gf0-pureaz101-04",hw:"FA-XL",u:48.8},
+  {n:"gf0-pureaz205-02",hw:"FA-XL",u:11.8},{n:"gf0-pureaz205s-01",hw:"FA-XL",u:60.9},
+  {n:"gf0-pureaz207-01",hw:"FA-XL",u:55.2},{n:"gf0-pureaz209-01",hw:"FA-XL",u:22.5},
+  {n:"gf0-purefb001-01",hw:"FB",u:15.7},{n:"gf0-purefb010-01",hw:"FB",u:32.0},
+  {n:"gf0-purefb021-01",hw:"FB",u:43.8},{n:"gf0-purefb023-01",hw:"FB",u:58.7},
+  {n:"gf0-purefb024-01",hw:"FB",u:91.2},{n:"gf0-purelab-01",hw:"FA-X",u:7.5},
+  {n:"gf0-purelab-02",hw:"FA-X",u:0.7},{n:"gf0-ucp13-pure01",hw:"FA-X",u:5.2},
+  {n:"gf1-mip-c60-01",hw:"FA-C",u:51.7},{n:"gf1-mippure165-01",hw:"FA-XL",u:52.5},
+  {n:"gf1-pure-xl170-01",hw:"FA-XL",u:71.9},{n:"gf1-pure110-01",hw:"FA-X",u:0.4},
+  {n:"gf1-pure118-01",hw:"FA-X",u:0.0},{n:"gf1-pure118-02",hw:"FA-X",u:0.0},
+  {n:"gf1-pure12-01",hw:"FA-X",u:33.8},{n:"gf1-pure12-02",hw:"FA-X",u:16.2},
+  {n:"gf1-pure123-01",hw:"FA-X",u:46.6},{n:"gf1-pure123-02",hw:"FA-C",u:0.0},
+  {n:"gf1-pure13-01",hw:"FA-X",u:0.7},{n:"gf1-pure134-01",hw:"FA-C",u:23.1},
+  {n:"gf1-pure134-02",hw:"FA-C",u:5.5},{n:"gf1-pure156",hw:"FA-X",u:4.6},
+  {n:"gf1-pure158-01",hw:"FA-X",u:70.2},{n:"gf1-pure158-02",hw:"FA-X",u:69.7},
+  {n:"gf1-pure158-03",hw:"FA-X",u:69.8},{n:"gf1-pure158-04",hw:"FA-X",u:70.1},
+  {n:"gf1-pure158-05",hw:"FA-X",u:70.6},{n:"gf1-pure158-06",hw:"FA-X",u:70.4},
+  {n:"gf1-pure163",hw:"FA-XL",u:53.9},{n:"gf1-pure164",hw:"FA-XL",u:62.2},
+  {n:"gf1-pure165",hw:"FA-XL",u:48.1},{n:"gf1-pureaz101-01",hw:"FA-XL",u:70.4},
+  {n:"gf1-pureaz101-02",hw:"FA-XL",u:65.2},{n:"gf1-pureaz101-03",hw:"FA-XL",u:32.6},
+  {n:"gf1-pureaz203-01",hw:"FA-XL",u:45.9},{n:"gf1-pureaz203-02",hw:"FA-XL",u:0.2},
+  {n:"gf1-pureaz205-01",hw:"FA-XL",u:18.7},{n:"gf1-purefb040-01",hw:"FB",u:0.8},
+  {n:"gf1-purefb041-01",hw:"FB",u:72.4},{n:"gf1-purefb042-01",hw:"FB",u:88.7},
+  {n:"gf1-sae-purec60-01",hw:"FA-C",u:57.0},{n:"gf1-ucp11-pure01",hw:"FA-X",u:27.1},
+  {n:"gf1-ucp11-pure02",hw:"FA-X",u:0.0},{n:"gf2-mip-c60-01",hw:"FA-C",u:51.7},
+  {n:"gf2-mippure166-01",hw:"FA-XL",u:55.1},{n:"gf2-pure-xl170-01",hw:"FA-XL",u:63.9},
+  {n:"gf2-pure108-01",hw:"FA-X",u:15.3},{n:"gf2-pure109-01",hw:"FA-X",u:3.3},
+  {n:"gf2-pure124-01",hw:"FA-X",u:41.6},{n:"gf2-pure124-02",hw:"FA-C",u:0.0},
+  {n:"gf2-pure136-01",hw:"FA-C",u:28.2},{n:"gf2-pure136-02",hw:"FA-C",u:17.6},
+  {n:"gf2-pure14-01",hw:"FA-X",u:0.3},{n:"gf2-pure14-02",hw:"FA-X",u:0.0},
+  {n:"gf2-pure15-01",hw:"FA-X",u:0.8},{n:"gf2-pure159-01",hw:"FA-X",u:70.7},
+  {n:"gf2-pure159-02",hw:"FA-X",u:70.6},{n:"gf2-pure159-03",hw:"FA-X",u:70.1},
+  {n:"gf2-pure159-04",hw:"FA-X",u:70.5},{n:"gf2-pure159-05",hw:"FA-X",u:70.1},
+  {n:"gf2-pure159-06",hw:"FA-X",u:70.8},{n:"gf2-pure166",hw:"FA-XL",u:48.5},
+  {n:"gf2-pure167",hw:"FA-XL",u:58.3},{n:"gf2-pure168",hw:"FA-XL",u:60.9},
+  {n:"gf2-pure17",hw:"FA-X",u:38.7},{n:"gf2-pureaz101-01",hw:"FA-XL",u:59.2},
+  {n:"gf2-pureaz101-02",hw:"FA-XL",u:46.6},{n:"gf2-pureaz101-03",hw:"FA-XL",u:24.7},
+  {n:"gf2-pureaz203-01",hw:"FA-XL",u:30.8},{n:"gf2-pureaz205-01",hw:"FA-XL",u:30.7},
+  {n:"gf2-pureaz205-02",hw:"FA-XL",u:0.1},{n:"gf2-purefb040-01",hw:"FB",u:0.3},
+  {n:"gf2-purefb060-01",hw:"FB",u:85.4},{n:"gf2-purefb061-01",hw:"FB",u:68.4},
+  {n:"gf2-sae-purec60-01",hw:"FA-C",u:57.4},{n:"gf2-ucp12-pure01",hw:"FA-X",u:1.3},
+  {n:"gf2-ucp12-pure02",hw:"FA-X",u:0.0},{n:"p-cadc-pure01",hw:"FA-X",u:18.3},
+  {n:"p-cadc-pure07",hw:"FA-X",u:28.2},{n:"p-cadc-pure08",hw:"FA-X",u:13.1},
+  {n:"p-cadc-pure09",hw:"FA-X",u:18.4},{n:"p-cadc-pure10",hw:"FA-X",u:14.4},
+  {n:"p-prdc-pure02",hw:"FA-X",u:49.0},{n:"p-prdc-pure03",hw:"FA-X",u:17.3},
+  {n:"p-prdc-pure04",hw:"FA-X",u:38.3},{n:"p-prdc-pure05",hw:"FA-X",u:38.6},
+  {n:"p-prdc-pure07",hw:"FA-X",u:23.8},{n:"p-prdc-pure08",hw:"FA-X",u:15.0},
+  {n:"p-rich-pure09",hw:"FA-X",u:15.8},{n:"p-rich-pure10",hw:"FA-X",u:20.7},
+  {n:"prdc-fb01",hw:"FB",u:3.6},
+];
+
+const CRITICAL_ALERTS = new Set(["gf0-purefb024-01","gf1-purefb042-01","gf2-purefb060-01"]);
+
+const NDU_BY_YEAR = [
+  {year:"2019",sw:5,hw:0},{year:"2020",sw:3,hw:1},{year:"2021",sw:39,hw:20},
+  {year:"2022",sw:64,hw:2},{year:"2023",sw:110,hw:18},{year:"2024",sw:143,hw:39},
+  {year:"2025",sw:223,hw:11},{year:"2026",sw:33,hw:4},
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function utilColor(u){if(u>=80)return"#da4d72";if(u>=60)return"#bd673d";return"#8fa596";}
+function fmtM(m){if(m<60)return Math.round(m)+"m";const h=Math.floor(m/60),r=Math.round(m%60);return r?`${h}h ${r}m`:`${h}h`;}
+function svgEl(tag,attrs){const e=document.createElementNS("http://www.w3.org/2000/svg",tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
+
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+function openModal(id){document.getElementById("modal-"+id).classList.add("open");}
+function closeModalById(id){document.getElementById("modal-"+id).classList.remove("open");}
+function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
+
+// ─── HEATMAP ─────────────────────────────────────────────────────────────────
+function buildHeatmap(containerId, isDetail){
+  const today=new Date();today.setHours(0,0,0,0);
+  const startDate=new Date(today);startDate.setFullYear(startDate.getFullYear()-1);startDate.setDate(1);
+  const MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const months=[];
+  const cur=new Date(startDate);
+  while(cur<=today){months.push(new Date(cur.getFullYear(),cur.getMonth(),1));cur.setMonth(cur.getMonth()+1);}
+  function toDS(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
+  const container=document.getElementById(containerId);
+  if(!container)return;
+  container.innerHTML="";
+  months.forEach(ms=>{
+    const me=new Date(ms.getFullYear(),ms.getMonth()+1,0);
+    const row=document.createElement("div");
+    row.className="heatmap-row";
+    const lbl=document.createElement("div");
+    lbl.className="heatmap-month";
+    lbl.textContent=MONTHS[ms.getMonth()];
+    row.appendChild(lbl);
+    const cells=document.createElement("div");
+    cells.className="heatmap-cells";
+    for(let d=1;d<=me.getDate();d++){
+      const cd=new Date(ms.getFullYear(),ms.getMonth(),d);
+      const ds=toDS(cd);
+      const cell=document.createElement("div");
+      cell.className="heatmap-cell";
+      if(cd>today||cd<startDate){
+        cell.style.background="#e7e3dc";cell.style.opacity="0.5";
+      } else if(OUTAGE_MAP[ds]){
+        cell.style.background="#da4d72";cell.classList.add("outage");
+        cell.addEventListener("mouseenter",()=>{
+          const o=OUTAGE_MAP[ds];
+          if(isDetail){
+            const tip=document.getElementById("uptime-tooltip");
+            if(tip){
+              const dt=new Date(ds+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+              tip.style.display="block";
+              tip.innerHTML=`<div style="font-size:11px;color:#73716f;font-weight:600;margin-bottom:8px;">${dt}</div>
+                <div style="font-weight:600;font-size:11px;">${o.name}</div>
+                <div style="color:#da4d72;font-size:11px;">${o.cause}</div>
+                <div style="color:#73716f;font-size:11px;">Duration: ${fmtM(o.minutes)}</div>`;
+            }
+          } else {
+            const tip=document.getElementById("tip-uptime");
+            if(tip){
+              const dt=new Date(ds+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+              tip.style.display="block";tip.style.color="#da4d72";
+              tip.textContent=`${dt} · ${o.name} · ${o.cause}`;
+            }
+          }
+        });
+        cell.addEventListener("mouseleave",()=>{
+          if(isDetail){const t=document.getElementById("uptime-tooltip");if(t)t.style.display="none";}
+          else{const t=document.getElementById("tip-uptime");if(t)t.style.display="none";}
+        });
+      } else {
+        cell.style.background="#8fa596";cell.style.opacity="0.6";
+      }
+      cells.appendChild(cell);
+    }
+    row.appendChild(cells);
+    container.appendChild(row);
+  });
+}
+
+// ─── MINI MAP ─────────────────────────────────────────────────────────────────
+function buildMiniMap(){
+  const W=320,H=170;
+  const minLng=-97,maxLng=-74,minLat=34,maxLat=43;
+  function proj(lat,lng){return{x:((lng-minLng)/(maxLng-minLng))*W,y:H-((lat-minLat)/(maxLat-minLat))*H};}
+  const container=document.getElementById("mini-map-container");
+  if(!container)return;
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);svg.setAttribute("width","100%");svg.style.display="block";
+  // bg
+  const bg=svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#ded5c8"});svg.appendChild(bg);
+  const maxC=Math.max(...SITES.map(s=>s.appliances.length));
+  SITES.forEach(s=>{
+    const apps=s.appliances;
+    const fa=apps.filter(a=>a.hw.startsWith("FA")).length;
+    const fb=apps.filter(a=>a.hw.startsWith("FB")).length;
+    const critN=apps.filter(a=>a.status==="critical").length;
+    const p=proj(s.lat,s.lng);
+    const r=10+(apps.length/maxC)*22;
+    const g=svgEl("g",{style:"cursor:pointer;"});
+    g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r,fill:"#8fa596","fill-opacity":"0.2",stroke:"#8fa596","stroke-width":"1.2"}));
+    if(fb>0)g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r:r*0.5,fill:"#5a6359","fill-opacity":"0.3",stroke:"#5a6359","stroke-width":"0.8"}));
+    if(critN>0)g.appendChild(svgEl("circle",{cx:p.x+r*0.65,cy:p.y-r*0.65,r:4,fill:"#da4d72",stroke:"#fff5e3","stroke-width":"1"}));
+    g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r:2.5,fill:"#fff5e3",stroke:"#5a6359","stroke-width":"1.2"}));
+    const lbl=svgEl("text",{x:p.x,y:p.y-r-4,"text-anchor":"middle","font-size":"9","font-weight":"600",fill:"#2d2a27"});
+    lbl.textContent=s.abbr;g.appendChild(lbl);
+    const cnt=svgEl("text",{x:p.x,y:p.y-r+6,"text-anchor":"middle","font-size":"7.5",fill:"#73716f"});
+    cnt.textContent=apps.length;g.appendChild(cnt);
+    const tip=container.querySelector(".map-tooltip")||document.createElement("div");
+    g.addEventListener("mouseenter",()=>{
+      const t=container.querySelector(".map-tooltip");
+      if(t){t.style.display="block";t.innerHTML=`<div style="font-weight:700;color:#d55d1d;margin-bottom:4px;">${s.site}</div>
+        <div style="display:flex;justify-content:space-between;gap:10px;font-size:10px;"><span style="color:#73716f;">Arrays</span><span style="font-weight:700;">${apps.length}</span></div>
+        <div style="display:flex;justify-content:space-between;gap:10px;font-size:10px;"><span style="color:#73716f;">FA/FB</span><span style="font-weight:700;">${fa}/${fb}</span></div>
+        ${critN>0?`<div style="font-size:10px;color:#da4d72;font-weight:700;margin-top:3px;">${critN} critical</div>`:""}`;
+      }
+    });
+    g.addEventListener("mouseleave",()=>{const t=container.querySelector(".map-tooltip");if(t)t.style.display="none";});
+    svg.appendChild(g);
+  });
+  const tip=document.createElement("div");tip.className="map-tooltip";
+  container.appendChild(svg);container.appendChild(tip);
+}
+
+// ─── DETAIL MAP ───────────────────────────────────────────────────────────────
+function buildDetailMap(){
+  const W=520,H=280;
+  const minLng=-124,maxLng=-66,minLat=24,maxLat=50;
+  function proj(lat,lng){return{x:((lng-minLng)/(maxLng-minLng))*W,y:H-((lat-minLat)/(maxLat-minLat))*H};}
+  const svg=document.getElementById("detail-map-svg");if(!svg)return;
+  svg.innerHTML="";
+  svg.appendChild(svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#ded5c8"}));
+  const maxC=Math.max(...SITES.map(s=>s.appliances.length));
+  SITES.forEach(s=>{
+    const apps=s.appliances;
+    const fa=apps.filter(a=>a.hw.startsWith("FA")).length;
+    const fb=apps.filter(a=>a.hw.startsWith("FB")).length;
+    const critN=apps.filter(a=>a.status==="critical").length;
+    const p=proj(s.lat,s.lng);
+    const r=14+(apps.length/maxC)*28;
+    const g=svgEl("g",{style:"cursor:pointer;"});
+    g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r,fill:"#8fa596","fill-opacity":"0.2",stroke:"#8fa596","stroke-width":"1.2"}));
+    if(fb>0)g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r:r*0.55,fill:"#5a6359","fill-opacity":"0.28",stroke:"#5a6359","stroke-width":"1"}));
+    if(critN>0)g.appendChild(svgEl("circle",{cx:p.x+r*0.6,cy:p.y-r*0.6,r:5,fill:"#da4d72",stroke:"#fff5e3","stroke-width":"1.5"}));
+    g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r:3,fill:"#fff5e3",stroke:"#5a6359","stroke-width":"1.5"}));
+    const t1=svgEl("text",{x:p.x,y:p.y-r-6,"text-anchor":"middle","font-size":"11","font-weight":"600",fill:"#2d2a27"});t1.textContent=s.site;g.appendChild(t1);
+    const t2=svgEl("text",{x:p.x,y:p.y-r+6,"text-anchor":"middle","font-size":"9",fill:"#73716f"});t2.textContent=apps.length+" arrays";g.appendChild(t2);
+    const dtt=document.getElementById("detail-map-tooltip");
+    g.addEventListener("mouseenter",()=>{
+      if(dtt){dtt.style.display="block";dtt.innerHTML=`<div style="font-weight:700;font-size:13px;color:#d55d1d;margin-bottom:6px;">${s.site}</div>
+        <div style="font-size:10px;color:#73716f;margin-bottom:8px;">${s.address}</div>
+        ${[["Total arrays",apps.length,"#2d2a27"],["FlashArray",fa,"#8fa596"],["FlashBlade",fb,"#5a6359"],["Critical",critN,critN>0?"#da4d72":"#73716f"]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color:#73716f;">${l}</span><span style="font-weight:700;color:${c};">${v}</span></div>`).join("")}`;}
+    });
+    g.addEventListener("mouseleave",()=>{if(dtt)dtt.style.display="none";});
+    svg.appendChild(g);
+  });
+  // site cards
+  const cardsRow=document.getElementById("site-cards-row");
+  if(cardsRow){
+    cardsRow.innerHTML="";
+    SITES.forEach(s=>{
+      const apps=s.appliances;
+      const fa=apps.filter(a=>a.hw.startsWith("FA")).length;
+      const fb=apps.filter(a=>a.hw.startsWith("FB")).length;
+      const critN=apps.filter(a=>a.status==="critical").length;
+      const card=document.createElement("div");
+      card.className="site-card"+(critN>0?" has-critical":"");
+      card.innerHTML=`<div style="font-size:12px;font-weight:700;color:#2d2a27;margin-bottom:2px;">${s.abbr}</div>
+        <div style="font-size:10px;color:#73716f;margin-bottom:8px;">${s.site}</div>
+        ${[["Arrays",apps.length,"#2d2a27"],["FA",fa,"#8fa596"],["FB",fb,"#5a6359"]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;"><span style="color:#73716f;">${l}</span><span style="font-weight:600;color:${c};">${v}</span></div>`).join("")}
+        ${critN>0?`<div style="margin-top:6px;font-size:10px;font-weight:700;color:#da4d72;">${critN} critical</div>`:""}`;
+      cardsRow.appendChild(card);
+    });
+  }
+}
+
+// ─── TOPO HEX ─────────────────────────────────────────────────────────────────
+const HW_STYLE={
+  "FA-XL":{fill:"#c9d9cf",stroke:"#7aaa90",textFill:"#3a5447"},
+  "FA-X": {fill:"#cfd8e3",stroke:"#7a9ab8",textFill:"#2d4a5e"},
+  "FA-C": {fill:"#ddd5c5",stroke:"#aa9070",textFill:"#5e4a2d"},
+  "FB-S": {fill:"#c5d5d9",stroke:"#6a9aaa",textFill:"#1e4a55"},
+  "FB":   {fill:"#cccbd9",stroke:"#7a78aa",textFill:"#35346a"},
+};
+const STATUS_OV={critical:{fill:"#da4d72",stroke:"#9b2040",textFill:"#fff"},caution:{fill:"#e8d4b8",stroke:"#bd673d",textFill:"#5e3a10"}};
+let currentTopoFilter="all";
+
+function hexPoints(cx,cy,r){
+  return Array.from({length:6},(_,i)=>{const a=Math.PI/180*(60*i-30);return`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`;}).join(" ");
+}
+
+function buildTopoHex(filterVal){
+  const container=document.getElementById("topo-hex-container");if(!container)return;
+  container.innerHTML="";
+  SITES.forEach(s=>{
+    let apps=s.appliances;
+    if(filterVal!=="all"){
+      if(["FA-XL","FA-X","FA-C","FB-S","FB"].includes(filterVal))apps=apps.filter(a=>a.hw===filterVal);
+      else apps=apps.filter(a=>a.status===filterVal);
+    }
+    if(!apps.length)return;
+    const critN=apps.filter(a=>a.status==="critical").length;
+    const cauN=apps.filter(a=>a.status==="caution").length;
+    const R=20,colW=R*Math.sqrt(3)+4,rowH=R*1.5+3;
+    const cols=Math.ceil(Math.sqrt(apps.length*1.5));
+    const positions=apps.map((_,idx)=>{const col=idx%cols,row=Math.floor(idx/cols),ox=(row%2===1?colW*0.5:0);return{cx:col*colW+ox+R+6,cy:row*rowH+R+6};});
+    const svgW=cols*colW+R*0.6+12,svgH=Math.ceil(apps.length/cols)*rowH+R*0.5+12;
+    const card=document.createElement("div");
+    card.className="topo-site-card";
+    card.style.borderColor=critN>0?"#f0c4cc":"#e7e3dc";
+    const header=document.createElement("div");
+    header.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;";
+    header.innerHTML=`<span style="font-size:12px;font-weight:600;color:#2d2a27;">${s.site}</span>
+      <div style="display:flex;gap:6px;">
+        ${critN>0?`<span style="font-size:10px;background:#fce8ee;color:#da4d72;border-radius:20px;padding:1px 7px;font-weight:600;">${critN} down</span>`:""}
+        ${cauN>0?`<span style="font-size:10px;background:#f7ece0;color:#bd673d;border-radius:20px;padding:1px 7px;font-weight:500;">${cauN} caution</span>`:""}
+        <span style="font-size:10px;color:#73716f;">${apps.length} total</span>
+      </div>`;
+    card.appendChild(header);
+    const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg.setAttribute("width",svgW);svg.setAttribute("height",svgH);
+    // defs
+    const defs=svgEl("defs",{});
+    const p1=svgEl("pattern",{id:"p-fa-xl-t",patternUnits:"userSpaceOnUse",width:"7",height:"7",patternTransform:"rotate(45)"});
+    p1.appendChild(svgEl("line",{x1:"0",y1:"0",x2:"0",y2:"7",stroke:"rgba(58,84,71,0.16)","stroke-width":"1.4"}));defs.appendChild(p1);
+    const p2=svgEl("pattern",{id:"p-fa-x-t",patternUnits:"userSpaceOnUse",width:"7",height:"7"});
+    p2.appendChild(svgEl("circle",{cx:"3.5",cy:"3.5",r:"1.1",fill:"rgba(45,74,94,0.18)"}));defs.appendChild(p2);
+    const p3=svgEl("pattern",{id:"p-fa-c-t",patternUnits:"userSpaceOnUse",width:"7",height:"7"});
+    const pp=svgEl("path",{d:"M7,0 L0,0 0,7",fill:"none",stroke:"rgba(94,74,45,0.16)","stroke-width":"0.8"});p3.appendChild(pp);defs.appendChild(p3);
+    const p4=svgEl("pattern",{id:"p-fb-t",patternUnits:"userSpaceOnUse",width:"9",height:"9"});
+    const pp4=svgEl("path",{d:"M0,5 Q2.25,2.5 4.5,5 Q6.75,7.5 9,5",fill:"none",stroke:"rgba(53,52,106,0.16)","stroke-width":"0.8"});p4.appendChild(pp4);defs.appendChild(p4);
+    svg.appendChild(defs);
+    const patMap={"FA-XL":"p-fa-xl-t","FA-X":"p-fa-x-t","FA-C":"p-fa-c-t","FB-S":"p-fb-t","FB":"p-fb-t"};
+    apps.forEach((app,idx)=>{
+      const pos=positions[idx];
+      const hw=HW_STYLE[app.hw]||HW_STYLE["FA-X"];
+      const ov=STATUS_OV[app.status];
+      const fill=ov?ov.fill:hw.fill;
+      const stroke=ov?ov.stroke:hw.stroke;
+      const tf=ov?ov.textFill:hw.textFill;
+      const pts=hexPoints(pos.cx,pos.cy,R);
+      const g=svgEl("g",{style:"cursor:pointer;"});
+      g.appendChild(svgEl("polygon",{points:pts,fill,stroke,"stroke-width":"1.2"}));
+      if(app.status!=="critical"){const pat=svgEl("polygon",{points:pts,fill:`url(#${patMap[app.hw]||"p-fa-x-t"})`});g.appendChild(pat);}
+      const t1=svgEl("text",{x:pos.cx,y:pos.cy-1,"text-anchor":"middle","font-size":"7","font-weight":"700",fill:tf,style:"user-select:none;pointer-events:none;"});
+      t1.textContent=hw===HW_STYLE["FA-XL"]?"FA//XL":app.hw;g.appendChild(t1);
+      const subLabel=app.sub==="EG//Forever"?"EG∞":app.sub==="EG//Foundation"?"EG/F":"STD";
+      const t2=svgEl("text",{x:pos.cx,y:pos.cy+8,"text-anchor":"middle","font-size":"5.5","font-weight":"500",fill:"#5a6359",style:"user-select:none;pointer-events:none;",opacity:"0.9"});
+      t2.textContent=subLabel;g.appendChild(t2);
+      // outage badge
+      const hasOutage=OUTAGES.some(o=>o.id===app.id);
+      if(hasOutage){
+        const bc=svgEl("circle",{cx:pos.cx-R*0.52,cy:pos.cy-R*0.58,r:"5.5",fill:app.status==="critical"?"#9b2040":"#ff7023",stroke:"#fff5e3","stroke-width":"1.5"});g.appendChild(bc);
+        const bt=svgEl("text",{x:pos.cx-R*0.52,y:pos.cy-R*0.58+3.5,"text-anchor":"middle","font-size":"8","font-weight":"800",fill:"white",style:"pointer-events:none;"});bt.textContent="!";g.appendChild(bt);
+      }
+      const tip=document.getElementById("topo-tooltip");
+      g.addEventListener("mouseenter",()=>{
+        if(tip){
+          tip.style.display="block";
+          const outage=OUTAGES.find(o=>o.id===app.id);
+          tip.innerHTML=`<div style="font-weight:700;font-size:13px;margin-bottom:8px;color:#d55d1d;">${app.name}</div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:11px;">
+              <span style="color:#73716f;">Hardware</span><span style="font-weight:600;">${app.hw}</span>
+              <span style="color:#73716f;">Subscription</span><span>${app.sub}</span>
+              <span style="color:#73716f;">Status</span><span style="font-weight:600;color:${app.status==="critical"?"#da4d72":app.status==="caution"?"#bd673d":"#5a6359"};">${app.status}</span>
+            </div>
+            ${outage?`<div style="padding-top:8px;border-top:0.5px solid #e7e3dc;margin-top:8px;">
+              <div style="color:#da4d72;font-weight:700;font-size:11px;margin-bottom:4px;">⚠ Outage on record</div>
+              <div style="font-size:11px;color:#73716f;">${outage.cause} · ${outage.date}</div>
+              <div style="font-size:12px;font-weight:700;color:#bd673d;margin-top:2px;">${fmtM(outage.minutes)} downtime</div>
+            </div>`:""}`;
+        }
+      });
+      g.addEventListener("mouseleave",()=>{if(tip)tip.style.display="none";});
+      svg.appendChild(g);
+    });
+    card.appendChild(svg);
+    container.appendChild(card);
+  });
+}
+
+function topoFilter(val,btn){
+  document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  buildTopoHex(val);
+}
+
+// ─── MINI FLEET BARS ──────────────────────────────────────────────────────────
+function buildMiniFleet(){
+  const container=document.getElementById("mini-fleet-container");if(!container)return;
+  container.innerHTML="";
+  const sorted=[...FLEET].sort((a,b)=>b.u-a.u);
+  const H=130,BW=5,GAP=1,STEP=BW+GAP;
+  // alert dots
+  const dotsRow=document.createElement("div");dotsRow.className="alert-dots";
+  sorted.forEach(d=>{
+    const cell=document.createElement("div");cell.className="alert-dot-cell";cell.style.width=BW+"px";
+    if(CRITICAL_ALERTS.has(d.n)){const dot=document.createElement("div");dot.className="alert-dot";cell.appendChild(dot);}
+    dotsRow.appendChild(cell);
+  });
+  container.appendChild(dotsRow);
+  const totalW=sorted.length*STEP;
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox",`0 0 ${totalW} ${H}`);
+  svg.setAttribute("width","100%");svg.setAttribute("height","100%");
+  svg.setAttribute("preserveAspectRatio","none");svg.style.display="block";svg.style.flex="1";
+  const tip=document.getElementById("tip-fleet");
+  sorted.forEach((d,i)=>{
+    const barH=Math.max(1,(d.u/100)*H);
+    const x=i*STEP;
+    const g=svgEl("g",{style:"cursor:pointer;"});
+    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,fill:"#ded5c8",rx:"1"}));
+    g.appendChild(svgEl("rect",{x,y:H-barH,width:BW,height:barH,fill:utilColor(d.u),opacity:"0.82",rx:"1"}));
+    g.addEventListener("mouseenter",()=>{if(tip){tip.style.display="block";tip.style.color=utilColor(d.u);tip.textContent=`${d.n} · ${d.u}%`;}});
+    g.addEventListener("mouseleave",()=>{if(tip)tip.style.display="none";});
+    svg.appendChild(g);
+  });
+  container.appendChild(svg);
+}
+
+// ─── FLEET DETAIL BARS ────────────────────────────────────────────────────────
+function buildFleetDetailBars(){
+  const svg=document.getElementById("fleet-detail-svg");if(!svg)return;
+  svg.innerHTML="";
+  const sorted=[...FLEET].sort((a,b)=>b.u-a.u);
+  const H=120,BW=6,GAP=2,STEP=BW+GAP;
+  const avg=Math.round(FLEET.reduce((s,d)=>s+d.u,0)/FLEET.length*10)/10;
+  const avgY=H-(avg/100)*H;
+  const chip=document.getElementById("fleet-hover-chip");
+  // reference lines
+  [60,80].forEach(t=>{
+    const y=H-(t/100)*H;
+    const line=svgEl("line",{x1:0,y1:y,x2:sorted.length*STEP,y2:y,stroke:t===80?"#da4d72":"#bd673d","stroke-width":"1","stroke-dasharray":"3,3",opacity:"0.4"});
+    svg.appendChild(line);
+    const lt=svgEl("text",{x:sorted.length*STEP-2,y:y-3,"text-anchor":"end","font-size":"9",fill:t===80?"#da4d72":"#bd673d"});lt.textContent=t+"%";svg.appendChild(lt);
+  });
+  // avg line
+  const avgLine=svgEl("line",{x1:0,y1:avgY,x2:sorted.length*STEP,y2:avgY,stroke:"#5a6359","stroke-width":"1.5",opacity:"0.5"});svg.appendChild(avgLine);
+  const avgT=svgEl("text",{x:4,y:avgY-4,"font-size":"9",fill:"#5a6359"});avgT.textContent=`avg ${avg}%`;svg.appendChild(avgT);
+  sorted.forEach((d,i)=>{
+    const barH=Math.max(2,(d.u/100)*H);
+    const x=i*STEP;
+    const g=svgEl("g",{style:"cursor:pointer;"});
+    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,fill:"#ded5c8",rx:"2"}));
+    g.appendChild(svgEl("rect",{x,y:H-barH,width:BW,height:barH,fill:utilColor(d.u),opacity:"0.85",rx:"2"}));
+    g.addEventListener("mouseenter",()=>{
+      if(chip){chip.innerHTML=`<div style="display:inline-flex;align-items:center;gap:10px;padding:5px 14px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:20px;font-size:14px;box-shadow:0 2px 8px rgba(45,42,39,0.1);">
+        <span style="font-weight:700;color:#d55d1d;">${d.n}</span>
+        <span style="width:1px;height:12px;background:#e7e3dc;display:inline-block;"></span>
+        <span style="color:#73716f;">${d.hw}</span>
+        <span style="width:1px;height:12px;background:#e7e3dc;display:inline-block;"></span>
+        <span style="font-weight:700;color:${utilColor(d.u)};">${d.u}%</span>
+      </div>`;};
+    });
+    g.addEventListener("mouseleave",()=>{if(chip)chip.innerHTML="";});
+    svg.appendChild(g);
+  });
+  svg.setAttribute("width",sorted.length*STEP);
+  svg.setAttribute("viewBox",`0 0 ${sorted.length*STEP} ${H}`);
+  // low util list
+  const lowUtil=FLEET.filter(d=>d.u<30).sort((a,b)=>a.u-b.u);
+  const list=document.getElementById("low-util-list");
+  if(list){
+    list.innerHTML="";
+    lowUtil.forEach(d=>{
+      const row=document.createElement("div");
+      row.style.cssText="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(143,165,150,0.13);";
+      row.innerHTML=`<div style="width:38px;font-size:12px;font-weight:700;color:#8fa596;text-align:center;background:#fff5e3;border-radius:4px;border:1px solid rgba(143,165,150,0.25);padding:3px 0;flex-shrink:0;">${d.u}%</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:13px;font-weight:600;color:#2d2a27;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.n}</div>
+          <div style="font-size:12px;color:#73716f;">${d.hw}</div>
+        </div>
+        <div style="font-size:12px;color:#5a6359;background:rgba(90,99,89,0.1);border-radius:4px;padding:3px 8px;flex-shrink:0;font-weight:600;">→ EG//Found.</div>`;
+      list.appendChild(row);
+    });
+  }
+}
+
+// ─── SUPPORT BLOCKS ───────────────────────────────────────────────────────────
+function buildSupportBlocks(){
+  // Proactive Closed: sev distribution 1:40, 2:524, 3:931, 4:128
+  // We can't render 1622 blocks — downsample to max 300 proportionally
+  const proClosed=[{s:"1",c:40,col:"#da4d72"},{s:"2",c:524,col:"#ff7023"},{s:"3",c:931,col:"#bd673d"},{s:"4",c:128,col:"#8fa596"}];
+  const reaClose=[{s:"2",c:57,col:"#ff7023"},{s:"3",c:63,col:"#bd673d"},{s:"4",c:268,col:"#8fa596"}];
+  function renderBlocks(data,containerId,scale=1){
+    const el=document.getElementById(containerId);if(!el)return;
+    el.innerHTML="";
+    data.forEach(({s,c,col})=>{
+      const n=Math.max(1,Math.round(c*scale));
+      for(let i=0;i<n;i++){
+        const b=document.createElement("div");
+        b.className="sev-block";b.style.background=col;b.title=`Sev ${s}`;
+        el.appendChild(b);
+      }
+    });
+  }
+  renderBlocks(proClosed,"pro-closed-blocks",0.09);
+  renderBlocks(reaClose,"rea-closed-blocks",0.5);
+}
+
+// ─── MINI NDU ─────────────────────────────────────────────────────────────────
+function buildMiniNDU(){
+  const container=document.getElementById("mini-ndu-container");if(!container)return;
+  container.innerHTML="";
+  const maxT=Math.max(...NDU_BY_YEAR.map(d=>d.sw+d.hw));
+  const H=100,BW=20,GAP=6;
+  const totalW=NDU_BY_YEAR.length*(BW+GAP);
+  const svgWrap=document.createElement("div");svgWrap.style.cssText="flex:1;min-height:0;";
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("viewBox",`0 0 ${totalW} ${H}`);
+  svg.setAttribute("width","100%");svg.setAttribute("height","100%");
+  svg.setAttribute("preserveAspectRatio","xMidYMax meet");svg.style.display="block";
+  const tip=document.getElementById("tip-ndu");
+  NDU_BY_YEAR.forEach((d,i)=>{
+    const x=i*(BW+GAP);
+    const swH=(d.sw/maxT)*H,hwH=(d.hw/maxT)*H;
+    const g=svgEl("g",{style:"cursor:pointer;"});
+    if(d.hw>0)g.appendChild(svgEl("rect",{x,y:H-hwH,width:BW,height:hwH,rx:"2",fill:"#bd673d",opacity:"0.8"}));
+    if(d.sw>0)g.appendChild(svgEl("rect",{x,y:H-hwH-swH,width:BW,height:swH,rx:"2",fill:"#8fa596",opacity:"0.85"}));
+    if(d.sw>0&&d.hw>0)g.appendChild(svgEl("rect",{x,y:H-hwH-2,width:BW,height:4,rx:"2",fill:"#8fa596",opacity:"0.85"}));
+    g.addEventListener("mouseenter",()=>{if(tip){tip.style.display="block";tip.style.color="#8fa596";tip.textContent=`${d.year}: SW ${d.sw} · HW ${d.hw} · Total ${d.sw+d.hw}`;}});
+    g.addEventListener("mouseleave",()=>{if(tip)tip.style.display="none";});
+    svg.appendChild(g);
+  });
+  svgWrap.appendChild(svg);
+  container.appendChild(svgWrap);
+  // year labels
+  const labelsRow=document.createElement("div");labelsRow.className="ndu-year-labels";
+  NDU_BY_YEAR.forEach(d=>{
+    const lbl=document.createElement("div");lbl.className="ndu-year";lbl.textContent=d.year.slice(2);
+    labelsRow.appendChild(lbl);
+  });
+  container.appendChild(labelsRow);
+}
+
+// ─── NDU DETAIL SVG ───────────────────────────────────────────────────────────
+function buildNDUDetail(){
+  const svg=document.getElementById("ndu-detail-svg");if(!svg)return;
+  svg.innerHTML="";
+  const maxT=Math.max(...NDU_BY_YEAR.map(d=>d.sw+d.hw));
+  const H=160,BW=48,GAP=12;
+  const totalW=NDU_BY_YEAR.length*(BW+GAP);
+  svg.setAttribute("viewBox",`0 0 ${totalW} ${H+28}`);
+  const tip=document.getElementById("ndu-tooltip");
+  NDU_BY_YEAR.forEach((d,i)=>{
+    const x=i*(BW+GAP);
+    const swH=(d.sw/maxT)*H,hwH=(d.hw/maxT)*H;
+    const total=d.sw+d.hw;
+    const g=svgEl("g",{style:"cursor:pointer;"});
+    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,rx:"4",fill:"transparent"}));
+    if(d.hw>0)g.appendChild(svgEl("rect",{x,y:H-hwH,width:BW,height:hwH,rx:"4",fill:"#bd673d",opacity:"0.8"}));
+    if(d.sw>0)g.appendChild(svgEl("rect",{x,y:H-hwH-swH,width:BW,height:swH,rx:"4",fill:"#8fa596",opacity:"0.8"}));
+    if(d.sw>0&&d.hw>0)g.appendChild(svgEl("rect",{x,y:H-hwH-4,width:BW,height:8,fill:"#8fa596",opacity:"0.8"}));
+    if(total>0){const lt=svgEl("text",{x:x+BW/2,y:H-hwH-swH-5,"text-anchor":"middle","font-size":"10","font-weight":"600",fill:"#73716f"});lt.textContent=total;g.appendChild(lt);}
+    const yl=svgEl("text",{x:x+BW/2,y:H+16,"text-anchor":"middle","font-size":"11","font-weight":"400",fill:"#73716f"});yl.textContent=d.year;g.appendChild(yl);
+    if(d.year==="2026"){const ytd=svgEl("text",{x:x+BW/2,y:H+26,"text-anchor":"middle","font-size":"8",fill:"#73716f"});ytd.textContent="YTD";g.appendChild(ytd);}
+    g.addEventListener("mouseenter",()=>{
+      g.querySelector("rect").setAttribute("fill","#efede8");
+      if(tip){
+        tip.style.display="inline-block";
+        tip.innerHTML=`<div style="font-weight:700;font-size:13px;color:#d55d1d;margin-bottom:6px;">${d.year}</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:11px;">
+            <span style="color:#73716f;">SW</span><span style="font-weight:700;color:#5a6359;">${d.sw}</span>
+            <span style="color:#73716f;">HW</span><span style="font-weight:700;color:#bd673d;">${d.hw}</span>
+            <span style="color:#73716f;">Total</span><span style="font-weight:700;">${total}</span>
+          </div>`;
+      }
+    });
+    g.addEventListener("mouseleave",()=>{
+      g.querySelector("rect").setAttribute("fill","transparent");
+      if(tip)tip.style.display="none";
+    });
+    svg.appendChild(g);
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded",()=>{
+  buildHeatmap("mini-heatmap-container",false);
+  buildHeatmap("full-heatmap",true);
+  buildMiniMap();
+  buildDetailMap();
+  buildTopoHex("all");
+  buildMiniFleet();
+  buildFleetDetailBars();
+  buildSupportBlocks();
+  buildMiniNDU();
+  buildNDUDetail();
+});
+</script>
+</body>
+</html>

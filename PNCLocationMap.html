@@ -1,0 +1,284 @@
+
+<h2 class="sr-only">Interactive US map showing PNC Financial Services Group Pure Storage array locations across 4 data center sites: Pittsburgh PA (45 arrays), Sandston VA (43), Ashburn VA (36), Rogers AR (3).</h2>
+
+<style>
+  .map-wrap { font-family: 'DM Sans', system-ui, sans-serif; padding: 1rem 0; }
+  .site-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem 1.25rem;
+  }
+  .pill { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px; }
+  .stat-row { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { color: var(--color-text-secondary); }
+  .stat-val { font-weight: 500; color: var(--color-text-primary); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  #tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--color-text-primary);
+    display: none;
+    z-index: 10;
+    min-width: 180px;
+    box-shadow: 0 2px 12px rgba(45,42,39,0.10);
+  }
+</style>
+
+<div class="map-wrap">
+
+  <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px;">
+    <div>
+      <p style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin:0 0 3px;">Array locations</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin:0;">127 appliances across 4 data center sites · hover a pin for details</p>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;">
+      <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--color-text-secondary);">
+        <span class="legend-dot" style="background:#378ADD;"></span>FlashArray
+      </span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--color-text-secondary);">
+        <span class="legend-dot" style="background:#1D9E75;"></span>FlashBlade
+      </span>
+      <span style="font-size:11px;color:var(--color-text-secondary);">Circle size = array count</span>
+    </div>
+  </div>
+
+  <div style="position:relative;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);overflow:hidden;">
+    <div id="tooltip"></div>
+    <div id="map" style="width:100%;"></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:1.25rem;">
+
+    <div class="site-card">
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px;">Pittsburgh, PA</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 10px;">35 Summit Park Dr</p>
+      <div class="stat-row"><span class="stat-label">Total arrays</span><span class="stat-val">45</span></div>
+      <div class="stat-row"><span class="stat-label">FlashArray</span><span class="stat-val">37</span></div>
+      <div class="stat-row"><span class="stat-label">FlashBlade</span><span class="stat-val">8</span></div>
+      <div class="stat-row"><span class="stat-label">Avg utilization</span><span class="stat-val">21.3%</span></div>
+      <div class="stat-row"><span class="stat-label">Contracts at risk</span><span class="stat-val" style="color:#A32D2D;">34</span></div>
+      <div class="stat-row"><span class="stat-label">SafeMode off</span><span class="stat-val" style="color:#A32D2D;">37</span></div>
+    </div>
+
+    <div class="site-card">
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px;">Sandston, VA</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 10px;">6000 Technology Blvd</p>
+      <div class="stat-row"><span class="stat-label">Total arrays</span><span class="stat-val">43</span></div>
+      <div class="stat-row"><span class="stat-label">FlashArray</span><span class="stat-val">40</span></div>
+      <div class="stat-row"><span class="stat-label">FlashBlade</span><span class="stat-val">3</span></div>
+      <div class="stat-row"><span class="stat-label">Avg utilization</span><span class="stat-val">35.4%</span></div>
+      <div class="stat-row"><span class="stat-label">Contracts at risk</span><span class="stat-val" style="color:#A32D2D;">27</span></div>
+      <div class="stat-row"><span class="stat-label">SafeMode off</span><span class="stat-val" style="color:#A32D2D;">40</span></div>
+    </div>
+
+    <div class="site-card">
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px;">Ashburn, VA</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 10px;">3 colocation facilities</p>
+      <div class="stat-row"><span class="stat-label">Total arrays</span><span class="stat-val">36</span></div>
+      <div class="stat-row"><span class="stat-label">FlashArray</span><span class="stat-val">33</span></div>
+      <div class="stat-row"><span class="stat-label">FlashBlade</span><span class="stat-val">3</span></div>
+      <div class="stat-row"><span class="stat-label">Avg utilization</span><span class="stat-val">34.6%</span></div>
+      <div class="stat-row"><span class="stat-label">Contracts at risk</span><span class="stat-val" style="color:#A32D2D;">29</span></div>
+      <div class="stat-row"><span class="stat-label">SafeMode off</span><span class="stat-val" style="color:#A32D2D;">33</span></div>
+    </div>
+
+    <div class="site-card">
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px;">Rogers, AR</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 10px;">1701 W Commerce Dr</p>
+      <div class="stat-row"><span class="stat-label">Total arrays</span><span class="stat-val">3</span></div>
+      <div class="stat-row"><span class="stat-label">FlashArray</span><span class="stat-val">3</span></div>
+      <div class="stat-row"><span class="stat-label">FlashBlade</span><span class="stat-val">0</span></div>
+      <div class="stat-row"><span class="stat-label">Avg utilization</span><span class="stat-val">34.8%</span></div>
+      <div class="stat-row"><span class="stat-label">Contracts at risk</span><span class="stat-val" style="color:#0F6E56;">0</span></div>
+      <div class="stat-row"><span class="stat-label">SafeMode off</span><span class="stat-val" style="color:#A32D2D;">3</span></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+
+const sites = [
+  {
+    name: 'Pittsburgh, PA',
+    address: '35 Summit Park Dr',
+    lat: 40.4273, lon: -80.1686,
+    total: 45, fa: 37, fb: 8,
+    util: '21.3%', contracts: 34, safemode: 37,
+    topModel: 'FA-XL170 / FA-X90R3',
+    topVersion: '6.5.9 (17) · 6.9.2 (15)'
+  },
+  {
+    name: 'Sandston, VA',
+    address: '6000 Technology Blvd',
+    lat: 37.5219, lon: -77.3157,
+    total: 43, fa: 40, fb: 3,
+    util: '35.4%', contracts: 27, safemode: 40,
+    topModel: 'FA-XL170 / FA-X90R3',
+    topVersion: '6.5.9 (36) · 6.9.2 (4)'
+  },
+  {
+    name: 'Ashburn, VA',
+    address: '3 colocation facilities',
+    lat: 39.0438, lon: -77.4874,
+    total: 36, fa: 33, fb: 3,
+    util: '34.6%', contracts: 29, safemode: 33,
+    topModel: 'FA-XL170 / FA-X90R3 / FA-X70R3',
+    topVersion: '6.5.9 (31) · 6.3.9 (2)'
+  },
+  {
+    name: 'Rogers, AR',
+    address: '1701 W Commerce Dr',
+    lat: 36.3320, lon: -94.1185,
+    total: 3, fa: 3, fb: 0,
+    util: '34.8%', contracts: 0, safemode: 3,
+    topModel: 'FA-XL170',
+    topVersion: '6.5.9 (2) · 6.9.2 (1)'
+  }
+];
+
+const mapEl = document.getElementById('map');
+const tooltip = document.getElementById('tooltip');
+const W = mapEl.clientWidth || 700;
+const H = Math.round(W * 0.52);
+
+const svg = d3.select('#map').append('svg')
+  .attr('viewBox', `0 0 ${W} ${H}`)
+  .attr('width', '100%')
+  .attr('height', H);
+
+const proj = d3.geoAlbersUsa()
+  .scale(W * 1.25)
+  .translate([W / 2, H / 2]);
+
+const path = d3.geoPath(proj);
+
+const landFill   = isDark ? '#2a2a28' : '#e7e3dc';
+const stateFill  = isDark ? '#222220' : '#efede8';
+const strokeCol  = isDark ? '#3a3a38' : '#d0c8ba';
+
+d3.json('https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json').then(us => {
+  svg.append('g')
+    .selectAll('path')
+    .data(topojson.feature(us, us.objects.states).features)
+    .join('path')
+    .attr('d', path)
+    .attr('fill', stateFill)
+    .attr('stroke', strokeCol)
+    .attr('stroke-width', 0.5);
+
+  svg.append('path')
+    .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
+    .attr('d', path)
+    .attr('fill', 'none')
+    .attr('stroke', strokeCol)
+    .attr('stroke-width', 0.4);
+
+  const sizeScale = d3.scaleSqrt().domain([0, 45]).range([0, 32]);
+
+  const siteGroups = svg.selectAll('.site')
+    .data(sites)
+    .join('g')
+    .attr('class', 'site')
+    .attr('transform', d => {
+      const p = proj([d.lon, d.lat]);
+      return p ? `translate(${p[0]},${p[1]})` : null;
+    })
+    .style('cursor', 'pointer');
+
+  siteGroups.each(function(d) {
+    const g = d3.select(this);
+    const r = sizeScale(d.total);
+
+    if (d.fb > 0) {
+      g.append('circle')
+        .attr('r', r)
+        .attr('fill', '#1D9E75')
+        .attr('fill-opacity', 0.18)
+        .attr('stroke', '#1D9E75')
+        .attr('stroke-width', 1.5);
+    }
+
+    g.append('circle')
+      .attr('r', r * (d.fa / d.total))
+      .attr('fill', '#378ADD')
+      .attr('fill-opacity', 0.22)
+      .attr('stroke', '#378ADD')
+      .attr('stroke-width', 1.5);
+
+    g.append('circle')
+      .attr('r', 4)
+      .attr('fill', '#185FA5')
+      .attr('stroke', '#fff')
+      .attr('stroke-width', 1.5);
+
+    g.append('text')
+      .attr('y', -r - 7)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', 11)
+      .attr('font-weight', '500')
+      .attr('fill', isDark ? 'rgba(255,255,255,0.8)' : '#2d2a27')
+      .text(d.name);
+
+    g.append('text')
+      .attr('y', -r - 7 + 13)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', 10)
+      .attr('fill', isDark ? 'rgba(255,255,255,0.5)' : '#73716f')
+      .text(`${d.total} arrays`);
+  });
+
+  siteGroups
+    .on('mousemove', function(event, d) {
+      const box = mapEl.getBoundingClientRect();
+      const p = proj([d.lon, d.lat]);
+      const x = p[0] / W * box.width;
+      const y = p[1] / H * box.height;
+
+      tooltip.style.display = 'block';
+      tooltip.style.left = (x + 16) + 'px';
+      tooltip.style.top  = Math.max(8, y - 80) + 'px';
+      tooltip.innerHTML = `
+        <p style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 6px;">${d.name}</p>
+        <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 8px;">${d.address}</p>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="display:flex;justify-content:space-between;gap:16px;font-size:12px;">
+            <span style="color:var(--color-text-secondary);">FlashArray</span>
+            <span style="font-weight:500;color:var(--color-text-primary);">${d.fa}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:16px;font-size:12px;">
+            <span style="color:var(--color-text-secondary);">FlashBlade</span>
+            <span style="font-weight:500;color:var(--color-text-primary);">${d.fb}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:16px;font-size:12px;">
+            <span style="color:var(--color-text-secondary);">Avg utilization</span>
+            <span style="font-weight:500;color:var(--color-text-primary);">${d.util}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:16px;font-size:12px;">
+            <span style="color:var(--color-text-secondary);">Contracts at risk</span>
+            <span style="font-weight:500;color:${d.contracts === 0 ? '#0F6E56' : '#A32D2D'};">${d.contracts}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;gap:16px;font-size:12px;">
+            <span style="color:var(--color-text-secondary);">SafeMode off</span>
+            <span style="font-weight:500;color:#A32D2D;">${d.safemode}</span>
+          </div>
+          <div style="border-top:0.5px solid var(--color-border-tertiary);margin-top:5px;padding-top:5px;">
+            <p style="font-size:11px;color:var(--color-text-secondary);margin:0 0 2px;">Top firmware</p>
+            <p style="font-size:11px;color:var(--color-text-primary);margin:0;">${d.topVersion}</p>
+          </div>
+        </div>
+      `;
+    })
+    .on('mouseleave', () => { tooltip.style.display = 'none'; });
+});
+</script>

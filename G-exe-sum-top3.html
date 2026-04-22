@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PNC Financial Services Group — Executive Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:#fff5e3;
+  color:#2d2a27;
+  font-family:'DM Sans','Inter',system-ui,sans-serif;
+  min-height:100vh;
+  padding:28px 24px;
+}
+/* ── grid ── */
+.tile-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:340px 340px;
+  gap:16px;
+}
+/* ── tile card ── */
+.tile{
+  background:#fff5e3;
+  border:1.5px solid #e7e3dc;
+  border-radius:14px;
+  padding:20px 22px;
+  cursor:pointer;
+  transition:border-color 0.15s;
+  display:flex;
+  flex-direction:column;
+  overflow:visible; 
+  position:relative;
+}
+.tile:hover{border-color:var(--accent-color);}
+.tile-label{
+  font-size:11px;font-weight:600;color:#73716f;
+  letter-spacing:0.04em;text-transform:uppercase;margin-bottom:6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tile-headline{
+  font-size:40px;font-weight:800;line-height:1;margin-bottom:4px;
+}
+.tile-sub{font-size:11px;color:#73716f;white-space:nowrap;margin-bottom:0;}
+.tile-viz{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;margin-top:10px;}
+
+/* ── Info Tooltip Style ── */
+.info-trigger {
+  width: 14px; height: 14px; border: 1px solid #73716f; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800; color: #73716f; cursor: help; position: relative;
+}
+.info-content {
+  position: absolute; top: 100%; left: 0; width: 200px; background: #fffdf9;
+  border: 1px solid #e7e3dc; padding: 10px; border-radius: 8px; font-size: 11px;
+  font-weight: 400; color: #2d2a27; box-shadow: 0 4px 12px rgba(45,42,39,0.1);
+  opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100;
+  white-space: normal; text-transform: none; line-height: 1.4; margin-top: 5px;
+}
+.info-trigger:hover .info-content { opacity: 1; visibility: visible; }
+
+/* ── Heatmap Mouseover Tooltip ── */
+#viz-tooltip {
+  position: fixed; pointer-events: none; background: #ffffff; border: 1px solid #e2e8f0;
+  padding: 16px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 10001; display: none; min-width: 280px;
+}
+.tooltip-date { font-size: 12px; color: #64748b; margin-bottom: 10px; }
+.incident-block { margin-bottom: 16px; }
+.incident-divider { height: 1px; background: #f1f5f9; margin: 12px 0; }
+.tooltip-appliance { font-weight: 600; font-size: 15px; color: #1e293b; margin-bottom: 4px; }
+.tooltip-desc { font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 12px; }
+.tooltip-footer { display: flex; align-items: center; gap: 10px; }
+.category-pill { font-size: 11px; font-weight: 500; padding: 2px 10px; border-radius: 4px; }
+.pill-human { background: #fff1f2; color: #e11d48; }
+.pill-unplanned { background: #fef2f2; color: #dc2626; }
+.pill-planned { background: #f0fdf4; color: #16a34a; }
+.pill-sw { background: #eff6ff; color: #2563eb; }
+.duration-text { font-size: 12px; color: #64748b; }
+
+/* ── Fleet Bar Hover Chip ── */
+#fleet-hover-chip {
+  position: absolute;
+  top: -45px;
+  background: #fff;
+  border: 1px solid #e7e3dc;
+  border-radius: 24px;
+  padding: 8px 16px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(45,42,39,0.08);
+  z-index: 100;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.chip-id { color: #bd673d; font-weight: 600; font-size: 14px; }
+.chip-sep { color: #e7e3dc; margin: 0 4px; }
+.chip-model { color: #73716f; font-size: 13px; }
+.chip-val { color: #bd673d; font-weight: 600; font-size: 14px; }
+
+/* ── deployment viz ── */
+.deployment-stack {
+  display: flex; height: 6px; border-radius: 3px; overflow: hidden; 
+  margin: 12px 0 4px 0; background: #e7e3dc; flex-shrink: 0;
+}
+.stack-segment { height: 100%; transition: width 0.3s ease; }
+
+/* ── heatmap ── */
+.heatmap-row{display:flex;align-items:center;margin-bottom:2px;gap:3px;}
+.heatmap-month{width:22px;font-size:8px;color:#73716f;flex-shrink:0;text-align:right;padding-right:3px;}
+.heatmap-cells{display:flex;gap:1.5px;flex-wrap:nowrap;}
+.heatmap-cell{ width:8px;height:8px;border-radius:1.5px;flex-shrink:0;cursor:default; transition:transform 0.1s; }
+.heatmap-cell.outage{cursor:pointer;}
+.heatmap-cell.outage:hover{transform:scale(1.6); z-index: 10;}
+
+/* Zoomed Heatmap Modal */
+#full-heatmap .heatmap-row { margin-bottom: 6px; gap: 10px; }
+#full-heatmap .heatmap-month { width: 40px; font-size: 14px; font-weight: 400; }
+#full-heatmap .heatmap-cells { gap: 4px; }
+#full-heatmap .heatmap-cell { width: 18px; height: 18px; border-radius: 4px; }
+
+/* ── Fleet Utilization KPI Cards ── */
+.fleet-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
+.fleet-kpi-card { background: #f0ece5; border: 1px solid #e7e3dc; border-radius: 12px; padding: 16px 20px; transition: transform 0.2s; min-height: 100px; }
+.fleet-kpi-label { font-size: 13px; color: #73716f; margin-bottom: 8px; font-weight: 400; }
+.fleet-kpi-value { font-size: 28px; font-weight: 600; }
+
+.kpi-avg-val { color: #5a6359; }
+.kpi-healthy-val { color: #8fa596; }
+.kpi-caution-val { color: #bd673d; }
+.kpi-critical-val { color: #da4d72; }
+
+.fleet-control-bar { display: flex; align-items: center; gap: 12px; margin-top: 24px; margin-bottom: 24px; }
+.usage-toggle { background: #c8e6d1; border-radius: 20px; padding: 4px; display: flex; gap: 4px; flex-shrink: 0; }
+.toggle-btn { padding: 6px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+.toggle-btn.active { background: #5a6359; color: #fff; }
+.toggle-btn.inactive { background: transparent; color: #5a6359; }
+
+.dropdown-container { position: relative; display: inline-block; }
+.filter-dropdown { 
+  background: #fdfaf3; border: 1.5px solid #d1e5d9; border-radius: 12px; 
+  padding: 8px 16px; font-size: 14px; color: #5a6359; font-weight: 500; 
+  cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; white-space: nowrap;
+}
+.filter-dropdown:hover { background: #f0ece5; }
+.dropdown-menu {
+    position: absolute; top: calc(100% + 4px); left: 0; background: #fffdf9;
+    border: 1px solid #e7e3dc; border-radius: 10px; padding: 8px 0; min-width: 140px;
+    box-shadow: 0 4px 12px rgba(45,42,39,0.1); display: none; z-index: 60;
+}
+.dropdown-container:hover .dropdown-menu { display: block; }
+.dropdown-item { padding: 8px 16px; font-size: 13px; color: #5a6359; cursor: pointer; transition: background 0.1s; }
+.dropdown-item:hover { background: #f0ece5; }
+
+/* ── Fixed Chart Markers ── */
+.viz-outer-container { position: relative; width: 100%; height: 320px; border-top: 1px solid #e7e3dc; padding-top: 20px; }
+.fixed-lines-layer { position: absolute; top: 20px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 10; }
+.viz-scroll-frame { width: 100%; height: 280px; overflow-x: auto; position: relative; z-index: 1; }
+
+.full-fleet-viz { display: flex; align-items: flex-end; gap: 4px; height: 260px; min-width: max-content; padding-bottom: 10px; }
+.fleet-bar-wrapper { flex: 0 0 10px; height: 100%; background: #e7e3dc; border-radius: 2px; position: relative; display: flex; align-items: flex-end; cursor: pointer; }
+.fleet-bar-wrapper:hover { background: #d0c8ba; }
+.fleet-bar-usage { width: 100%; border-radius: 2px; }
+
+.chart-line { position: absolute; left: 0; right: 0; border-top: 1px dashed rgba(218, 77, 114, 0.4); }
+.chart-line.avg { border-top: 1.5px solid rgba(90, 99, 89, 0.4); }
+
+.chart-label { 
+  position: absolute; 
+  font-size: 11px; 
+  font-weight: 500; 
+  padding: 2px 6px; 
+  background: #fdfaf3; 
+  border: 1px solid #e7e3dc;
+  border-radius: 4px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transform: translateY(-50%);
+  right: 0; 
+}
+.chart-label.threshold { color: #da4d72; }
+.chart-label.avg { color: #5a6359; }
+
+/* ── Projected Scatter Plot Styles ── */
+.projected-viz-container {
+  width: 100%; height: 400px; position: relative; display: none;
+  background: #fffdf9; border: 1px solid #e7e3dc; border-radius: 14px;
+  overflow: hidden; margin-top: 20px;
+}
+.scatter-grid { position: absolute; inset: 40px 60px 60px 80px; }
+.grid-zones { position: absolute; inset: 0; display: flex; pointer-events: none; }
+.zone-red { flex: 0 0 16.66%; background: rgba(218, 77, 114, 0.08); border-right: 1px dashed rgba(218, 77, 114, 0.2); }
+.zone-amber { flex: 0 0 16.66%; background: rgba(189, 103, 61, 0.05); border-right: 1px dashed rgba(189, 103, 61, 0.2); }
+.zone-neutral { flex: 1; background: transparent; }
+
+.y-axis-labels { position: absolute; left: 10px; top: 40px; bottom: 60px; width: 60px; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end; padding-right: 10px; font-size: 11px; color: #73716f; }
+.x-axis-labels { position: absolute; bottom: 10px; left: 80px; right: 60px; height: 40px; display: flex; justify-content: space-between; font-size: 11px; color: #73716f; }
+.axis-title-y { position: absolute; top: 50%; left: 0; transform: rotate(-90deg) translateY(-30px); font-size: 10px; font-weight: 700; color: #73716f; text-transform: uppercase; letter-spacing: 0.05em; width: 300px; text-align: center; }
+.axis-title-x { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: #73716f; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.scatter-point {
+  position: absolute; width: 24px; height: 24px; cursor: pointer; transform: translate(-50%, -50%);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 2;
+}
+.scatter-point:hover { transform: translate(-50%, -50%) scale(1.4); z-index: 10; }
+.scatter-hex { width: 100%; height: 100%; clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); }
+
+/* ── location cards ── */
+.location-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+.loc-card { background: #f0ece5; border: 1px solid #e7e3dc; border-radius: 12px; padding: 20px; transition: transform 0.2s ease; }
+.loc-title { font-size: 18px; font-weight: 600; color: #2d2a27; display: flex; align-items: baseline; gap: 8px; }
+.loc-addr { font-size: 11px; font-weight: 400; color: #73716f; margin-top: 2px; }
+.loc-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.loc-table th { text-align: left; font-size: 10px; text-transform: uppercase; color: #73716f; padding-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.05); font-weight: 500; }
+.loc-table td { padding: 10px 0; font-size: 13px; color: #2d2a27; font-weight: 400; }
+.loc-table .count-col { text-align: center; color: #5a6359; }
+.loc-table .cap-col { text-align: right; }
+
+/* ── support quadrants ── */
+.quad-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px; margin-top:24px;}
+.quad{border-radius:12px; padding:20px; min-height:160px; background:#f0ece5; border:1px solid #e7e3dc;}
+.quad-header{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;}
+.quad-title{font-size:14px; font-weight: 500; color:#73716f;}
+.quad-count{font-size:20px; font-weight:600; color:#2d2a27;}
+.block-grid{display:flex; flex-wrap:wrap; gap:2px;}
+.sev-block{width:8px; height:8px; border-radius:2px; background:#8fa596; opacity: 0.6;}
+
+/* ── security checklist ── */
+.sec-grid{display:grid; grid-template-columns:180px 1fr 1fr; gap:40px; margin-top:20px;}
+.checklist-item{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #f0ece5; font-size:13px; font-weight: 400;}
+.check-icon{width:18px; height:18px; border-radius:50%; background:#8fa596; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px;}
+
+/* ── modal core ── */
+.modal-backdrop{ position:fixed; inset:0; background:rgba(45,42,39,0.5); z-index:10000; display:none; align-items:flex-start; justify-content:center; padding:48px 24px; overflow-y:auto; }
+.modal-backdrop.open{display:flex;}
+.modal-card{ background:#fffdf9; border:1px solid #e7e3dc; border-radius:20px; padding:32px 40px; width:auto; min-width:800px; max-width:95vw; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25); flex-shrink:0; position:relative; }
+.modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; width:100%; }
+.modal-title-group { display: flex; flex-direction: column; gap: 4px; }
+.modal-title{font-size:22px; font-weight:600; color:#2d2a27;}
+.modal-sub{font-size:13px; color:#64748b;}
+.modal-close{ background:#f1f5f9; border:1px solid #e2e8f0; border-radius:10px; padding:8px 16px; font-size:14px; font-weight:600; color:#475569; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:8px; transition:all 0.15s ease; }
+.modal-close:hover{ background:#e2e8f0; color:#1e293b; transform:translateY(-1px); }
+
+.uptime-badge{ display:flex; align-items:center; gap:6px; background:#f0ece5; border-radius:8px; padding:6px 12px; font-size:12px; }
+.uptime-dot{width:8px; height:8px; border-radius:50%;}
+</style>
+</head>
+<body>
+
+<div id="viz-tooltip"></div>
+
+<div style="margin-bottom:28px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+  <div>
+    <h1 style="font-size:22px;font-weight:700;color:#2d2a27;">PNC Financial Services Group</h1>
+    <p style="font-size:13px;color:#73716f;margin-top:4px;">Executive Summary · Pure Storage fleet overview</p>
+  </div>
+  <div class="uptime-badge">
+    <div class="uptime-dot" style="background:#8fa596;"></div>
+    <span style="color:#5a6359;font-weight:600;">99.9997% uptime</span>
+  </div>
+</div>
+
+<div class="tile-grid">
+  <div class="tile" onclick="openModal('uptime')">
+    <div class="tile-label">Uptime <span class="info-trigger" onclick="event.stopPropagation()">i<span class="info-content">Uptime takes into consideration only those issues where Everpure is at fault.</span></span></div>
+    <div class="tile-headline" style="color:#5a6359;">99.9997%</div>
+    <div class="tile-sub">array uptime</div>
+    <div class="tile-viz" id="mini-heatmap-container"></div>
+  </div>
+
+  <div class="tile" onclick="openModal('topology')">
+    <div class="tile-label">Deployments</div>
+    <div class="tile-headline" style="color:#8fa596;">117</div>
+    <div class="tile-sub">86 FlashArray | 23 FlashBlade | 8 EG1</div>
+    <div class="deployment-stack">
+      <div class="stack-segment" style="width: 73.5%; background: #8fa596;"></div>
+      <div class="stack-segment" style="width: 19.7%; background: #5a6359;"></div>
+      <div class="stack-segment" style="width: 6.8%; background: #bd673d;"></div>
+    </div>
+    <div class="tile-viz" id="mini-map-container"></div>
+  </div>
+
+  <div class="tile" onclick="openModal('fleet')">
+    <div class="tile-label">Fleet Utilization</div>
+    <div class="tile-headline" style="color:#bd673d;">30.6%</div>
+    <div class="tile-sub">avg utilization</div>
+    <div class="tile-viz fleet-bars-wrap" id="mini-fleet-container"></div>
+  </div>
+
+  <div class="tile" onclick="openModal('support')">
+    <div class="tile-label">Support Health</div>
+    <div class="tile-headline" style="color:#5a6359;">80.6%</div>
+    <div class="tile-sub">proactive cases</div>
+    <div class="tile-viz" style="display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 120 120" width="140" height="140">
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#d0c8ba" stroke-width="10"/>
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#5a6359" stroke-width="10" stroke-dasharray="222.9 276.5" transform="rotate(-90 60 60)"/>
+        <text x="60" y="62" text-anchor="middle" font-size="15" font-weight="700" fill="#5a6359">80.6%</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tile" onclick="openModal('security')">
+    <div class="tile-label">Security Score</div>
+    <div class="tile-headline" style="color:#bd673d;">57%</div>
+    <div class="tile-sub">checks passing</div>
+    <div class="tile-viz" style="display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 140 160" width="120" height="136">
+        <path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z" fill="none" stroke="#bd673d" stroke-width="2.5"/>
+        <text x="70" y="82" text-anchor="middle" font-size="32" font-weight="800" fill="#bd673d">2.6</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tile" onclick="openModal('ndu')">
+    <div class="tile-label">Non-Disruptive Upgrades</div>
+    <div class="tile-headline" style="color:#8fa596;">715</div>
+    <div class="tile-sub">total NDUs since 2019</div>
+    <div class="tile-viz ndu-wrap" id="mini-ndu-container"></div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-backdrop" id="modal-uptime" onclick="closeModal(event,'uptime')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title-group"><div class="modal-title">Daily Uptime Heatmap</div><div class="modal-sub">Incident distribution overview</div></div>
+      <button class="modal-close" onclick="closeModalById('uptime')">✕ close</button>
+    </div>
+    <div id="full-heatmap"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-topology" onclick="closeModal(event,'topology')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title-group"><div class="modal-title">Deployments</div><div class="modal-sub">86 FlashArray | 23 FlashBlade | 8 EG1 Contracts</div></div>
+      <button class="modal-close" onclick="closeModalById('topology')">✕ close</button>
+    </div>
+    <div style="position:relative;background:#f0ece5;border-radius:14px;overflow:hidden;border:1px solid #e7e3dc;"><svg id="detail-map-svg" viewBox="0 0 520 280" width="100%"></svg></div>
+    <div class="location-grid" id="location-cards-container"></div>
+  </div>
+</div>
+
+<!-- FLEET UTILIZATION MODAL -->
+<div class="modal-backdrop" id="modal-fleet" onclick="closeModal(event,'fleet')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <div class="modal-title">Array fleet utilization</div>
+                <div class="modal-sub">127 appliances · sorted by utilization</div>
+            </div>
+            <button class="modal-close" onclick="closeModalById('fleet')">✕ close</button>
+        </div>
+        
+        <div class="fleet-kpi-grid">
+            <div class="fleet-kpi-card avg"><div class="fleet-kpi-label">Fleet avg</div><div class="fleet-kpi-value kpi-avg-val">30.6%</div></div>
+            <div class="fleet-kpi-card healthy"><div class="fleet-kpi-label">Healthy &lt;60%</div><div class="fleet-kpi-value kpi-healthy-val">103</div></div>
+            <div class="fleet-kpi-card caution"><div class="fleet-kpi-label">Caution 60–80%</div><div class="fleet-kpi-value kpi-caution-val">21</div></div>
+            <div class="fleet-kpi-card critical"><div class="fleet-kpi-label">Critical &gt;80%</div><div class="fleet-kpi-value kpi-critical-val">3</div></div>
+        </div>
+
+        <div class="fleet-control-bar">
+            <div class="usage-toggle">
+                <button id="tab-usage" class="toggle-btn active" onclick="switchFleetTab('usage')">Usage</button>
+                <button id="tab-projected" class="toggle-btn inactive" onclick="switchFleetTab('projected')">Projected</button>
+            </div>
+            <div style="flex: 1;"></div>
+            
+            <div class="dropdown-container">
+              <div class="filter-dropdown">
+                <span>Spend Type</span>
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="dropdown-menu">
+                <div class="dropdown-item">EG1</div>
+                <div class="dropdown-item">Capex</div>
+              </div>
+            </div>
+
+            <div class="filter-dropdown"><span>Last 6 Months</span><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+            <div class="filter-dropdown"><span>Capacity &lt;6 Mos</span><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+
+        <div id="fleet-usage-view" class="viz-outer-container">
+            <div class="fixed-lines-layer">
+              <div class="chart-line" style="top: 20%;"><span class="chart-label threshold">80%</span></div>
+              <div class="chart-line" style="top: 40%;"><span class="chart-label threshold" style="color: #bd673d;">60%</span></div>
+              <div class="chart-line avg" style="top: 69.4%;"><span class="chart-label avg">avg 30.6%</span></div>
+            </div>
+            
+            <div id="fleet-hover-chip">
+              <span class="chip-id">--</span><span class="chip-sep">|</span><span class="chip-model">--</span><span class="chip-sep">|</span><span class="chip-val">--</span>
+            </div>
+
+            <div class="viz-scroll-frame">
+              <div id="full-fleet-viz" class="full-fleet-viz"></div>
+            </div>
+        </div>
+
+        <div id="fleet-projected-view" style="display: none;">
+            <div class="projected-viz-container" style="display: block;">
+                <div class="axis-title-y">Projected Load (Blended Max %)</div>
+                <div class="axis-title-x">Projected Capacity (100% Full In)</div>
+                <div class="y-axis-labels"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div>
+                <div class="scatter-grid">
+                    <div class="grid-zones"><div class="zone-red"></div><div class="zone-amber"></div><div class="zone-neutral"></div></div>
+                    <div id="scatter-plot-points" style="position: relative; width: 100%; height: 100%;"></div>
+                </div>
+                <div class="x-axis-labels"><span>Now</span><span>1 month</span><span>3 months</span><span>6 months</span><span>9 months</span><span>>1 year</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Restored Supporting Modals -->
+<div class="modal-backdrop" id="modal-support" onclick="closeModal(event,'support')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-group"><div class="modal-title">Support Health</div><div class="modal-sub">Case status and proactive scores</div></div>
+            <button class="modal-close" onclick="closeModalById('support')">✕ close</button>
+        </div>
+        <div class="quad-grid" id="support-quads"></div>
+    </div>
+</div>
+<div class="modal-backdrop" id="modal-security" onclick="closeModal(event,'security')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-group"><div class="modal-title">Security Checks</div><div class="modal-sub">Compliance and Operational standards</div></div>
+            <button class="modal-close" onclick="closeModalById('security')">✕ close</button>
+        </div>
+        <div class="sec-grid" id="security-details"></div>
+    </div>
+</div>
+<div class="modal-backdrop" id="modal-ndu" onclick="closeModal(event,'ndu')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-group"><div class="modal-title">NDU History</div><div class="modal-sub">Full historical data since 2019</div></div>
+            <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
+        </div>
+        <div id="full-ndu-viz" style="height:320px; display:flex; align-items:flex-end; gap:12px;"></div>
+    </div>
+</div>
+
+<script>
+const OUTAGES = { 
+  "0-26": [{ appliance: "gf1-purefb041-01", desc: "CH4 down while awaiting FB11 replacement", cat: "SW – Configuration", dur: "15m", pillClass: "pill-sw" }],
+  "7-8": [{ appliance: "gf2-pureaz101-03", desc: "CT0 offline – wrong cables pulled", cat: "Human – Partner", dur: "1h 46m", pillClass: "pill-human" }],
+  "7-15": [
+    { appliance: "gf0-pure-xl170-01", desc: "Power issues at facilities", cat: "Unplanned", dur: "45m", pillClass: "pill-unplanned" },
+    { appliance: "gf2-x90-01", desc: "Scheduled NDU upgrade cycle", cat: "planned", dur: "2h 0m", pillClass: "pill-planned" }
+  ]
+};
+
+const SITES = [
+  { id: "PIT", city: "Pittsburgh, PA", addr: "35 Summit Park Dr, Pittsburgh, PA 15275", x: 235, y: 40, fa: 8, fb: 4, eg: 2, tfa: "1200TB", tfb: "600TB", teg: "480TB" },
+  { id: "SAN", city: "Sandston, VA", addr: "6000 Technology Blvd, Sandston, VA 23150", x: 260, y: 100, fa: 4, fb: 3, eg: 1, tfa: "700TB", tfb: "340TB", teg: "190TB" },
+  { id: "ASH", city: "Ashburn, VA", addr: "44060 Digital Loudoun Plaza, Ashburn, VA 20147", x: 250, y: 70, fa: 0, fb: 2, eg: 0, tfa: "0TB", tfb: "600TB", teg: "0TB" },
+  { id: "ROG", city: "Rogers, AR", addr: "1701 W Commerce Dr, Rogers, AR 72756", x: 50, y: 120, fa: 2, fb: 1, eg: 4, tfa: "360TB", tfb: "410TB", teg: "820TB" }
+];
+
+const NDU_DATA = [5, 12, 39, 64, 110, 143, 223, 33];
+const NDU_YEARS = [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
+
+function svgEl(tag,attrs){const e=document.createElementNS("http://www.w3.org/2000/svg",tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
+function openModal(id){const m=document.getElementById("modal-"+id); if(m)m.classList.add("open");}
+function closeModalById(id){const m=document.getElementById("modal-"+id); if(m)m.classList.remove("open");}
+function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
+
+function switchFleetTab(tab) {
+    const usageBtn = document.getElementById('tab-usage');
+    const projectBtn = document.getElementById('tab-projected');
+    const usageView = document.getElementById('fleet-usage-view');
+    const projectView = document.getElementById('fleet-projected-view');
+    if(tab === 'usage') {
+        usageBtn.className = 'toggle-btn active'; projectBtn.className = 'toggle-btn inactive';
+        usageView.style.display = 'block'; projectView.style.display = 'none';
+    } else {
+        usageBtn.className = 'toggle-btn inactive'; projectBtn.className = 'toggle-btn active';
+        usageView.style.display = 'none'; projectView.style.display = 'block';
+        buildProjectedScatter();
+    }
+}
+
+function buildHeatmap(containerId){
+  const container=document.getElementById(containerId); if(!container)return;
+  const tooltip = document.getElementById('viz-tooltip');
+  const MONTHS=["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr"];
+  container.innerHTML="";
+  MONTHS.forEach((m, i)=>{
+    const row=document.createElement("div"); row.className="heatmap-row";
+    const lbl=document.createElement("div"); lbl.className="heatmap-month"; lbl.textContent=m;
+    row.appendChild(lbl);
+    const cells=document.createElement("div"); cells.className="heatmap-cells";
+    for(let d=0;d<30;d++){
+      const cell=document.createElement("div"); cell.className="heatmap-cell";
+      const inc=OUTAGES[`${i}-${d}`];
+      if(inc){ cell.style.background="#da4d72"; cell.classList.add("outage");
+        cell.onmouseenter=(e)=>{ tooltip.style.display='block'; let h=`<div class="tooltip-date">${m} ${d+1}, 2025</div>`; inc.forEach((n,idx)=>{ if(idx>0)h+=`<div class="incident-divider"></div>`; h+=`<div class="incident-block"><div class="tooltip-appliance">${n.appliance}</div><div class="tooltip-desc">${n.desc}</div><div class="tooltip-footer"><span class="category-pill ${n.pillClass}">${n.cat}</span><span class="duration-text">Duration: ${n.dur}</span></div></div>`; }); tooltip.innerHTML=h; };
+        cell.onmousemove=(e)=>{ let x=e.clientX+20,y=e.clientY-20; if(x+300>window.innerWidth)x=e.clientX-300; tooltip.style.left=x+'px'; tooltip.style.top=y+'px'; };
+        cell.onmouseleave=()=>{tooltip.style.display='none';};
+      } else { cell.style.background=(i===12 && d>24)?"#e7e3dc":"#8fa596"; cell.style.opacity=(i===12 && d>24)?0.3:0.6; }
+      cells.appendChild(cell);
+    }
+    row.appendChild(cells); container.appendChild(row);
+  });
+}
+
+function buildMiniMap(){
+  const W=320,H=170,container=document.getElementById("mini-map-container"); if(!container)return;
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg"); svg.setAttribute("viewBox",`0 0 ${W} ${H}`); svg.setAttribute("width","100%"); svg.style.display="block";
+  svg.appendChild(svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#ded5c8"}));
+  SITES.forEach(s=>{
+    svg.appendChild(svgEl("circle",{cx:s.x,cy:s.y,r:25,fill:"#8fa596","fill-opacity":"0.1",stroke:"#8fa596"}));
+    svg.appendChild(svgEl("circle",{cx:s.x,cy:s.y,r:15,fill:"#8fa596","fill-opacity":"0.2",stroke:"#8fa596"}));
+    svg.appendChild(svgEl("circle",{cx:s.x,cy:s.y,r:3,fill:"#fff5e3",stroke:"#5a6359"}));
+    const t=svgEl("text",{x:s.x,y:s.y-32,"text-anchor":"middle","font-size":"10","font-weight":"700",fill:"#2d2a27"}); t.textContent=s.id; svg.appendChild(t);
+    if(s.id!=="ROG") svg.appendChild(svgEl("circle",{cx:s.x+20,cy:s.y-15,r:3.5,fill:"#da4d72"}));
+  });
+  container.appendChild(svg);
+}
+
+function buildLocationCards(){
+  const container=document.getElementById("location-cards-container"); if(!container)return;
+  container.innerHTML=SITES.map(s=>`
+    <div class="loc-card"><div class="loc-header"><div class="loc-title">${s.id} <span style="font-weight:400;font-size:13px;color:#73716f;">${s.city}</span></div><div class="loc-addr">${s.addr}</div></div><table class="loc-table"><thead><tr><th>Type</th><th class="count-col">Count</th><th class="cap-col">Total Cap</th></tr></thead><tbody><tr><td class="type-col">FlashArray</td><td class="count-col">${s.fa}</td><td class="cap-col">${s.tfa}</td></tr><tr><td class="type-col">FlashBlade</td><td class="count-col">${s.fb}</td><td class="cap-col">${s.tfb}</td></tr><tr><td class="type-col">EG1</td><td class="count-col">${s.eg}</td><td class="cap-col">${s.teg}</td></tr></tbody></table></div>
+  `).join('');
+}
+
+function buildFleetVisuals(){
+  const mini=document.getElementById("mini-fleet-container");
+  const full=document.getElementById("full-fleet-viz");
+  const bars = Array.from({length:127},(_,i)=>{
+    let h=(i < 3) ? 92 - i*3 : (i < 24) ? 76 - (i-3)*0.5 : 58 - (i-24)*0.4;
+    h = Math.max(4, h);
+    return { id: `gf1-pure${150+i}-02`, type: i%2===0 ? "FA-X" : "FB-S", usage: h, color: h>80?'#da4d72':h>60?'#bd673d':'#8fa596' };
+  });
+  if(mini) mini.innerHTML=`<div class="alert-dots">${'<div class="alert-dot-cell"><div class="alert-dot"></div></div>'.repeat(3)}</div><div style="display:flex;align-items:flex-end;gap:1px;height:130px;">${bars.map(b=>`<div style="flex:1;height:${b.usage}%;background:${b.color};"></div>`).join('')}</div>`;
+  if(full) full.innerHTML=bars.map((b)=>`<div class="fleet-bar-wrapper" onmouseenter="showFleetChip(event, '${b.id}', '${b.type}', '${b.usage.toFixed(1)}%')" onmouseleave="hideFleetChip()"><div class="fleet-bar-usage" style="height:${b.usage}%; background:${b.color};"></div></div>`).join('');
+}
+
+function buildProjectedScatter() {
+    const container = document.getElementById('scatter-plot-points'); if(!container) return;
+    container.innerHTML = '';
+    const counts = { red: 8, amber: 12, healthy: 40, far: 20 };
+    const points = [];
+    for(let i=0; i<counts.red; i++) points.push({ x: Math.random() * 16, y: 65 + Math.random() * 30, color: '#da4d72' });
+    for(let i=0; i<counts.amber; i++) points.push({ x: 16 + Math.random() * 16, y: 35 + Math.random() * 55, color: '#bd673d' });
+    for(let i=0; i<counts.healthy; i++) points.push({ x: 32 + Math.random() * 40, y: 15 + Math.random() * 60, color: '#8fa596' });
+    for(let i=0; i<counts.far; i++) points.push({ x: 72 + Math.random() * 25, y: 5 + Math.random() * 45, color: '#7c729c' });
+    points.forEach(p => {
+        const point = document.createElement('div'); point.className = 'scatter-point';
+        point.style.left = `${p.x}%`; point.style.bottom = `${p.y}%`;
+        point.innerHTML = `<div class="scatter-hex" style="background: ${p.color};"></div>`;
+        container.appendChild(point);
+    });
+}
+
+function showFleetChip(e, id, model, val) {
+  const chip = document.getElementById('fleet-hover-chip');
+  const barRect = e.currentTarget.getBoundingClientRect();
+  const outerRect = document.querySelector('.viz-outer-container').getBoundingClientRect();
+  chip.style.display = 'flex'; chip.style.left = (barRect.left - outerRect.left + (barRect.width/2)) + 'px';
+  chip.querySelector('.chip-id').textContent = id; chip.querySelector('.chip-model').textContent = model; chip.querySelector('.chip-val').textContent = val;
+}
+function hideFleetChip() { document.getElementById('fleet-hover-chip').style.display = 'none'; }
+
+function buildSupport(){
+    const c=document.getElementById("support-quads"); if(!c)return;
+    const data=[{t:"Proactive Open",v:42,c:'#eef5f0'},{t:"Proactive Closed",v:1625,c:'#f4f6f4'},{t:"Reactive Open",v:12,c:'#fdf3ec'},{t:"Reactive Closed",v:340,c:'#faf8f5'}];
+    c.innerHTML=data.map(q=>`<div class="quad" style="background:${q.c}"><div class="quad-header"><div class="quad-title">${q.t}</div><div class="quad-count">${q.v}</div></div><div class="block-grid">${Array.from({length:Math.min(q.v,120)},()=>`<div class="sev-block"></div>`).join('')}</div></div>`).join('');
+}
+
+function buildSecurity(){
+    const c=document.getElementById("security-details"); if(!c)return;
+    const list=['Software Encryption','SafeMode Enabled','ActiveDR Configured','MFA Active','Audit Logging','Encrypted Connections'];
+    c.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;"><svg width="120" height="136"><path d="M70 4 L110 24 L110 80 C110 110 60 130 60 130 C60 130 10 110 10 80 L10 24 Z" fill="none" stroke="#bd673d" stroke-width="2.5"/></svg></div><div><div class="loc-title" style="margin-bottom:12px;">Compliance</div>${list.slice(0,3).map(i=>`<div class="checklist-item"><div class="check-icon">✓</div>${i}</div>`).join('')}</div><div><div class="loc-title" style="margin-bottom:12px;">Operational</div>${list.slice(3).map(i=>`<div class="checklist-item"><div class="check-icon">✓</div>${i}</div>`).join('')}</div>`;
+}
+
+function buildNDU(){
+  const mini=document.getElementById("mini-ndu-container");
+  const full=document.getElementById("full-ndu-viz");
+  const max=Math.max(...NDU_DATA);
+  if(mini) mini.innerHTML=`<div style="display:flex;align-items:flex-end;gap:4px;height:100px;">${NDU_DATA.map(v=>`<div style="flex:1;height:${(v/max)*100}%;background:#8fa596;border-radius:2px;"></div>`).join('')}</div>`;
+  if(full) full.innerHTML=NDU_DATA.map((v,i)=>`<div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;"><div style="font-size:11px;color:#73716f;">${v}</div><div style="width:100%;height:${(v/max)*100}%;background:#8fa596;border-radius:6px 6px 0 0;"></div><div style="font-size:12px;color:#2d2a27;margin-top:4px;">${NDU_YEARS[i]}</div></div>`).join('');
+}
+
+function buildDetailMap(){
+  const svg=document.getElementById("detail-map-svg"); if(!svg)return;
+  svg.innerHTML=`<rect x="0" y="0" width="520" height="280" fill="#ded5c8" />`;
+  SITES.forEach(s => {
+    svg.appendChild(svgEl("circle",{cx:s.x*1.5,cy:s.y*1.5,r:35,fill:"#8fa596","fill-opacity":"0.1",stroke:"#8fa596"}));
+    svg.appendChild(svgEl("circle",{cx:s.x*1.5,cy:s.y*1.5,r:20,fill:"#8fa596","fill-opacity":"0.2",stroke:"#8fa596"}));
+    svg.appendChild(svgEl("circle",{cx:s.x*1.5,cy:s.y*1.5,r:4,fill:"#fff5e3",stroke:"#5a6359"}));
+  });
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  buildHeatmap("mini-heatmap-container"); buildHeatmap("full-heatmap");
+  buildMiniMap(); buildDetailMap(); buildLocationCards(); buildFleetVisuals(); buildSupport(); buildSecurity(); buildNDU();
+});
+</script>
+</body>
+</html>
