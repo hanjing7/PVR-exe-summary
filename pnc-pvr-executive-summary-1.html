@@ -639,8 +639,8 @@ body.modal-open{overflow:hidden;}
             <option value="all">All Time</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026 YTD</option>
           </select>
         </div>
-        <div style="position:relative;height:200px;width:100%;">
-          <canvas id="monthlyChart" width="1000" height="400" style="width:100%;height:200px;display:block;"></canvas>
+        <div style="position:relative;height:300px;width:100%;">
+          <canvas id="monthlyChart" style="width:100%;height:100%;display:block;"></canvas>
         </div>
       </div>
     </div>
@@ -673,8 +673,8 @@ body.modal-open{overflow:hidden;}
           <div class="support-stat-tile"><div class="stat-tile-label">Sev-3</div><div class="stat-tile-value">995</div><div class="stat-tile-sub">49.3% · 94% proactive</div></div>
           <div class="support-stat-tile"><div class="stat-tile-label">Sev-4</div><div class="stat-tile-value">399</div><div class="stat-tile-sub">19.8% · 32% proactive</div></div>
         </div>
-        <div style="display:flex;justify-content:center;">
-          <canvas id="sevChart" width="800" height="240" style="display:block;height:120px;width:400px;"></canvas>
+        <div style="width:100%;height:240px;">
+          <canvas id="sevChart" style="width:100%;height:100%;display:block;"></canvas>
         </div>
       </div>
     </div>
@@ -693,8 +693,8 @@ body.modal-open{overflow:hidden;}
           <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#bd673d;display:inline-block;"></span>1–4 weeks</span>
           <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#da4d72;display:inline-block;"></span>&gt;4 weeks</span>
         </div>
-        <div style="display:flex;justify-content:center;">
-          <canvas id="resolutionChart" width="800" height="360" style="display:block;height:180px;width:400px;"></canvas>
+        <div style="width:100%;height:260px;">
+          <canvas id="resolutionChart" style="width:100%;height:100%;display:block;"></canvas>
         </div>
       </div>
     </div>
@@ -707,8 +707,8 @@ body.modal-open{overflow:hidden;}
           <div class="support-stat-tile"><div class="stat-tile-label">Median FRT</div><div class="stat-tile-value">28 mins</div></div>
           <div class="support-stat-tile"><div class="stat-tile-label">Anomaly Count</div><div class="stat-tile-value" style="color:#da4d72;">40</div><div class="stat-tile-sub">Batch-logged cases</div></div>
         </div>
-        <div style="display:flex;justify-content:center;">
-          <canvas id="frtChart" width="800" height="360" style="display:block;height:180px;width:400px;"></canvas>
+        <div style="width:100%;height:260px;">
+          <canvas id="frtChart" style="width:100%;height:100%;display:block;"></canvas>
         </div>
         <div style="background:#fce8ee;border:1px solid rgba(218,77,114,0.2);border-radius:8px;padding:10px 14px;margin-top:16px;display:flex;align-items:flex-start;gap:10px;">
           <div style="width:16px;height:16px;background:#da4d72;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:2px;">!</div>
@@ -1646,69 +1646,137 @@ function switchSupportDetailTab(tab){
   if(tab==="response")drawFRTChart();
 }
 
+/* ── canvas helper: set internal resolution to match CSS display size ── */
+function setupCanvas(id){
+  const canvas=document.getElementById(id);if(!canvas)return null;
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.offsetWidth,H=canvas.offsetHeight;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  const ctx=canvas.getContext("2d");
+  ctx.scale(dpr,dpr);
+  return{ctx,W,H};
+}
+
 function drawCaseVolumeChart(filter="all"){
-  const canvas=document.getElementById("monthlyChart");if(!canvas)return;
-  const ctx=canvas.getContext("2d");const W=canvas.width,H=canvas.height;
+  const c=setupCanvas("monthlyChart");if(!c)return;
+  const{ctx,W,H}=c;
   ctx.clearRect(0,0,W,H);
-  let data=[...SUPPORT_REALISTIC_DATA];
-  if(filter==="2024")data=data.slice(0,12);else if(filter==="2025")data=data.slice(12,24);else if(filter==="2026")data=data.slice(24);
-  const m={top:20,right:30,bottom:40,left:40},cW=W-m.left-m.right,cH=H-m.top-m.bottom;
-  const bW=(cW/data.length)*0.75,g=(cW/data.length)*0.25;
-  ctx.strokeStyle="#e7e3dc";ctx.lineWidth=1;ctx.font="14px DM Sans";ctx.fillStyle="#73716f";ctx.textAlign="right";
-  for(let i=0;i<=4;i++){const val=i*20;const y=H-m.bottom-(val*cH/80);ctx.beginPath();ctx.moveTo(m.left,y);ctx.lineTo(W-m.right,y);ctx.stroke();ctx.fillText(val,m.left-10,y+5);}
+  const ALL_MONTHS=["Jan'24","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
+                    "Jan'25","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",
+                    "Jan'26","Feb","Mar"];
+  let data=[...SUPPORT_REALISTIC_DATA],labels=[...ALL_MONTHS];
+  if(filter==="2024"){data=data.slice(0,12);labels=labels.slice(0,12);}
+  else if(filter==="2025"){data=data.slice(12,24);labels=labels.slice(12,24);}
+  else if(filter==="2026"){data=data.slice(24);labels=labels.slice(24);}
+  const m={top:24,right:20,bottom:52,left:46};
+  const cW=W-m.left-m.right,cH=H-m.top-m.bottom;
+  const maxVal=80,slots=data.length,slotW=cW/slots;
+  const bW=Math.max(4,slotW*0.6),gap=(slotW-bW)/2;
+  // grid lines + y-axis labels
+  ctx.font=`12px DM Sans`;
+  for(let i=0;i<=4;i++){
+    const val=i*20,y=H-m.bottom-(val/maxVal)*cH;
+    ctx.strokeStyle="#e7e3dc";ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(m.left,y);ctx.lineTo(W-m.right,y);ctx.stroke();
+    ctx.fillStyle="#73716f";ctx.textAlign="right";ctx.fillText(val,m.left-8,y+4);
+  }
+  // bars
   data.forEach((d,i)=>{
-    const x=m.left+i*(bW+g);
-    ctx.fillStyle="#5a6359";const pH=d.p*(cH/80);ctx.fillRect(x,H-m.bottom-pH,bW,pH);
-    ctx.fillStyle="#da4d72";const rH=d.r*(cH/80);ctx.fillRect(x,H-m.bottom-pH-rH,bW,rH);
+    const x=m.left+i*slotW+gap;
+    const pH=(d.p/maxVal)*cH,rH=(d.r/maxVal)*cH;
+    ctx.fillStyle="#5a6359";ctx.fillRect(x,H-m.bottom-pH,bW,pH);
+    ctx.fillStyle="#da4d72";ctx.fillRect(x,H-m.bottom-pH-rH,bW,rH);
   });
+  // x-axis labels (every label if space, else every other)
+  ctx.fillStyle="#73716f";ctx.textAlign="center";ctx.font=`11px DM Sans`;
+  const step=slots>18?3:slots>12?2:1;
+  labels.forEach((l,i)=>{if(i%step===0){const x=m.left+i*slotW+slotW/2;ctx.fillText(l,x,H-m.bottom+16);}});
+  // x-axis baseline
+  ctx.strokeStyle="#e7e3dc";ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(m.left,H-m.bottom);ctx.lineTo(W-m.right,H-m.bottom);ctx.stroke();
   // legend
-  ctx.fillStyle="#5a6359";ctx.fillRect(m.left,H-m.bottom+16,10,10);
-  ctx.fillStyle="#73716f";ctx.font="12px DM Sans";ctx.textAlign="left";ctx.fillText("Proactive",m.left+14,H-m.bottom+25);
-  ctx.fillStyle="#da4d72";ctx.fillRect(m.left+90,H-m.bottom+16,10,10);
-  ctx.fillStyle="#73716f";ctx.fillText("Reactive",m.left+104,H-m.bottom+25);
+  const lY=H-10;
+  ctx.fillStyle="#5a6359";ctx.fillRect(m.left,lY-10,12,12);
+  ctx.fillStyle="#73716f";ctx.textAlign="left";ctx.font=`12px DM Sans`;ctx.fillText("Proactive",m.left+16,lY);
+  ctx.fillStyle="#da4d72";ctx.fillRect(m.left+100,lY-10,12,12);
+  ctx.fillStyle="#73716f";ctx.fillText("Reactive",m.left+116,lY);
 }
 
 function drawSevChart(){
-  const canvas=document.getElementById("sevChart");if(!canvas)return;
-  const ctx=canvas.getContext("2d");const W=canvas.width,H=canvas.height;
+  const c=setupCanvas("sevChart");if(!c)return;
+  const{ctx,W,H}=c;
   ctx.clearRect(0,0,W,H);
-  const data=[40,585,995,399],colors=["#da4d72","#ff7023","#bd673d","#8fa596"],total=data.reduce((a,b)=>a+b,0);
-  let start=-0.5*Math.PI;
-  data.forEach((v,i)=>{
-    const slice=(v/total)*2*Math.PI;
-    ctx.beginPath();ctx.arc(W/2,H/2,H/2-10,start,start+slice);ctx.arc(W/2,H/2,(H/2-10)*0.6,start+slice,start,true);
-    ctx.fillStyle=colors[i];ctx.fill();start+=slice;
+  const segs=[{label:"Sev-1",v:40,color:"#da4d72"},{label:"Sev-2",v:585,color:"#ff7023"},{label:"Sev-3",v:995,color:"#bd673d"},{label:"Sev-4",v:399,color:"#8fa596"}];
+  const total=segs.reduce((a,s)=>a+s.v,0);
+  const cx=W*0.35,cy=H/2,r=Math.min(cx,cy)-16,inner=r*0.58;
+  let angle=-Math.PI/2;
+  segs.forEach(s=>{
+    const slice=(s.v/total)*2*Math.PI;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,angle,angle+slice);ctx.closePath();
+    ctx.fillStyle=s.color;ctx.fill();
+    angle+=slice;
   });
-  ctx.fillStyle="#2d2a27";ctx.font="bold 20px DM Sans";ctx.textAlign="center";ctx.fillText("2,019",W/2,H/2+7);
+  // donut hole
+  ctx.beginPath();ctx.arc(cx,cy,inner,0,Math.PI*2);ctx.fillStyle="#f0ece5";ctx.fill();
+  // centre label
+  ctx.fillStyle="#2d2a27";ctx.font=`bold 20px DM Sans`;ctx.textAlign="center";ctx.fillText("2,019",cx,cy+4);
+  ctx.fillStyle="#73716f";ctx.font=`11px DM Sans`;ctx.fillText("total cases",cx,cy+18);
+  // legend on right
+  const lX=W*0.62,lStartY=cy-(segs.length*22)/2+10;
+  segs.forEach((s,i)=>{
+    const y=lStartY+i*28;
+    const pct=((s.v/total)*100).toFixed(1)+"%";
+    ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(lX+8,y,7,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle="#2d2a27";ctx.font=`bold 13px DM Sans`;ctx.textAlign="left";ctx.fillText(s.label,lX+22,y+5);
+    ctx.fillStyle="#73716f";ctx.font=`12px DM Sans`;
+    ctx.fillText(`${s.v.toLocaleString()} · ${pct}`,lX+22,y+19);
+  });
 }
 
 function drawResolutionChart(){
-  const canvas=document.getElementById("resolutionChart");if(!canvas)return;
-  const ctx=canvas.getContext("2d");const W=canvas.width,H=canvas.height;
+  const c=setupCanvas("resolutionChart");if(!c)return;
+  const{ctx,W,H}=c;
   ctx.clearRect(0,0,W,H);
-  const data=[{label:"Sev-1",s:[80,15,5,0]},{label:"Sev-2",s:[60,30,8,2]},{label:"Sev-3",s:[40,45,12,3]},{label:"Sev-4",s:[75,20,5,0]}];
+  const rows=[{label:"Sev-1",s:[80,15,5,0]},{label:"Sev-2",s:[60,30,8,2]},{label:"Sev-3",s:[40,45,12,3]},{label:"Sev-4",s:[75,20,5,0]}];
   const colors=["#8fa596","#5a6359","#bd673d","#da4d72"];
-  data.forEach((r,i)=>{
-    let cX=60;const y=20+i*40,h=25;
-    ctx.fillStyle="#73716f";ctx.font="bold 13px DM Sans";ctx.textAlign="right";ctx.fillText(r.label,50,y+17);
-    r.s.forEach((v,j)=>{const w=(v/100)*(W-80);ctx.fillStyle=colors[j];ctx.fillRect(cX,y,w,h);cX+=w;});
+  const lbls=["<3 days","3–7 days","1–4 wks",">4 wks"];
+  const lX=52,barH=30,barGap=(H-40-rows.length*barH)/(rows.length+1);
+  const barW=W-lX-20;
+  rows.forEach((r,i)=>{
+    const y=40+i*(barH+barGap);
+    ctx.fillStyle="#73716f";ctx.font=`bold 13px DM Sans`;ctx.textAlign="right";ctx.fillText(r.label,lX-8,y+barH/2+5);
+    let cX=lX;
+    r.s.forEach((v,j)=>{const w=(v/100)*barW;ctx.fillStyle=colors[j];ctx.fillRect(cX,y,w,barH);cX+=w;});
+  });
+  // legend row at top
+  const legY=18;
+  let legX=lX;
+  lbls.forEach((l,i)=>{
+    ctx.fillStyle=colors[i];ctx.fillRect(legX,legY-10,12,12);
+    ctx.fillStyle="#73716f";ctx.font=`11px DM Sans`;ctx.textAlign="left";ctx.fillText(l,legX+15,legY+1);
+    legX+=ctx.measureText(l).width+34;
   });
 }
 
 function drawFRTChart(){
-  const canvas=document.getElementById("frtChart");if(!canvas)return;
-  const ctx=canvas.getContext("2d");const W=canvas.width,H=canvas.height;
+  const c=setupCanvas("frtChart");if(!c)return;
+  const{ctx,W,H}=c;
   ctx.clearRect(0,0,W,H);
-  const data=[{l:"Sev-4",v:7,c:"#8fa596"},{l:"Sev-3",v:56,c:"#bd673d"},{l:"Sev-2",v:21,c:"#ff7023"},{l:"Sev-1",v:7774,c:"#da4d72"}];
-  const maxView=100;
-  data.forEach((r,i)=>{
-    const y=20+i*40,h=25,cX=60;
-    ctx.fillStyle="#73716f";ctx.font="bold 13px DM Sans";ctx.textAlign="right";ctx.fillText(r.l,50,y+17);
-    let w=(Math.min(r.v,maxView)/maxView)*(W-150);
-    if(r.v>maxView)w=W-120;
-    ctx.fillStyle=r.c;ctx.fillRect(cX,y,w,h);
-    if(r.v>maxView){ctx.strokeStyle="#fffdf9";ctx.lineWidth=2;for(let o=0;o<3;o++){ctx.beginPath();ctx.moveTo(cX+150+o*5,y-2);ctx.lineTo(cX+145+o*5,y+h+2);ctx.stroke();}}
-    ctx.fillStyle="#73716f";ctx.font="12px DM Sans";ctx.textAlign="left";ctx.fillText(r.v+"m",cX+w+8,y+17);
+  const rows=[{l:"Sev-4",v:7,c:"#8fa596"},{l:"Sev-3",v:56,c:"#bd673d"},{l:"Sev-2",v:21,c:"#ff7023"},{l:"Sev-1",v:7774,c:"#da4d72"}];
+  const lX=52,barH=30,barGap=(H-20-rows.length*barH)/(rows.length+1);
+  const maxNorm=100,barW=W-lX-90;
+  rows.forEach((r,i)=>{
+    const y=20+i*(barH+barGap);
+    ctx.fillStyle="#73716f";ctx.font=`bold 13px DM Sans`;ctx.textAlign="right";ctx.fillText(r.l,lX-8,y+barH/2+5);
+    const isAnomaly=r.v>maxNorm;
+    const w=isAnomaly?barW:(r.v/maxNorm)*barW;
+    ctx.fillStyle=r.c;ctx.fillRect(lX,y,w,barH);
+    if(isAnomaly){
+      ctx.strokeStyle="#fffdf9";ctx.lineWidth=2.5;
+      for(let o=0;o<4;o++){ctx.beginPath();ctx.moveTo(lX+w-32+o*8,y-2);ctx.lineTo(lX+w-36+o*8,y+barH+2);ctx.stroke();}
+    }
+    ctx.fillStyle="#73716f";ctx.font=`12px DM Sans`;ctx.textAlign="left";
+    ctx.fillText(isAnomaly?`${r.v.toLocaleString()} min`:r.v+"m",lX+w+8,y+barH/2+5);
   });
 }
 
