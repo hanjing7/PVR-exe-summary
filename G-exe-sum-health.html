@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PNC Financial Services Group — Executive Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+/* ===== EVERPURE THEME TOKENS ===== */
+:root {
+  --background: #fff5e3;
+  --foreground: #2d2a27;
+  --card: #fff5e3;
+  --card-foreground: #2d2a27;
+  --primary: #ff7023;
+  --secondary-text: #73716f;
+  --muted: #d0c8ba;
+  --destructive: #da4d72;
+  --border: #e7e3dc;
+  --accent-1: #5a6359; /* Dark Sage */
+  --accent-2: #8fa596; /* Light Sage */
+  --accent-3: #bd673d; /* Burnt Orange */
+  --accent-4: #ff7023; /* Vivid Orange */
+  --color-text-primary: #2d2a27;
+  --color-text-secondary: #73716f;
+  --color-bg-primary: #f0ece5;
+  --color-bg-secondary: #efede8;
+  --radius: 8px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background: var(--background);
+  color: var(--foreground);
+  font-family:'DM Sans','Inter',system-ui,sans-serif;
+  min-height:100vh;
+  padding:28px 24px;
+}
+/* ── grid ── */
+.tile-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:340px 340px;
+  gap:16px;
+}
+/* ── tile card ── */
+.tile{
+  background: var(--card);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:20px 22px;
+  cursor:pointer;
+  transition:border-color 0.15s;
+  display:flex;
+  flex-direction:column;
+  overflow:visible; 
+  position:relative;
+}
+.tile:hover{border-color:var(--primary);}
+.tile-label{
+  font-size:11px;font-weight:600;color:var(--secondary-text);
+  letter-spacing:0.04em;text-transform:uppercase;margin-bottom:6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tile-headline{
+  font-size:40px;font-weight:800;line-height:1;margin-bottom:4px;
+}
+.tile-sub{font-size:11px;color:var(--secondary-text);white-space:nowrap;margin-bottom:0;}
+.tile-viz{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;margin-top:10px;}
+
+/* ── Info Tooltip Style ── */
+.info-trigger {
+  width: 14px; height: 14px; border: 1px solid var(--secondary-text); border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800; color: var(--secondary-text); cursor: help; position: relative;
+}
+.info-content {
+  position: absolute; top: 100%; left: 0; width: 200px; background: #fffdf9;
+  border: 1px solid var(--border); padding: 10px; border-radius: 8px; font-size: 11px;
+  font-weight: 400; color: var(--foreground); box-shadow: 0 4px 12px rgba(45,42,39,0.1);
+  opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 100;
+  white-space: normal; text-transform: none; line-height: 1.4; margin-top: 5px;
+}
+.info-trigger:hover .info-content { opacity: 1; visibility: visible; }
+
+/* ── Heatmap Mouseover Tooltip ── */
+#viz-tooltip {
+  position: fixed; pointer-events: none; background: #ffffff; border: 1px solid #e2e8f0;
+  padding: 16px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 10001; display: none; min-width: 280px;
+}
+.tooltip-date { font-size: 12px; color: #64748b; margin-bottom: 10px; }
+.incident-block { margin-bottom: 16px; }
+.incident-divider { height: 1px; background: #f1f5f9; margin: 12px 0; }
+.tooltip-appliance { font-weight: 600; font-size: 15px; color: #1e293b; margin-bottom: 4px; }
+.tooltip-desc { font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 12px; }
+.tooltip-footer { display: flex; align-items: center; gap: 10px; }
+.category-pill { font-size: 11px; font-weight: 500; padding: 2px 10px; border-radius: 4px; }
+.pill-human { background: #fff1f2; color: #e11d48; }
+.pill-unplanned { background: #fef2f2; color: #dc2626; }
+.pill-planned { background: #f0fdf4; color: #16a34a; }
+.pill-sw { background: #eff6ff; color: #2563eb; }
+.duration-text { font-size: 12px; color: #64748b; }
+
+/* ── deployment viz ── */
+.deployment-stack {
+  display: flex; height: 6px; border-radius: 3px; overflow: hidden; 
+  margin: 12px 0 4px 0; background: var(--border); flex-shrink: 0;
+}
+.stack-segment { height: 100%; transition: width 0.3s ease; }
+
+/* ── heatmap ── */
+.heatmap-row{display:flex;align-items:center;margin-bottom:2px;gap:3px;}
+.heatmap-month{width:22px;font-size:8px;color:var(--secondary-text);flex-shrink:0;text-align:right;padding-right:3px;}
+.heatmap-cells{display:flex;gap:1.5px;flex-wrap:nowrap;}
+.heatmap-cell{ width:8px;height:8px;border-radius:1.5px;flex-shrink:0;cursor:default; transition:transform 0.1s; }
+
+/* ── Fleet Utilization KPI Cards ── */
+.fleet-kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 24px; }
+.fleet-kpi-card { background: var(--color-bg-primary); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; transition: transform 0.2s; min-height: 100px; }
+.fleet-kpi-label { font-size: 13px; color: var(--secondary-text); margin-bottom: 8px; font-weight: 400; }
+.fleet-kpi-value { font-size: 28px; font-weight: 600; }
+
+.fleet-control-bar { display: flex; align-items: center; gap: 12px; margin-top: 24px; margin-bottom: 24px; }
+.usage-toggle { background: #c8e6d1; border-radius: 20px; padding: 4px; display: flex; gap: 4px; flex-shrink: 0; }
+.toggle-btn { padding: 6px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+.toggle-btn.active { background: var(--accent-1); color: #fff; }
+.toggle-btn.inactive { background: transparent; color: var(--accent-1); }
+
+/* ── support hero layout ── */
+.support-hero-row { display: flex; gap: 12px; margin-top: 8px; }
+.support-chart-card { background: var(--color-bg-primary); border: 1px solid var(--border); border-radius: 14px; padding: 20px; flex: 0 0 310px; display: flex; align-items: center; gap: 16px; }
+.support-stat-tiles { display: flex; gap: 10px; flex: 1; }
+.support-stat-tile { background: var(--color-bg-primary); border: 1px solid var(--border); border-radius: 14px; padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 100px; }
+.stat-tile-label { font-size: 11px; color: #73716f; margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; }
+.stat-tile-value { font-size: 28px; font-weight: 700; color: var(--foreground); line-height: 1.1; }
+.stat-tile-sub { font-size: 10px; color: #73716f; margin-top: 4px; }
+.stat-tile-value.highlight { color: var(--accent-3); }
+
+.donut-legend { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--secondary-text); white-space: nowrap; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+.legend-val { margin-left: auto; font-weight: 700; color: var(--foreground); font-size: 14px; }
+
+/* ── Proactive Rate Chart Styles ── */
+.bar-row { display: grid; grid-template-columns: 80px 1fr 40px; align-items: center; gap: 10px; margin-bottom: 8px; }
+.bar-track { height: 100%; min-height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; height: 8px; }
+
+/* ── modal core ── */
+.modal-backdrop{ position:fixed; inset:0; background:rgba(45,42,39,0.5); z-index:10000; display:none; align-items:flex-start; justify-content:center; padding:48px 24px; overflow-y:auto; }
+.modal-backdrop.open{display:flex;}
+.modal-card{ background:#fffdf9; border: 1px solid var(--border); border-radius:20px; padding:32px 40px; width:auto; min-width:800px; max-width:95vw; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25); flex-shrink:0; position:relative; }
+.modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; width:100%; }
+.modal-title-group { display: flex; flex-direction: column; gap: 4px; }
+.modal-title{font-size:22px; font-weight:600; color:var(--foreground);}
+.modal-close{ background:var(--color-bg-secondary); border: 1px solid #e2e8f0; border-radius:10px; padding:8px 16px; font-size:14px; font-weight:600; color:var(--secondary-text); cursor:pointer; display:flex; align-items:center; gap:8px; }
+
+.support-year-select {
+  background: #fdfaf3; border: 1.5px solid #d1e5d9; border-radius: 8px;
+  padding: 4px 10px; font-size: 12px; color: var(--accent-1); font-weight: 600;
+  cursor: pointer; outline: none;
+}
+</style>
+</head>
+<body class="theme-everpure">
+
+<div id="viz-tooltip"></div>
+
+<div style="margin-bottom:28px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+  <div>
+    <h1 style="font-size:22px;font-weight:700;color:var(--foreground);">PNC Financial Services Group</h1>
+    <p style="font-size:13px;color:var(--secondary-text);margin-top:4px;">Executive Summary · Pure Storage fleet overview</p>
+  </div>
+  <div style="display:flex; align-items:center; gap:6px; background:var(--color-bg-primary); border-radius:8px; padding:6px 12px; font-size:12px;">
+    <div style="width:8px; height:8px; border-radius:50%; background:var(--accent-2);"></div>
+    <span style="color:var(--accent-1);font-weight:600;">99.9997% uptime</span>
+  </div>
+</div>
+
+<div class="tile-grid">
+  <div class="tile" onclick="openModal('uptime')">
+    <div class="tile-label">Uptime <span class="info-trigger" onclick="event.stopPropagation()">i<span class="info-content">Uptime takes into consideration only those issues where Everpure is at fault.</span></span></div>
+    <div class="tile-headline" style="color:var(--accent-1);">99.9997%</div>
+    <div class="tile-sub">array uptime</div>
+    <div class="tile-viz" id="mini-heatmap-container"></div>
+  </div>
+
+  <div class="tile" onclick="openModal('topology')">
+    <div class="tile-label">Deployments</div>
+    <div class="tile-headline" style="color:var(--accent-2);">117</div>
+    <div class="tile-sub">86 FlashArray | 23 FlashBlade | 8 EG1</div>
+    <div class="deployment-stack">
+      <div class="stack-segment" style="width: 73.5%; background: var(--accent-2);"></div>
+      <div class="stack-segment" style="width: 19.7%; background: var(--accent-1);"></div>
+      <div class="stack-segment" style="width: 6.8%; background: var(--accent-3);"></div>
+    </div>
+    <div class="tile-viz" id="mini-map-container"></div>
+  </div>
+
+  <div class="tile" onclick="openModal('fleet')">
+    <div class="tile-label">Fleet Utilization</div>
+    <div class="tile-headline" style="color:var(--accent-3);">30.6%</div>
+    <div class="tile-sub">avg utilization</div>
+    <div class="tile-viz fleet-bars-wrap" id="mini-fleet-container"></div>
+  </div>
+
+  <div class="tile" onclick="openModal('support')">
+    <div class="tile-label">Support Health</div>
+    <div class="tile-headline" style="color:var(--accent-1);">80.6%</div>
+    <div class="tile-sub">proactive cases</div>
+    <div class="tile-viz" style="display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 120 120" width="140" height="140">
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#d0c8ba" stroke-width="10"/>
+        <circle cx="60" cy="60" r="44" fill="none" stroke="var(--accent-1)" stroke-width="10" stroke-dasharray="222.9 276.5" transform="rotate(-90 60 60)"/>
+        <text x="60" y="62" text-anchor="middle" font-size="15" font-weight="700" fill="var(--accent-1)">80.6%</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tile" onclick="openModal('security')">
+    <div class="tile-label">Security Score</div>
+    <div class="tile-headline" style="color:var(--accent-3);">57%</div>
+    <div class="tile-sub">checks passing</div>
+    <div class="tile-viz" style="display:flex;align-items:center;justify-content:center;">
+      <svg viewBox="0 0 140 160" width="120" height="136">
+        <path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z" fill="none" stroke="var(--accent-3)" stroke-width="2.5"/>
+        <text x="70" y="82" text-anchor="middle" font-size="32" font-weight="800" fill="var(--accent-3)">2.6</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tile" onclick="openModal('ndu')">
+    <div class="tile-label">Non-Disruptive Upgrades</div>
+    <div class="tile-headline" style="color:var(--accent-2);">715</div>
+    <div class="tile-sub">total NDUs since 2019</div>
+    <div class="tile-viz ndu-wrap" id="mini-ndu-container"></div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-backdrop" id="modal-support" onclick="closeModal(event,'support')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title-group">
+              <div class="modal-title">Support Health</div>
+              <div class="modal-sub">2,019 cases · executive fleet summary</div>
+            </div>
+            <button class="modal-close" onclick="closeModalById('support')">✕ close</button>
+        </div>
+        
+        <div class="support-hero-row">
+          <div class="support-chart-card">
+            <div style="position:relative; width:80px; height:80px; flex-shrink:0;">
+              <svg viewBox="0 0 100 100" width="80" height="80">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="var(--border)" stroke-width="10"/>
+                <circle cx="50" cy="50" r="42" fill="none" stroke="var(--accent-1)" stroke-width="10" stroke-dasharray="212.7 263.9" transform="rotate(-90 50 50)"/>
+              </svg>
+              <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+                <div style="font-size:14px; font-weight:800; color:var(--accent-1); line-height:1;">80.6%</div>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--accent-1);"></div>Proactive <span class="legend-val">80.6%</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:#d4a38d;"></div>Reactive <span class="legend-val">19.4%</span></div>
+            </div>
+          </div>
+          <div class="support-stat-tiles" id="support-stat-tiles-container"></div>
+        </div>
+
+        <div class="fleet-control-bar" style="margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px;">
+            <div class="usage-toggle">
+                <button id="support-tab-volume" class="toggle-btn active" onclick="switchSupportTab('volume')">Case Volume</button>
+                <button id="support-tab-rate" class="toggle-btn inactive" onclick="switchSupportTab('rate')">Proactive Rate</button>
+            </div>
+        </div>
+
+        <div id="support-primary-views">
+          <div id="support-volume-view" style="margin-top: 20px;">
+              <div style="background:var(--color-bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px;">
+                  <p class="tile-label" style="margin-bottom: 0; font-size: 13px;">Monthly case volume — proactive vs reactive</p>
+                  <select class="support-year-select" onchange="drawCaseVolumeChart(this.value)">
+                    <option value="all">All Time</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026 YTD</option>
+                  </select>
+                </div>
+                <div style="position: relative; height: 200px; width: 100%;">
+                  <canvas id="monthlyChart" width="1000" height="400" style="width: 100%; height: 200px; display: block;"></canvas>
+                </div>
+              </div>
+          </div>
+          <div id="support-rate-view" style="display:none; margin-top: 20px;">
+              <div style="background:var(--color-bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px; min-height: 280px; display: flex; flex-direction: column;">
+                  <p class="tile-label" style="margin-bottom: 20px; font-size: 13px;">Proactive rate by year</p>
+                  <div style="display: flex; flex-direction: column; gap: 7px; flex: 1;" id="proactive-year-bars"></div>
+              </div>
+          </div>
+        </div>
+
+        <div class="fleet-control-bar" style="margin-top: 24px; border-top: 1px solid var(--border); padding-top: 24px;">
+            <div class="usage-toggle">
+                <button id="support-detail-severity" class="toggle-btn active" onclick="switchSupportDetailTab('severity')">Severity</button>
+                <button id="support-detail-resolution" class="toggle-btn inactive" onclick="switchSupportDetailTab('resolution')">Resolution Time</button>
+                <button id="support-detail-response" class="toggle-btn inactive" onclick="switchSupportDetailTab('response')">First Response</button>
+            </div>
+        </div>
+
+        <div id="support-detail-views">
+          <div id="support-severity-view" style="margin-top: 20px;">
+            <div style="background:var(--color-bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
+              <p class="tile-label" style="margin-bottom: 16px; font-size: 13px;">Severity distribution — all cases</p>
+              <div class="support-stat-tiles" style="margin-bottom: 24px;">
+                <div class="support-stat-tile"><div class="stat-tile-label">Sev-1</div><div class="stat-tile-value" style="color:#E24B4A;">40</div><div class="stat-tile-sub">2.0% · 100% proactive</div></div>
+                <div class="support-stat-tile"><div class="stat-tile-label">Sev-2</div><div class="stat-tile-value" style="color:#EF9F27;">585</div><div class="stat-tile-sub">29.0% · 90% proactive</div></div>
+                <div class="support-stat-tile"><div class="stat-tile-label">Sev-3</div><div class="stat-tile-value">995</div><div class="stat-tile-sub">49.3% · 94% proactive</div></div>
+                <div class="support-stat-tile"><div class="stat-tile-label">Sev-4</div><div class="stat-tile-value">399</div><div class="stat-tile-sub">19.8% · 32% proactive</div></div>
+              </div>
+              <div style="position: relative; height: 120px; width: 100%; display: flex; justify-content: center;">
+                <canvas id="sevChart" width="800" height="240" style="display: block; height: 120px; width: 400px;"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div id="support-resolution-view" style="display:none; margin-top: 20px;">
+            <div style="background:var(--color-bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
+              <p class="tile-label" style="margin-bottom: 16px; font-size: 13px;">Resolution time by severity</p>
+              <div class="support-stat-tiles" style="margin-bottom: 24px;">
+                <div class="support-stat-tile"><div class="stat-tile-label">Proactive avg</div><div class="stat-tile-value">11.6 days</div></div>
+                <div class="support-stat-tile"><div class="stat-tile-label">Reactive avg</div><div class="stat-tile-value" style="color:#bd673d;">17.0 days</div></div>
+              </div>
+              <div style="display: flex; gap: 14px; margin-bottom: 12px; font-size: 11px; color: var(--secondary-text); justify-content:center;">
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#888780;display:inline-block;"></span>&lt;3 days</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75;display:inline-block;"></span>3–7 days</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#378ADD;display:inline-block;"></span>1–4 weeks</span>
+                <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#E24B4A;display:inline-block;"></span>&gt;4 weeks</span>
+              </div>
+              <div style="position: relative; height: 180px; width: 100%; display: flex; justify-content: center;">
+                <canvas id="resolutionChart" width="800" height="360" style="display: block; height: 180px; width: 400px;"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div id="support-response-view" style="display:none; margin-top: 20px;">
+            <div style="background:var(--color-bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 24px;">
+              <p class="tile-label" style="margin-bottom: 16px; font-size: 13px;">First response time by severity</p>
+              <!-- Hero numbers at top for consistency -->
+              <div class="support-stat-tiles" style="margin-bottom: 24px;">
+                <div class="support-stat-tile"><div class="stat-tile-label">Median FRT</div><div class="stat-tile-value">28 mins</div></div>
+                <div class="support-stat-tile"><div class="stat-tile-label">Anomaly Count</div><div class="stat-tile-value" style="color:#A32D2D;">40</div><div class="stat-tile-sub">Batch-logged cases</div></div>
+              </div>
+              <div style="position: relative; height: 180px; width: 100%; display: flex; justify-content: center;">
+                <canvas id="frtChart" width="800" height="360" style="display: block; height: 180px; width: 400px;"></canvas>
+              </div>
+              <!-- Warning block with system theme -->
+              <div style="background:#fef2f2; border: 1px solid #fee2e2; border-radius: 8px; padding: 10px 14px; margin-top: 16px; display: flex; align-items: start; gap: 10px;">
+                <div style="width:16px; height:16px; background:#da4d72; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; margin-top:2px;">!</div>
+                <p style="font-size:11px; color:#da4d72; margin:0; line-height:1.4;">Sev-1 median FRT of 7,774 min (~5.4 days) is anomalous — all 40 Sev-1 cases were opened in 2022 and may reflect batch-logged proactive alerts rather than live incidents.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const SUPPORT_REALISTIC_DATA = [{p:29,r:3},{p:28,r:8},{p:12,r:6},{p:61,r:9},{p:26,r:3},{p:32,r:8},{p:37,r:5},{p:53,r:4},{p:42,r:4},{p:17,r:1},{p:35,r:2},{p:15,r:6},{p:12,r:7},{p:14,r:3},{p:28,r:18},{p:34,r:1},{p:23,r:16},{p:16,r:1},{p:8,r:2},{p:18,r:4},{p:14,r:9},{p:14,r:8},{p:20,r:8},{p:17,r:13},{p:24,r:46},{p:6,r:17},{p:17,r:9}];
+
+function openModal(id){
+    document.getElementById("modal-"+id).classList.add("open");
+    if(id === 'support') { drawCaseVolumeChart(); drawSevChart(); drawResolutionChart(); drawFRTChart(); buildProactiveYearBars(); buildSupport(); }
+}
+function closeModalById(id){ document.getElementById("modal-"+id).classList.remove("open"); }
+function closeModal(e,id){ if(e.target===document.getElementById("modal-"+id))closeModalById(id); }
+
+function switchSupportTab(tab) {
+    document.getElementById('support-tab-volume').className = (tab === 'volume' ? 'toggle-btn active' : 'toggle-btn inactive');
+    document.getElementById('support-tab-rate').className = (tab === 'rate' ? 'toggle-btn active' : 'toggle-btn inactive');
+    document.getElementById('support-volume-view').style.display = (tab === 'volume' ? 'block' : 'none');
+    document.getElementById('support-rate-view').style.display = (tab === 'rate' ? 'block' : 'none');
+}
+
+function switchSupportDetailTab(tab) {
+    ['severity', 'resolution', 'response'].forEach(t => {
+        document.getElementById('support-detail-'+t).className = (t === tab ? 'toggle-btn active' : 'toggle-btn inactive');
+        document.getElementById('support-'+t+'-view').style.display = (t === tab ? 'block' : 'none');
+    });
+    if(tab === 'severity') drawSevChart();
+    if(tab === 'resolution') drawResolutionChart();
+    if(tab === 'response') drawFRTChart();
+}
+
+function drawCaseVolumeChart(filter = 'all') {
+    const canvas = document.getElementById('monthlyChart'); if(!canvas) return;
+    const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    let data = [...SUPPORT_REALISTIC_DATA]; if(filter === '2024') data = data.slice(0, 12); else if(filter === '2025') data = data.slice(12, 24); else if(filter === '2026') data = data.slice(24);
+    const m = { top: 20, right: 30, bottom: 40, left: 40 }, cW = W - m.left - m.right, cH = H - m.top - m.bottom;
+    const bW = (cW / data.length) * 0.75, g = (cW / data.length) * 0.25;
+    ctx.strokeStyle = '#e7e3dc'; ctx.lineWidth = 1; ctx.font = '14px DM Sans'; ctx.fillStyle = '#73716f'; ctx.textAlign = 'right';
+    for(let i=0; i<=4; i++) { const val = i * 20; const y = H - m.bottom - (val * cH / 80); ctx.beginPath(); ctx.moveTo(m.left, y); ctx.lineTo(W - m.right, y); ctx.stroke(); ctx.fillText(val, m.left - 10, y + 5); }
+    data.forEach((d, i) => {
+        const x = m.left + i * (bW + g);
+        ctx.fillStyle = '#5a6359'; const pH = d.p * (cH / 80); ctx.fillRect(x, H - m.bottom - pH, bW, pH);
+        ctx.fillStyle = '#da4d72'; const rH = d.r * (cH / 80); ctx.fillRect(x, H - m.bottom - pH - rH, bW, rH);
+    });
+}
+
+function drawSevChart() {
+    const canvas = document.getElementById('sevChart'); if(!canvas) return;
+    const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    const data = [40, 585, 995, 399], colors = ['#E24B4A', '#EF9F27', '#378ADD', '#888780'], total = data.reduce((a,b)=>a+b, 0);
+    let start = -0.5 * Math.PI;
+    data.forEach((v, i) => {
+        const slice = (v / total) * 2 * Math.PI;
+        ctx.beginPath(); ctx.arc(W/2, H/2, H/2 - 10, start, start+slice); ctx.arc(W/2, H/2, (H/2 - 10)*0.6, start+slice, start, true);
+        ctx.fillStyle = colors[i]; ctx.fill(); start += slice;
+    });
+    ctx.fillStyle = '#2d2a27'; ctx.font = 'bold 20px DM Sans'; ctx.textAlign = 'center'; ctx.fillText('2,019', W/2, H/2 + 7);
+}
+
+function drawResolutionChart() {
+    const canvas = document.getElementById('resolutionChart'); if(!canvas) return;
+    const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    const data = [{label:'Sev-1', s:[80,15,5,0]},{label:'Sev-2', s:[60,30,8,2]},{label:'Sev-3', s:[40,45,12,3]},{label:'Sev-4', s:[75,20,5,0]}];
+    const colors = ['#888780', '#1D9E75', '#378ADD', '#E24B4A'];
+    data.forEach((r, i) => {
+        let cX = 60; const y = 20 + i*40, h = 25;
+        ctx.fillStyle = '#73716f'; ctx.font = 'bold 13px DM Sans'; ctx.textAlign = 'right'; ctx.fillText(r.label, 50, y + 17);
+        r.s.forEach((v, j) => { const w = (v/100) * (W-80); ctx.fillStyle = colors[j]; ctx.fillRect(cX, y, w, h); cX += w; });
+    });
+}
+
+function drawFRTChart() {
+    const canvas = document.getElementById('frtChart'); if(!canvas) return;
+    const ctx = canvas.getContext('2d'); const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    // Values: Sev-4=7, Sev-2=21, Sev-3=56, Sev-1=7774
+    const data = [{l:'Sev-4', v:7, c:'#888780'}, {l:'Sev-3', v:56, c:'#378ADD'}, {l:'Sev-2', v:21, c:'#EF9F27'}, {l:'Sev-1', v:7774, c:'#E24B4A'}];
+    const maxView = 100; // Cap normal scale at 100 to show others
+    data.forEach((r, i) => {
+        const y = 20 + i*40, h = 25, cX = 60;
+        ctx.fillStyle = '#73716f'; ctx.font = 'bold 13px DM Sans'; ctx.textAlign = 'right'; ctx.fillText(r.l, 50, y + 17);
+        let w = (Math.min(r.v, maxView) / maxView) * (W-150);
+        if(r.v > maxView) w = W-120; // Show anomaly as almost full width
+        ctx.fillStyle = r.c; ctx.fillRect(cX, y, w, h);
+        if(r.v > maxView) { // Draw break lines for anomaly
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
+            for(let offset=0; offset<3; offset++) { ctx.beginPath(); ctx.moveTo(cX + 150 + offset*5, y-2); ctx.lineTo(cX + 145 + offset*5, y+h+2); ctx.stroke(); }
+        }
+        ctx.fillStyle = '#73716f'; ctx.font = '12px DM Sans'; ctx.textAlign = 'left'; ctx.fillText(r.v + 'm', cX + w + 8, y + 17);
+    });
+}
+
+function buildProactiveYearBars(){
+  const data = [{y:'2021',v:63,c:'#8fa596'},{y:'2022',v:85,c:'#5a6359'},{y:'2023',v:87,c:'#5a6359'},{y:'2024',v:87,c:'#5a6359'},{y:'2025',v:71,c:'#bd673d'},{y:'2026',v:40,c:'#da4d72'}];
+  document.getElementById("proactive-year-bars").innerHTML = data.map(d => `<div class="bar-row"><span style="font-size:12px;color:#73716f;">${d.y}</span><div class="bar-track"><div style="width:${d.v}%;height:100%;background:${d.c};"></div></div><span style="font-size:11px;font-weight:700;color:#2d2a27;text-align:right;">${d.v}%</span></div>`).join('');
+}
+
+function buildSupport(){
+    const data = [{t:"Total", v:"2,019"},{t:"Proactive", v:"1,627"},{t:"Open", v:"10", highlight:true},{t:"Closed", v:"2,009"}];
+    document.getElementById("support-stat-tiles-container").innerHTML = data.map(s => `<div class="support-stat-tile"><div class="stat-tile-label">${s.t}</div><div class="stat-tile-value ${s.highlight ? 'highlight' : ''}">${s.v}</div></div>`).join('');
+}
+
+document.addEventListener("DOMContentLoaded",()=>{ buildSupport(); });
+</script>
+</body>
+</html>
