@@ -86,7 +86,7 @@ body{
 /* ── modal (full-screen) ── */
 .modal-backdrop{
   position:fixed;inset:0;
-  background:#fffdf9;
+  background:#fff5e3;
   z-index:10000;
   display:none;
   overflow-y:auto;
@@ -94,7 +94,7 @@ body{
 body.modal-open{overflow:hidden;}
 .modal-backdrop.open{display:block;}
 .modal-card{
-  background:#fffdf9;
+  background:#fff5e3;
   border:none;
   border-radius:0;
   padding:32px var(--grid-margin);
@@ -141,10 +141,10 @@ body.modal-open{overflow:hidden;}
 /* ── heatmap (detail / full-screen) ── */
 #full-heatmap .heatmap-row{margin-bottom:5px;gap:6px;}
 #full-heatmap .heatmap-month{width:36px;font-size:13px;font-weight:600;padding-right:6px;}
-#full-heatmap .heatmap-cells{gap:3px;flex-wrap:wrap;}
+/* grid layout guarantees equal-width columns → aspect-ratio gives perfect squares */
+#full-heatmap .heatmap-cells{display:grid;grid-template-columns:repeat(31,1fr);gap:3px;flex:1;}
 #full-heatmap .heatmap-cell{
-  width:calc((100% - 30 * 3px) / 31);  /* fluid, fills row */
-  min-width:18px;aspect-ratio:1/1;border-radius:4px;
+  width:100%;aspect-ratio:1/1;border-radius:4px;
 }
 #full-heatmap .heatmap-cell.outage:hover{transform:scale(1.25);}
 
@@ -202,9 +202,16 @@ body.modal-open{overflow:hidden;}
 .sec-meta-item{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#73716f;padding:6px 0;border-bottom:0.5px solid #e7e3dc;}
 .rec-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid #e7e3dc;}
 .rec-section-label{font-size:10px;font-weight:700;color:#73716f;letter-spacing:0.06em;text-transform:uppercase;margin:14px 0 6px;}
-.hex-badge{
-  border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+/* hex badge: two-layer so border colour shows on all 6 edges */
+.hex-frame{
+  width:28px;height:30.8px;flex-shrink:0;
   clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex;align-items:center;justify-content:center;
+}
+.hex-badge{
+  width:calc(100% - 3.5px);height:calc(100% - 3.5px);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  display:flex;align-items:center;justify-content:center;
 }
 
 /* fleet detail */
@@ -799,32 +806,32 @@ body.modal-open{overflow:hidden;}
         <div class="chart-panel-label">⊙ Compliance</div>
         <div class="rec-section-label">Basic</div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#eef5f0;border:1.5px solid #8fa596;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div>
+          <div class="hex-frame" style="background:#8fa596;"><div class="hex-badge" style="background:#eef5f0;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Data at Rest Encryption</div><div style="font-size:12px;color:#73716f;">All appliances are encrypted with DARE</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#eef5f0;border:1.5px solid #8fa596;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div>
+          <div class="hex-frame" style="background:#8fa596;"><div class="hex-badge" style="background:#eef5f0;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">End-of-Life Purity Version</div><div style="font-size:12px;color:#73716f;">No appliance is running an end-of-life Purity version</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div>
+          <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">CVEs Critical &amp; High</div><div style="font-size:12px;color:#da4d72;">Review 4 appliances for critical or high CVEs</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div>
+          <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Purity Optimizations</div><div style="font-size:12px;color:#da4d72;">4 appliances need Purity optimizations</div></div>
         </div>
         <div class="rec-section-label">Advanced</div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#f7f0e0;border:1.5px solid #bd673d;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">5</span></div>
+          <div class="hex-frame" style="background:#bd673d;"><div class="hex-badge" style="background:#f7f0e0;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">5</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Access Control – Remote</div><div style="font-size:12px;color:#bd673d;">5 appliances need remote access control review</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#f7f0e0;border:1.5px solid #bd673d;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">8</span></div>
+          <div class="hex-frame" style="background:#bd673d;"><div class="hex-badge" style="background:#f7f0e0;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">8</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">NTP Server – Configured &amp; Synchronized</div><div style="font-size:12px;color:#bd673d;">8 appliances need NTP configuration</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#efede8;border:1.5px solid #d0c8ba;"><span style="font-size:10.6px;font-weight:800;color:#73716f;">0</span></div>
+          <div class="hex-frame" style="background:#d0c8ba;"><div class="hex-badge" style="background:#efede8;"><span style="font-size:10.6px;font-weight:800;color:#73716f;">0</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Rapid Data Locking (RDL) Enabled</div><div style="font-size:12px;color:#73716f;">No appliances with RDL enabled</div></div>
         </div>
       </div>
@@ -833,19 +840,19 @@ body.modal-open{overflow:hidden;}
       <div class="chart-panel">
         <div class="chart-panel-label">⚙ Operational</div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">8</span></div>
+          <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">8</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Password Hygiene</div><div style="font-size:12px;color:#da4d72;">8 appliances have unsafe password configurations</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">1</span></div>
+          <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">1</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Public or Open Access to Buckets</div><div style="font-size:12px;color:#da4d72;">1 appliance has open or public access to buckets</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#eef5f0;border:1.5px solid #8fa596;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div>
+          <div class="hex-frame" style="background:#8fa596;"><div class="hex-badge" style="background:#eef5f0;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Remote Assist Activity 8+ hrs</div><div style="font-size:12px;color:#73716f;">No appliance with remote assist exceeding 8 hrs</div></div>
         </div>
         <div class="rec-row">
-          <div class="hex-badge" style="width:28px;height:30.8px;background:#fce8ee;border:1.5px solid #da4d72;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">6</span></div>
+          <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">6</span></div></div>
           <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Critical Alerts</div><div style="font-size:12px;color:#da4d72;">6 appliances have active critical alerts</div></div>
         </div>
       </div>
