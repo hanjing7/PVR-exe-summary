@@ -115,10 +115,12 @@ body.modal-open{overflow:hidden;}
   pointer-events:none;
 }
 
-/* ── modal card: card #3 — full-width slide, starts 16 px from top ── */
+/* ── modal card: card #3 — centred, max 1200px, depth visible at top + sides ── */
 .modal-card{
   position:fixed;
-  top:16px;left:0;right:0;bottom:0;
+  top:16px;bottom:0;
+  left:50%;transform:translateX(-50%);
+  width:100%;max-width:1200px;
   z-index:2;
   background:#fff5e3;
   border:none;
