@@ -1132,10 +1132,10 @@ body.modal-open{overflow:hidden;}
     <div>
 
       <!-- Fleet: Purity Version + Hardware Age side by side -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
 
         <!-- LEFT: Purity Version Mix -->
-        <div>
+        <div style="padding-right:40px;border-right:1.5px solid #e7e3dc;">
           <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
             <span style="font-size:13px;font-weight:700;color:#2d2a27;">Software outdated</span>
             <span class="tag tag-urg">2 critical</span>
@@ -1145,58 +1145,58 @@ body.modal-open{overflow:hidden;}
 
           <!-- 6.4.2 Latest row -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:155px;flex-shrink:0;display:flex;align-items:center;gap:6px;">
-              <span style="font-size:12px;font-weight:700;color:#5a6359;">Purity 6.4.2</span>
-              <span class="tag tag-ok" style="font-size:9px;padding:1px 6px;">Latest</span>
+            <div style="width:130px;flex-shrink:0;">
+              <div style="font-size:12px;font-weight:700;color:#5a6359;white-space:nowrap;">Purity 6.4.2</div>
+              <div style="margin-top:2px;"><span class="tag tag-ok" style="font-size:9px;padding:1px 6px;">Latest</span></div>
             </div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:53.5%;background:#5a6359;"></div></div>
-            <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
               <strong style="color:#2d2a27;">68</strong><span style="color:#73716f;"> · 53.5%</span>
             </div>
           </div>
 
           <!-- 6.4.0–6.4.1 row -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:155px;flex-shrink:0;">
-              <span style="font-size:12px;font-weight:600;color:#73716f;">Purity 6.4.0–6.4.1</span>
+            <div style="width:130px;flex-shrink:0;">
+              <div style="font-size:12px;font-weight:600;color:#73716f;white-space:nowrap;">Purity 6.4.0–6.4.1</div>
             </div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:28.3%;background:#8fa596;"></div></div>
-            <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
               <strong style="color:#2d2a27;">36</strong><span style="color:#73716f;"> · 28.3%</span>
             </div>
           </div>
 
           <!-- 6.3.x + ≤6.2.x grouped — Schedule action -->
-          <div style="border:1.5px solid rgba(218,77,114,0.2);border-radius:10px;padding:8px 12px;margin-top:10px;background:rgba(218,77,114,0.03);">
-            <div style="display:flex;align-items:center;gap:10px;padding:5px 0;">
-              <div style="width:155px;flex-shrink:0;display:flex;align-items:center;gap:5px;">
-                <span style="font-size:12px;font-weight:700;color:#bd673d;">⚠ Purity 6.3.x</span>
-                <span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span>
+          <div style="border:1.5px solid rgba(218,77,114,0.2);border-radius:10px;padding:10px 12px;margin-top:10px;background:rgba(218,77,114,0.03);">
+            <div style="display:flex;align-items:center;gap:10px;padding:4px 0 8px;">
+              <div style="width:130px;flex-shrink:0;">
+                <div style="font-size:12px;font-weight:700;color:#bd673d;white-space:nowrap;">⚠ Purity 6.3.x</div>
+                <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span></div>
               </div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
-              <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
                 <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
               </div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:5px 0;">
-              <div style="width:155px;flex-shrink:0;display:flex;align-items:center;gap:5px;">
-                <span style="font-size:12px;font-weight:700;color:#da4d72;">🚨 Purity ≤6.2.x</span>
-                <span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span>
+            <div style="display:flex;align-items:center;gap:10px;padding:4px 0 4px;">
+              <div style="width:130px;flex-shrink:0;">
+                <div style="font-size:12px;font-weight:700;color:#da4d72;white-space:nowrap;">🚨 Purity ≤6.2.x</div>
+                <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span></div>
               </div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
-              <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
                 <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
               </div>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:0.5px solid rgba(218,77,114,0.18);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(218,77,114,0.18);">
               <span style="font-size:11px;color:#73716f;">23 arrays need upgrade</span>
               <button style="font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">⟳ Schedule Upgrade →</button>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT: Hardware Age -->
-        <div>
+        <!-- RIGHT: Hardware Age — 2×2 card grid -->
+        <div style="padding-left:40px;">
           <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
             <span style="font-size:13px;font-weight:700;color:#2d2a27;">Hardware outdated</span>
             <span class="tag tag-urg">1 EoL risk</span>
@@ -1206,52 +1206,51 @@ body.modal-open{overflow:hidden;}
 
           <!-- 0–2 years — no action -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#5a6359;">0–2 years</span></div>
+            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#5a6359;">0–2 years</span></div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
-            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
               <strong style="color:#2d2a27;">34</strong><span style="color:#73716f;"> arrays</span>
             </div>
-            <div style="width:160px;flex-shrink:0;"></div>
+            <div style="width:150px;flex-shrink:0;"></div>
           </div>
 
-          <!-- 2–4 years — Controller Upgrade for Foundation eligible -->
+          <!-- 2–4 years — Controller Upgrade -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#8fa596;">2–4 years</span></div>
+            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#8fa596;">2–4 years</span></div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:45%;background:#8fa596;"></div></div>
-            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
               <strong style="color:#2d2a27;">58</strong><span style="color:#73716f;"> arrays</span>
               <div style="font-size:10px;color:#5a6359;font-weight:600;margin-top:1px;">14 Foundation eligible</div>
             </div>
-            <div style="width:160px;flex-shrink:0;text-align:right;">
+            <div style="width:150px;flex-shrink:0;text-align:right;">
               <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
             </div>
           </div>
 
-          <!-- 4–6 years — Upgrade to Forever for Foundation arrays -->
+          <!-- 4–6 years — Upgrade to Forever -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#bd673d;">4–6 years</span></div>
+            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#bd673d;">4–6 years</span></div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:19%;background:#bd673d;"></div></div>
-            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
               <strong style="color:#2d2a27;">27</strong><span style="color:#73716f;"> arrays</span>
               <div style="font-size:10px;color:#bd673d;font-weight:600;margin-top:1px;">9 on Foundation</div>
             </div>
-            <div style="width:160px;flex-shrink:0;text-align:right;">
+            <div style="width:150px;flex-shrink:0;text-align:right;">
               <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
             </div>
           </div>
 
           <!-- 6+ years — Consolidate -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
-            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#da4d72;">6+ years</span></div>
+            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#da4d72;">6+ years</span></div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:9%;background:#da4d72;"></div></div>
-            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
               <strong style="color:#da4d72;">8</strong><span style="color:#73716f;"> arrays</span>
             </div>
-            <div style="width:160px;flex-shrink:0;text-align:right;">
+            <div style="width:150px;flex-shrink:0;text-align:right;">
               <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
             </div>
           </div>
-
         </div><!-- end hardware age col -->
       </div><!-- end fleet grid -->
 
@@ -1535,6 +1534,138 @@ body.modal-open{overflow:hidden;}
       </div>
       <button class="modal-close" onclick="closeModalById('esg')">✕ close</button>
     </div>
+
+    <!-- ── LIFECYCLE CARBON FOOTPRINT ── -->
+    <div style="margin-bottom:6px;">
+
+      <!-- Equivalent CO₂ Savings callout -->
+      <div style="display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#eef7ea,#e3f2dc);border:1.5px solid #a8d5a0;border-radius:12px;padding:14px 20px;margin-bottom:18px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="44" height="44" style="flex-shrink:0;">
+          <circle cx="20" cy="20" r="20" fill="#c8e8c0"/>
+          <text x="20" y="27" text-anchor="middle" font-size="20" fill="#3d7a56">🌿</text>
+        </svg>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5a6359;margin-bottom:3px;">Equivalent CO₂ Savings — EPA Calculator Basis</div>
+          <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:30px;font-weight:800;color:#3d7a56;line-height:1.1;">3,290</span>
+            <span style="font-size:14px;font-weight:700;color:#3d7a56;">tCO₂e</span>
+            <span style="font-size:11px;color:#73716f;">avoided vs traditional enterprise storage · fleet lifetime cumulative</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section label -->
+      <div class="chart-panel-label" style="margin-bottom:12px;">Fleet Lifecycle Carbon Footprint — Upstream → Use Phase → Downstream</div>
+
+      <!-- 3-phase flow grid -->
+      <div style="display:grid;grid-template-columns:5fr 30px 4fr 30px 3fr;align-items:start;">
+
+        <!-- ① UPSTREAM -->
+        <div style="background:#fdf8f2;border:1px solid #ece3d4;border-radius:10px;padding:13px 15px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#bd673d;padding-bottom:9px;border-bottom:1px solid #ece3d4;margin-bottom:11px;">⬆ Upstream · Manufacturing &amp; Supply Chain</div>
+          <!-- Materials -->
+          <div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(189,103,61,.13);color:#bd673d;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">M</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">Materials</div><div style="font-size:10px;color:#73716f;">Raw material extraction &amp; processing</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">1,240</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Transportation -->
+          <div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(189,103,61,.13);color:#bd673d;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">T</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">Transportation</div><div style="font-size:10px;color:#73716f;">Factory to customer · inbound freight</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">186</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Assembly & Testing -->
+          <div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(189,103,61,.13);color:#bd673d;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">A</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">Assembly &amp; Testing</div><div style="font-size:10px;color:#73716f;">Manufacturing facility energy use</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">94</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Packaging -->
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(189,103,61,.13);color:#bd673d;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">P</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">Packaging</div><div style="font-size:10px;color:#73716f;">Packaging materials &amp; prep</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">23</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Subtotal -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:11px;padding-top:9px;border-top:1px solid #ece3d4;">
+            <span style="font-size:10px;color:#73716f;">Subtotal</span>
+            <span style="font-size:13px;font-weight:800;color:#bd673d;">1,543 tCO₂e</span>
+          </div>
+          <div style="height:4px;border-radius:2px;background:#bd673d;opacity:.4;margin-top:8px;width:47%;"></div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div style="display:flex;align-items:center;justify-content:center;padding-top:28px;color:#c5bdb3;font-size:20px;">→</div>
+
+        <!-- ② USE PHASE -->
+        <div style="background:#f5f3fa;border:1px solid #dcd8ea;border-radius:10px;padding:13px 15px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#7c729c;padding-bottom:9px;border-bottom:1px solid #dcd8ea;margin-bottom:11px;">⚡ Use Phase · Operations</div>
+          <!-- Direct Carbon -->
+          <div style="display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(124,114,156,.13);color:#7c729c;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">C</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">Direct Carbon Usage</div><div style="font-size:10px;color:#73716f;">Fleet electricity consumption · 7 yr</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">1,267</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Cooling -->
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(124,114,156,.13);color:#7c729c;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">K</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">Cooling</div><div style="font-size:10px;color:#73716f;">PUE 1.28 overhead · 7 yr</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">354</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Subtotal -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:11px;padding-top:9px;border-top:1px solid #dcd8ea;">
+            <span style="font-size:10px;color:#73716f;">Subtotal</span>
+            <span style="font-size:13px;font-weight:800;color:#7c729c;">1,621 tCO₂e</span>
+          </div>
+          <div style="height:4px;border-radius:2px;background:#7c729c;opacity:.4;margin-top:8px;width:49%;"></div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div style="display:flex;align-items:center;justify-content:center;padding-top:28px;color:#c5bdb3;font-size:20px;">→</div>
+
+        <!-- ③ DOWNSTREAM -->
+        <div style="background:#f4f7f4;border:1px solid #d4dfd3;border-radius:10px;padding:13px 15px;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5a6359;padding-bottom:9px;border-bottom:1px solid #d4dfd3;margin-bottom:11px;">↩ Downstream · End-of-life</div>
+          <!-- End-of-life -->
+          <div style="display:flex;align-items:flex-start;gap:9px;">
+            <div style="width:24px;height:24px;border-radius:5px;background:rgba(90,99,89,.13);color:#5a6359;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:700;">E</div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#2d2a27;line-height:1.2;">End-of-life Treatment</div><div style="font-size:10px;color:#73716f;">Decommission · recycling &amp; disposal</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">142</div><div style="font-size:9px;color:#73716f;">tCO₂e</div></div>
+          </div>
+          <!-- Subtotal -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:11px;padding-top:9px;border-top:1px solid #d4dfd3;">
+            <span style="font-size:10px;color:#73716f;">Subtotal</span>
+            <span style="font-size:13px;font-weight:800;color:#5a6359;">142 tCO₂e</span>
+          </div>
+          <div style="height:4px;border-radius:2px;background:#5a6359;opacity:.4;margin-top:8px;width:4%;"></div>
+        </div>
+
+      </div><!-- end 3-phase grid -->
+
+      <!-- Total Carbon Footprint summary -->
+      <div style="display:flex;align-items:center;gap:18px;background:#f7f3ee;border:1px solid #d5ccbd;border-radius:10px;padding:13px 18px;margin-top:14px;">
+        <div style="flex-shrink:0;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#73716f;">Total Carbon Footprint · Fleet Lifetime (7 yr)</div>
+          <div style="font-size:22px;font-weight:800;color:#2d2a27;margin-top:3px;">3,306 <span style="font-size:13px;font-weight:600;color:#73716f;">tCO₂e</span></div>
+        </div>
+        <div style="flex:1;min-width:0;border-left:1px solid #d5ccbd;padding-left:18px;">
+          <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-bottom:7px;">
+            <div style="width:47%;background:#bd673d;" title="Upstream 47%"></div>
+            <div style="width:49%;background:#7c729c;" title="Use Phase 49%"></div>
+            <div style="width:4%;background:#5a6359;" title="Downstream 4%"></div>
+          </div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <span style="font-size:9px;color:#bd673d;font-weight:600;">■ Upstream 47%</span>
+            <span style="font-size:9px;color:#7c729c;font-weight:600;">■ Use Phase 49%</span>
+            <span style="font-size:9px;color:#5a6359;font-weight:600;">■ Downstream 4%</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end lifecycle section -->
+
+    <hr class="support-divider" style="margin:20px 0 16px;">
 
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
