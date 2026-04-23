@@ -96,39 +96,34 @@ body{
 body.modal-open{overflow:hidden;}
 .modal-backdrop.open{display:block;}
 
-/* ── card stack: ghost layer 2 (deepest, card #2 in hierarchy) ── */
+/* ── card stack: ghost layer 2 — full width, depth visible only at top ── */
 .modal-backdrop.open::before{
   content:'';
   position:fixed;
-  top:0;left:14px;right:14px;bottom:0;
-  border-radius:22px;
+  top:0;left:0;right:0;bottom:0;
   background:#ddd8cf;
-  box-shadow:0 8px 32px rgba(18,14,11,.14);
   z-index:0;
   pointer-events:none;
 }
-/* ── card stack: ghost layer 1 (middle, card #2 closer) ── */
+/* ── card stack: ghost layer 1 — full width, 8 px below layer 2 ── */
 .modal-backdrop.open::after{
   content:'';
   position:fixed;
-  top:8px;left:7px;right:7px;bottom:0;
-  border-radius:18px;
+  top:8px;left:0;right:0;bottom:0;
   background:#ece7de;
-  box-shadow:0 4px 20px rgba(18,14,11,.09);
   z-index:1;
   pointer-events:none;
 }
 
-/* ── modal card: card #3 — the topmost card ── */
+/* ── modal card: card #3 — full-width slide, starts 16 px from top ── */
 .modal-card{
   position:fixed;
   top:16px;left:0;right:0;bottom:0;
   z-index:2;
   background:#fff5e3;
   border:none;
-  border-radius:14px 14px 0 0;
+  border-radius:0;
   overflow-y:auto;
-  box-shadow:0 -4px 28px rgba(18,14,11,.10);
   padding:32px var(--grid-margin);
   box-sizing:border-box;
 }
