@@ -487,6 +487,17 @@ body.modal-open{overflow:hidden;}
 .tt-lbl{color:#73716f;font-weight:500;}
 .tt-val{font-weight:700;color:#2d2a27;}
 
+/* ── modal pagination ── */
+.modal-card.has-pages{overflow:hidden;padding:0;display:flex;flex-direction:column;}
+.modal-card.has-pages .modal-header{padding:20px 24px 16px;flex-shrink:0;margin-bottom:0;}
+.modal-pager{flex:1;min-height:0;overflow:hidden;position:relative;}
+.modal-pages{display:flex;flex-direction:column;height:100%;transition:transform .4s cubic-bezier(0.32,0.72,0,1);}
+.modal-page{flex-shrink:0;height:100%;overflow-y:auto;padding:16px 36px 32px 24px;box-sizing:border-box;}
+.mpage-nav{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:10;}
+.mpage-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;cursor:pointer;transition:background .2s,height .2s,border-radius .2s;flex-shrink:0;}
+.mpage-dot.active{background:#2d2a27;height:16px;border-radius:4px;}
+.mpage-dot:hover:not(.active){background:#aea9a0;}
+
 /* ── deck / microsite layout ── */
 #deck-container{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;}
 .deck-slide{height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px var(--grid-margin);box-sizing:border-box;}
@@ -688,7 +699,7 @@ body.modal-open{overflow:hidden;}
 
 <!-- MODAL: TOPOLOGY -->
 <div class="modal-backdrop" id="modal-topology" onclick="closeModal(event,'topology')">
-  <div class="modal-card" onclick="event.stopPropagation()">
+  <div class="modal-card has-pages" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
         <div class="modal-title">Deployments</div>
@@ -696,6 +707,7 @@ body.modal-open{overflow:hidden;}
       </div>
       <button class="modal-close" onclick="closeModalById('topology')">✕ close</button>
     </div>
+    <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
     <!-- site map -->
     <div style="position:relative;background:#f0ece5;border-radius:10px;overflow:hidden;border:1px solid #e7e3dc;margin-bottom:16px;">
       <svg id="detail-map-svg" viewBox="0 0 520 280" width="100%" style="display:block;">
@@ -705,8 +717,10 @@ body.modal-open{overflow:hidden;}
     </div>
     <!-- location cards (per-site breakdown) -->
     <div class="location-grid" id="location-cards-container"><!-- built by JS --></div>
+    </div><!-- /page 1 -->
+    <div class="modal-page">
     <!-- hex topology -->
-    <div style="margin-top:24px;border-top:1px solid #e7e3dc;padding-top:20px;">
+    <div style="padding-top:4px;">
       <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
         <span style="font-size:11px;color:#73716f;">Filter:</span>
         <button class="filter-btn active" onclick="topoFilter('all',this)">all</button>
@@ -720,6 +734,13 @@ body.modal-open{overflow:hidden;}
       <div class="topo-sites" id="topo-hex-container"><!-- built by JS --></div>
       <div id="topo-tooltip" style="display:none;margin-top:12px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:12px 14px;font-size:12px;color:#2d2a27;max-width:270px;box-shadow:0 4px 16px rgba(45,42,39,0.1);"></div>
     </div>
+    </div><!-- /page 2 -->
+    </div><!-- /modal-pages -->
+    <div class="mpage-nav">
+      <div class="mpage-dot active"></div>
+      <div class="mpage-dot"></div>
+    </div>
+    </div><!-- /modal-pager -->
   </div>
 </div>
 
@@ -784,7 +805,7 @@ body.modal-open{overflow:hidden;}
 
 <!-- MODAL: SUPPORT -->
 <div class="modal-backdrop" id="modal-support" onclick="closeModal(event,'support')">
-  <div class="modal-card" onclick="event.stopPropagation()">
+  <div class="modal-card has-pages" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
         <div class="modal-title">Support Health</div>
@@ -792,6 +813,7 @@ body.modal-open{overflow:hidden;}
       </div>
       <button class="modal-close" onclick="closeModalById('support')">✕ close</button>
     </div>
+    <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
     <!-- hero row: donut + stat tiles -->
     <div class="support-hero-row">
       <div class="support-chart-card">
@@ -843,9 +865,10 @@ body.modal-open{overflow:hidden;}
       </div>
     </div>
 
+    </div><!-- /page 1 -->
+    <div class="modal-page">
     <!-- secondary toggle: Severity / Resolution / First Response -->
-    <hr class="support-divider">
-    <div class="fleet-control-bar" style="margin-top:16px;margin-bottom:0;">
+    <div class="fleet-control-bar" style="margin-top:4px;margin-bottom:0;">
       <div class="usage-toggle">
         <button id="support-detail-severity" class="toggle-btn active" onclick="switchSupportDetailTab('severity')">Severity</button>
         <button id="support-detail-resolution" class="toggle-btn inactive" onclick="switchSupportDetailTab('resolution')">Resolution Time</button>
@@ -906,6 +929,13 @@ body.modal-open{overflow:hidden;}
         </div>
       </div>
     </div>
+    </div><!-- /page 2 -->
+    </div><!-- /modal-pages -->
+    <div class="mpage-nav">
+      <div class="mpage-dot active"></div>
+      <div class="mpage-dot"></div>
+    </div>
+    </div><!-- /modal-pager -->
   </div>
 </div>
 
@@ -1046,7 +1076,7 @@ body.modal-open{overflow:hidden;}
 
 <!-- MODAL: NDU -->
 <div class="modal-backdrop" id="modal-ndu" onclick="closeModal(event,'ndu')">
-  <div class="modal-card" onclick="event.stopPropagation()">
+  <div class="modal-card has-pages" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
         <div class="modal-title">Non-Disruptive Upgrades</div>
@@ -1054,6 +1084,7 @@ body.modal-open{overflow:hidden;}
       </div>
       <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     </div>
+    <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
 
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
@@ -1167,7 +1198,8 @@ body.modal-open{overflow:hidden;}
       </div>
     </div><!-- end chart+reco row -->
 
-    <hr class="support-divider">
+    </div><!-- /page 1 -->
+    <div class="modal-page">
 
     <!-- ── FLEET COMPOSITION ── -->
     <div>
@@ -1465,7 +1497,8 @@ body.modal-open{overflow:hidden;}
 
     </div><!-- end fleet composition -->
 
-    <hr class="support-divider">
+    </div><!-- /page 2 -->
+    <div class="modal-page">
 
     <!-- ── BUSINESS VALUE SUMMARY ── -->
     <div class="chart-panel-label" style="margin-top:4px;">Business Value Summary</div>
@@ -1483,7 +1516,14 @@ body.modal-open{overflow:hidden;}
         <div class="ndu-value-desc">Shelf additions happen while in production. 95 hardware events — zero migrations, zero workload disruption.</div>
       </div>
     </div>
-
+    </div><!-- /page 3 -->
+    </div><!-- /modal-pages -->
+    <div class="mpage-nav">
+      <div class="mpage-dot active"></div>
+      <div class="mpage-dot"></div>
+      <div class="mpage-dot"></div>
+    </div>
+    </div><!-- /modal-pager -->
   </div>
 </div>
 
@@ -1564,7 +1604,7 @@ body.modal-open{overflow:hidden;}
 
 <!-- MODAL: ESG IMPACT -->
 <div class="modal-backdrop" id="modal-esg" onclick="closeModal(event,'esg')">
-  <div class="modal-card" onclick="event.stopPropagation()">
+  <div class="modal-card has-pages" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
         <div class="modal-title">ESG Impact</div>
@@ -1572,6 +1612,7 @@ body.modal-open{overflow:hidden;}
       </div>
       <button class="modal-close" onclick="closeModalById('esg')">✕ close</button>
     </div>
+    <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
 
     <!-- ── LIFECYCLE CARBON FOOTPRINT ── -->
     <div style="margin-bottom:6px;">
@@ -1687,7 +1728,8 @@ body.modal-open{overflow:hidden;}
 
     </div><!-- end lifecycle section -->
 
-    <hr class="support-divider" style="margin:20px 0 16px;">
+    </div><!-- /page 1 -->
+    <div class="modal-page">
 
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
@@ -1745,7 +1787,8 @@ body.modal-open{overflow:hidden;}
 
     </div>
 
-    <hr class="support-divider" style="margin-top:24px;">
+    </div><!-- /page 2 -->
+    <div class="modal-page">
 
     <!-- ── EFFICIENCY COMPARISON ── -->
     <div class="chart-panel-label" style="margin-top:4px;">Efficiency vs Industry Baseline</div>
@@ -1857,7 +1900,14 @@ body.modal-open{overflow:hidden;}
         <a href="#" onclick="return false;" style="font-size:11px;font-weight:700;color:#3d7a56;text-decoration:none;text-align:center;line-height:1.4;border-bottom:1.5px solid rgba(61,122,86,0.4);padding-bottom:1px;">Pure Impact<br>Report →</a>
       </div>
     </div>
-
+    </div><!-- /page 3 -->
+    </div><!-- /modal-pages -->
+    <div class="mpage-nav">
+      <div class="mpage-dot active"></div>
+      <div class="mpage-dot"></div>
+      <div class="mpage-dot"></div>
+    </div>
+    </div><!-- /modal-pager -->
   </div>
 </div>
 
@@ -2021,7 +2071,47 @@ function utilColor(u){if(u>=80)return"#da4d72";if(u>=60)return"#bd673d";return"#
 function fmtM(m){if(m<60)return Math.round(m)+"m";const h=Math.floor(m/60),r=Math.round(m%60);return r?`${h}h ${r}m`:`${h}h`;}
 function svgEl(tag,attrs){const e=document.createElementNS("http://www.w3.org/2000/svg",tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
 
+// ─── MODAL PAGER ─────────────────────────────────────────────────────────────
+function initModalPager(id){
+  const card = document.querySelector("#modal-"+id+" .modal-card.has-pages");
+  if(!card) return;
+  const pages  = card.querySelector(".modal-pages");
+  const dots   = Array.from(card.querySelectorAll(".mpage-dot"));
+  const pager  = card.querySelector(".modal-pager");
+  const total  = dots.length;
+  let current  = 0;
+
+  // size each page to the pager's visible height
+  function sizepages(){
+    const h = pager.clientHeight;
+    card.querySelectorAll(".modal-page").forEach(p=>p.style.height=h+"px");
+  }
+  sizepages();
+
+  function goTo(n){
+    n = Math.max(0, Math.min(total-1, n));
+    current = n;
+    pages.style.transform = "translateY(-"+(n*100)+"%)" ;
+    dots.forEach((d,i)=>d.classList.toggle("active", i===n));
+  }
+
+  dots.forEach((d,i)=>d.addEventListener("click",()=>goTo(i)));
+
+  // keyboard: prevent deck keyboard handler from firing inside a paged modal
+  card._pagerKeydown = function(e){
+    if(e.key==="ArrowDown"||e.key==="PageDown"){e.stopPropagation();goTo(current+1);}
+    if(e.key==="ArrowUp"  ||e.key==="PageUp")  {e.stopPropagation();goTo(current-1);}
+  };
+  document.addEventListener("keydown", card._pagerKeydown, true);
+
+  // reset to page 0 on next open (store cleanup fn)
+  card._pagerReset = function(){ goTo(0); sizepages(); };
+}
+
 // ─── MODAL ───────────────────────────────────────────────────────────────────
+// track which modals have been pager-initialised already
+const _pagerInited = new Set();
+
 function openModal(id){
   document.getElementById("modal-"+id).classList.add("open");
   document.body.classList.add("modal-open");
@@ -2033,8 +2123,21 @@ function openModal(id){
   }
   if(id==="dp") buildDPPlot();
   if(id==="esg"){ buildESGGrove(); drawESGCO2Chart(); }
+
+  // initialise pager on first open; reset on subsequent opens
+  const card = document.querySelector("#modal-"+id+" .modal-card.has-pages");
+  if(card){
+    if(!_pagerInited.has(id)){ initModalPager(id); _pagerInited.add(id); }
+    else if(card._pagerReset){ card._pagerReset(); }
+  }
 }
-function closeModalById(id){document.getElementById("modal-"+id).classList.remove("open");document.body.classList.remove("modal-open");}
+function closeModalById(id){
+  document.getElementById("modal-"+id).classList.remove("open");
+  document.body.classList.remove("modal-open");
+  // remove pager keydown listener so it doesn't linger when modal is closed
+  const card = document.querySelector("#modal-"+id+" .modal-card.has-pages");
+  if(card && card._pagerKeydown){ document.removeEventListener("keydown", card._pagerKeydown, true); card._pagerKeydown=null; _pagerInited.delete(id); }
+}
 function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
 
 // ─── ESG DATA ────────────────────────────────────────────────────────────────
