@@ -1332,32 +1332,36 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
             </div>
           </div>
 
-          <!-- 6.3.x + ≤6.2.x grouped — Schedule action -->
-          <div style="border:1.5px solid rgba(218,77,114,0.2);border-radius:10px;padding:10px 12px;margin-top:10px;background:rgba(218,77,114,0.03);">
-            <div style="display:flex;align-items:center;gap:10px;padding:4px 0 8px;">
-              <div style="width:130px;flex-shrink:0;">
-                <div style="font-size:12px;font-weight:700;color:#bd673d;white-space:nowrap;">⚠ Purity 6.3.x</div>
-                <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span></div>
-              </div>
-              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
-              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-                <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
-              </div>
+          <!-- 6.3.x row -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:130px;flex-shrink:0;">
+              <div style="font-size:12px;font-weight:700;color:#bd673d;white-space:nowrap;">⚠ Purity 6.3.x</div>
+              <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span></div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;padding:4px 0 4px;">
-              <div style="width:130px;flex-shrink:0;">
-                <div style="font-size:12px;font-weight:700;color:#da4d72;white-space:nowrap;">🚨 Purity ≤6.2.x</div>
-                <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span></div>
-              </div>
-              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
-              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-                <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
-              </div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
+            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
             </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(218,77,114,0.18);">
-              <span style="font-size:11px;color:#73716f;">23 arrays need upgrade</span>
-              <button style="font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">⟳ Schedule Upgrade →</button>
+          </div>
+
+          <!-- ≤6.2.x row -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:130px;flex-shrink:0;">
+              <div style="font-size:12px;font-weight:700;color:#da4d72;white-space:nowrap;">🚨 Purity ≤6.2.x</div>
+              <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span></div>
             </div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
+            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
+            </div>
+          </div>
+
+          <!-- section-level action button -->
+          <div style="margin-top:14px;display:flex;justify-content:flex-end;">
+            <button style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">
+              ⟳ Schedule Upgrade
+              <span style="display:inline-flex;align-items:center;justify-content:center;background:#da4d72;color:#fff5e3;font-size:9px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;">23</span>
+            </button>
           </div>
         </div>
 
