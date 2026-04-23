@@ -805,6 +805,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
     <div class="modal-page">
     <!-- hex topology -->
     <div style="padding-top:4px;">
+    <div class="pres-inner">
       <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
         <span style="font-size:11px;color:#73716f;">Filter:</span>
         <button class="filter-btn active" onclick="topoFilter('all',this)">all</button>
@@ -818,6 +819,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
       <div class="topo-sites" id="topo-hex-container"><!-- built by JS --></div>
       <div id="topo-tooltip" style="display:none;margin-top:12px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:12px 14px;font-size:12px;color:#2d2a27;max-width:270px;box-shadow:0 4px 16px rgba(45,42,39,0.1);"></div>
     </div>
+        </div><!-- /pres-inner -->
     </div><!-- /page 2 -->
     </div><!-- /modal-pages -->
     <div class="mpage-nav">
@@ -903,6 +905,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
     </div>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
     <!-- hero row: donut + stat tiles -->
+    <div class="pres-inner">
     <div class="support-hero-row">
       <div class="support-chart-card">
         <div style="position:relative;width:80px;height:80px;flex-shrink:0;">
@@ -953,9 +956,11 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
       </div>
     </div>
 
+        </div><!-- /pres-inner -->
     </div><!-- /page 1 -->
     <div class="modal-page">
     <!-- secondary toggle: Severity / Resolution / First Response -->
+    <div class="pres-inner">
     <div class="fleet-control-bar" style="margin-top:4px;margin-bottom:0;">
       <div class="usage-toggle">
         <button id="support-detail-severity" class="toggle-btn active" onclick="switchSupportDetailTab('severity')">Severity</button>
@@ -1017,6 +1022,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
         </div>
       </div>
     </div>
+    </div><!-- /pres-inner -->
     </div><!-- /page 2 -->
     </div><!-- /modal-pages -->
     <div class="mpage-nav">
@@ -1168,6 +1174,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
     </div>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
 
+    <div class="pres-inner">
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
       <!-- Combined NDU achievement card with Sw/Hw legend -->
@@ -1287,9 +1294,11 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
       </div>
     </div><!-- end chart+reco row -->
 
+        </div><!-- /pres-inner -->
     </div><!-- /page 1 -->
     <div class="modal-page">
 
+    <div class="pres-inner">
     <!-- ── FLEET COMPOSITION ── -->
     <div>
 
@@ -1586,8 +1595,10 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
 
     </div><!-- end fleet composition -->
 
+        </div><!-- /pres-inner -->
     </div><!-- /page 2 -->
     <div class="modal-page">
+    <div class="pres-inner">
 
     <!-- ── BUSINESS VALUE SUMMARY ── -->
     <div class="chart-panel-label" style="margin-top:4px;">Business Value Summary</div>
@@ -1605,6 +1616,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
         <div class="ndu-value-desc">Shelf additions happen while in production. 95 hardware events — zero migrations, zero workload disruption.</div>
       </div>
     </div>
+        </div><!-- /pres-inner -->
     </div><!-- /page 3 -->
     </div><!-- /modal-pages -->
     <div class="mpage-nav">
@@ -1778,7 +1790,8 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
       </div>
       <button class="modal-close" onclick="closeModalById('dp')">✕ close</button>
     </div>
-    <div class="pres-body">
+    <div class="pres-body vflex">
+    <div class="pres-inner">
 
     <!-- hero: composite score + 5 metric stat tiles -->
     <div class="support-hero-row" style="align-items:stretch;">
@@ -1840,6 +1853,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
         </div>
       </div>
     </div>
+    </div><!-- /pres-inner -->
     </div><!-- /pres-body -->
   </div>
 </div>
@@ -1856,6 +1870,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
     </div>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
 
+    <div class="pres-inner">
     <!-- ── LIFECYCLE CARBON FOOTPRINT ── -->
     <div style="margin-bottom:6px;">
 
@@ -1970,8 +1985,10 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
 
     </div><!-- end lifecycle section -->
 
+        </div><!-- /pres-inner -->
     </div><!-- /page 1 -->
     <div class="modal-page">
+    <div class="pres-inner">
 
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
@@ -2029,8 +2046,10 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
 
     </div>
 
+        </div><!-- /pres-inner -->
     </div><!-- /page 2 -->
     <div class="modal-page">
+    <div class="pres-inner">
 
     <!-- ── EFFICIENCY COMPARISON ── -->
     <div class="chart-panel-label" style="margin-top:4px;">Efficiency vs Industry Baseline</div>
@@ -2216,6 +2235,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
 
       </div>
     </div><!-- /asset library -->
+    </div><!-- /pres-inner -->
 
     </div><!-- /page 3 -->
     </div><!-- /modal-pages -->
