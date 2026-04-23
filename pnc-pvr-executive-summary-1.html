@@ -2635,6 +2635,22 @@ function initModalPager(id){
   };
   document.addEventListener("keydown", card._pagerKeydown, true);
 
+  // wheel/trackpad: same snap feel as the dashboard deck.
+  // Cooldown matches the .modal-pages CSS transition (0.4 s) so one
+  // gesture = exactly one page advance — no runaway multi-page jumps.
+  let _wheelLocked = false;
+  card._pagerWheel = function(e){
+    e.preventDefault();      // stop the deck from scrolling behind
+    e.stopPropagation();
+    if(_wheelLocked) return;
+    _wheelLocked = true;
+    if(e.deltaY > 0) goTo(current + 1);
+    else if(e.deltaY < 0) goTo(current - 1);
+    setTimeout(function(){ _wheelLocked = false; }, 650); // 650ms ≥ transition
+  };
+  // capture:true intercepts before deck; passive:false allows preventDefault
+  document.addEventListener("wheel", card._pagerWheel, {passive:false, capture:true});
+
   // reset to page 0 on re-open; re-size after layout is ready
   card._pagerReset = function(){ goTo(0); requestAnimationFrame(sizepages); };
 
@@ -2668,9 +2684,13 @@ function openModal(id){
 function closeModalById(id){
   document.getElementById("modal-"+id).classList.remove("open");
   document.body.classList.remove("modal-open");
-  // remove pager keydown listener so it doesn't linger when modal is closed
+  // remove pager listeners so they don't linger when modal is closed
   const card = document.querySelector("#modal-"+id+" .modal-card.has-pages");
-  if(card && card._pagerKeydown){ document.removeEventListener("keydown", card._pagerKeydown, true); card._pagerKeydown=null; _pagerInited.delete(id); }
+  if(card){
+    if(card._pagerKeydown){ document.removeEventListener("keydown", card._pagerKeydown, true); card._pagerKeydown=null; }
+    if(card._pagerWheel)  { document.removeEventListener("wheel",   card._pagerWheel,   {capture:true}); card._pagerWheel=null; }
+    _pagerInited.delete(id);
+  }
 }
 function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
 
