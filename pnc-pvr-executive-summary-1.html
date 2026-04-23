@@ -102,6 +102,7 @@ body.modal-open{overflow:hidden;}
   min-height:100vh;
   max-width:var(--grid-max-width);
   margin:0 auto;
+  position:relative;
 }
 .modal-header{
   display:flex;justify-content:space-between;align-items:flex-start;
@@ -241,6 +242,49 @@ body.modal-open{overflow:hidden;}
 .ndu-reco-cta.cx-cta:hover{opacity:0.82;}
 .ndu-reco-cta.self-cta{background:#bd673d;color:#fff8ec;}
 .ndu-reco-cta.self-cta:hover{opacity:0.82;}
+/* NDU learn-more secondary button */
+.ndu-btn-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.ndu-learn-btn{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:7px 16px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s,border-color .15s,color .15s;letter-spacing:.01em;background:transparent;}
+.ndu-learn-btn.cx-learn{border:1.5px solid rgba(143,165,150,0.45);color:rgba(255,245,220,0.65);}
+.ndu-learn-btn.cx-learn:hover{border-color:#8fa596;color:#8fa596;}
+.ndu-learn-btn.self-learn{border:1.5px solid rgba(189,103,61,0.45);color:rgba(255,245,220,0.65);}
+.ndu-learn-btn.self-learn:hover{border-color:#d07a4e;color:#d07a4e;}
+
+/* NDU learn-more full-card sub-overlay */
+.ndu-sub-overlay{position:absolute;inset:0;z-index:200;overflow-y:auto;padding:32px var(--grid-margin) 40px;box-sizing:border-box;opacity:0;pointer-events:none;transition:opacity .25s ease;}
+.ndu-sub-overlay.open{opacity:1;pointer-events:all;}
+.ndu-sub-overlay.cx-ov{background:linear-gradient(160deg,#111d16 0%,#1a2820 60%,#243329 100%);}
+.ndu-sub-overlay.self-ov{background:linear-gradient(160deg,#1e0e04 0%,#2a1608 60%,#3d2010 100%);}
+.ndu-sub-close{position:fixed;top:20px;right:24px;z-index:10002;background:rgba(0,0,0,0.35);border:1.5px solid rgba(255,245,220,0.2);border-radius:8px;padding:6px 16px;font-size:13px;color:rgba(255,245,220,0.65);cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;}
+.ndu-sub-close:hover{color:#fff8ec;border-color:rgba(255,245,220,0.6);}
+.ndu-sub-section{margin-bottom:28px;}
+.ndu-sub-h{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px;}
+.ndu-sub-overlay.cx-ov .ndu-sub-h{color:#8fa596;}
+.ndu-sub-overlay.self-ov .ndu-sub-h{color:#d07a4e;}
+.ndu-sub-body{font-size:13px;color:rgba(255,245,220,0.72);line-height:1.7;}
+.ndu-sub-step-row{display:flex;gap:0;margin-top:8px;}
+.ndu-sub-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;}
+.ndu-sub-step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:16px;font-size:14px;color:rgba(255,245,220,0.25);}
+.ndu-sub-step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;margin-bottom:8px;}
+.cx-ov .ndu-sub-step-num{background:rgba(143,165,150,0.18);color:#8fa596;border:1.5px solid rgba(143,165,150,0.35);}
+.self-ov .ndu-sub-step-num{background:rgba(189,103,61,0.18);color:#d07a4e;border:1.5px solid rgba(189,103,61,0.35);}
+.ndu-sub-step-lbl{font-size:11px;font-weight:700;color:#fff8ec;margin-bottom:4px;}
+.ndu-sub-step-desc{font-size:10px;color:rgba(255,245,220,0.5);line-height:1.5;padding:0 6px;}
+.ndu-sub-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;}
+.ndu-sub-table th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:6px 10px;color:rgba(255,245,220,0.45);border-bottom:1px solid rgba(255,245,220,0.08);}
+.ndu-sub-table td{padding:7px 10px;color:rgba(255,245,220,0.75);border-bottom:1px solid rgba(255,245,220,0.05);}
+.ndu-sub-table tr:last-child td{border-bottom:none;}
+.ndu-sub-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;}
+.ndu-sub-tag.risk-hi{background:rgba(218,77,114,0.2);color:#da4d72;}
+.ndu-sub-tag.risk-md{background:rgba(189,103,61,0.25);color:#d07a4e;}
+.ndu-sub-tag.risk-lo{background:rgba(143,165,150,0.2);color:#8fa596;}
+.ndu-sub-kpis{display:flex;gap:12px;margin-top:8px;}
+.ndu-sub-kpi{flex:1;background:rgba(0,0,0,0.28);border-radius:10px;padding:12px 14px;text-align:center;}
+.ndu-sub-kpi-val{font-size:22px;font-weight:800;line-height:1;}
+.ndu-sub-kpi-lbl{font-size:9px;color:rgba(255,245,220,0.45);margin-top:4px;}
+.cx-ov .ndu-sub-kpi-val{color:#8fa596;}
+.self-ov .ndu-sub-kpi-val{color:#d07a4e;}
+
 /* business value cards */
 .ndu-value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
 .ndu-value-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:18px;}
@@ -1080,7 +1124,6 @@ body.modal-open{overflow:hidden;}
     <div class="modal-header">
       <div>
         <div class="modal-title">Non-Disruptive Upgrades</div>
-        <div class="modal-sub">715 total NDUs · 2019–2026 · 100% success rate</div>
       </div>
       <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     </div>
@@ -1106,14 +1149,15 @@ body.modal-open{overflow:hidden;}
               <span style="width:8px;height:8px;border-radius:2px;background:#bd673d;display:inline-block;flex-shrink:0;"></span>95
             </div>
           </div>
-          <div>
-            <div class="label">Success</div>
-            <div style="font-size:16px;font-weight:700;color:#2d2a27;">100%</div>
-          </div>
         </div>
       </div>
       <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Hours Saved</div><div class="value" style="color:#ff7023;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2h per NDU · ~$165k labour</div></div>
       <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;">
+        <div class="label">Success Rate</div>
+        <div class="value" style="font-size:36px;font-weight:800;line-height:1;color:#5a6359;margin:4px 0;">100%</div>
+        <div class="label" style="margin-top:4px;">zero failures across all 715 NDUs</div>
+      </div>
     </div>
 
     <!-- ── CHART + MODERNIZATION PATH ROW ── -->
@@ -1163,7 +1207,10 @@ body.modal-open{overflow:hidden;}
                     <div class="ndu-stat-sub">Downtime risk</div>
                   </div>
                 </div>
-                <button class="ndu-reco-cta cx-cta">Request PS Engagement →</button>
+                <div class="ndu-btn-row">
+                  <button class="ndu-reco-cta cx-cta">Request PS Engagement →</button>
+                  <button class="ndu-learn-btn cx-learn" onclick="openNduLearn('ps')">Learn more ↗</button>
+                </div>
               </div>
             </div>
 
@@ -1183,7 +1230,10 @@ body.modal-open{overflow:hidden;}
                     <div class="ndu-stat-sub">Avg upgrade time</div>
                   </div>
                 </div>
-                <button class="ndu-reco-cta self-cta">Explore Tools →</button>
+                <div class="ndu-btn-row">
+                  <button class="ndu-reco-cta self-cta">Explore Tools →</button>
+                  <button class="ndu-learn-btn self-learn" onclick="openNduLearn('ss')">Learn more ↗</button>
+                </div>
               </div>
             </div>
 
@@ -1524,6 +1574,158 @@ body.modal-open{overflow:hidden;}
       <div class="mpage-dot"></div>
     </div>
     </div><!-- /modal-pager -->
+
+    <!-- ── PS LEARN MORE SUB-OVERLAY ── -->
+    <div class="ndu-sub-overlay cx-ov" id="ndu-learn-ps">
+      <button class="ndu-sub-close" onclick="closeNduLearn('ps')">✕ close</button>
+
+      <!-- Header -->
+      <div style="margin-bottom:28px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 12px;border-radius:20px;color:#8fa596;background:rgba(143,165,150,0.12);border:1px solid rgba(143,165,150,0.3);margin-bottom:12px;">⟡ White-Glove Modernization</div>
+        <div style="font-size:26px;font-weight:800;color:#fff8ec;letter-spacing:-.4px;margin-bottom:8px;">Professional Service Engagement</div>
+        <div style="font-size:13px;color:rgba(255,245,220,0.6);line-height:1.6;max-width:680px;">Pure's Professional Services team owns the full upgrade lifecycle for your most critical arrays — from discovery and risk assessment through zero-impact execution and sign-off validation. No runbooks to maintain, no change-control risk.</div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-kpis">
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">7</div><div class="ndu-sub-kpi-lbl">PNC arrays flagged for PS</div></div>
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">100%</div><div class="ndu-sub-kpi-lbl">PS NDU success rate (fleet-wide)</div></div>
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">Zero</div><div class="ndu-sub-kpi-lbl">Downtime risk — I/O served throughout</div></div>
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">&lt;4 wks</div><div class="ndu-sub-kpi-lbl">Avg. time from request to completion</div></div>
+        </div>
+      </div>
+
+      <!-- Engagement Process -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-h">Engagement Process</div>
+        <div class="ndu-sub-step-row">
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">1</div>
+            <div class="ndu-sub-step-lbl">Discovery</div>
+            <div class="ndu-sub-step-desc">Pure reviews array health, Purity versions, and workload profiles. Risk scored per array.</div>
+          </div>
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">2</div>
+            <div class="ndu-sub-step-lbl">Planning</div>
+            <div class="ndu-sub-step-desc">Tailored upgrade sequence built around your change windows and production SLAs.</div>
+          </div>
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">3</div>
+            <div class="ndu-sub-step-lbl">Execution</div>
+            <div class="ndu-sub-step-desc">Pure engineer drives the upgrade end-to-end; your team monitors. Zero manual steps required.</div>
+          </div>
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">4</div>
+            <div class="ndu-sub-step-lbl">Validation</div>
+            <div class="ndu-sub-step-desc">Post-upgrade health checks, performance baseline confirmed, sign-off delivered to PNC.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrays flagged for this account -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-h">PNC Arrays Recommended for PS Engagement</div>
+        <table class="ndu-sub-table">
+          <thead><tr><th>Array</th><th>Site</th><th>Purity</th><th>Risk</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td>FA-PROD-CHI-01</td><td>Chicago</td><td>6.2.8</td><td><span class="ndu-sub-tag risk-hi">EoL</span></td><td>End-of-life controller, HwNDU required</td></tr>
+            <tr><td>FA-PROD-CLV-03</td><td>Cleveland</td><td>6.3.4</td><td><span class="ndu-sub-tag risk-hi">Critical</span></td><td>Hosts tier-1 workloads, priority upgrade</td></tr>
+            <tr><td>FA-PROD-PIT-01</td><td>Pittsburgh</td><td>6.3.1</td><td><span class="ndu-sub-tag risk-md">Medium</span></td><td>3+ minor versions behind current</td></tr>
+            <tr><td>FA-DR-CHI-01</td><td>Chicago DR</td><td>6.3.2</td><td><span class="ndu-sub-tag risk-md">Medium</span></td><td>Replication partner requires version parity</td></tr>
+            <tr><td>FB-PROD-CLV-01</td><td>Cleveland</td><td>4.3.6</td><td><span class="ndu-sub-tag risk-hi">EoL</span></td><td>FlashBlade OS below supported floor</td></tr>
+            <tr><td>FA-PROD-NYC-02</td><td>New York</td><td>6.3.5</td><td><span class="ndu-sub-tag risk-lo">Low</span></td><td>Proactive alignment before version sunset</td></tr>
+            <tr><td>FA-DEV-PIT-01</td><td>Pittsburgh Dev</td><td>6.3.0</td><td><span class="ndu-sub-tag risk-lo">Low</span></td><td>Dev cluster, best aligned with PS batch</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- What's included -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-h">What's included in your Pure subscription</div>
+        <div class="ndu-sub-body">PS NDU engagements are covered under PNC's existing Evergreen//Forever entitlement — no additional SOW required for the 7 flagged arrays. Your TAM will coordinate scheduling. Hardware shelf additions (HwNDU) are additionally covered under active subscription term.</div>
+      </div>
+    </div><!-- /ndu-learn-ps -->
+
+    <!-- ── SS LEARN MORE SUB-OVERLAY ── -->
+    <div class="ndu-sub-overlay self-ov" id="ndu-learn-ss">
+      <button class="ndu-sub-close" onclick="closeNduLearn('ss')">✕ close</button>
+
+      <!-- Header -->
+      <div style="margin-bottom:28px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 12px;border-radius:20px;color:#d07a4e;background:rgba(189,103,61,0.12);border:1px solid rgba(189,103,61,0.3);margin-bottom:12px;">⚡ Self-Directed Upgrade</div>
+        <div style="font-size:26px;font-weight:800;color:#fff8ec;letter-spacing:-.4px;margin-bottom:8px;">Self-Service NDU via Pure1</div>
+        <div style="font-size:13px;color:rgba(255,245,220,0.6);line-height:1.6;max-width:680px;">Pure1 AutoUpgrade lets PNC's storage team schedule and execute NDUs entirely on your own timeline — no Pure engineer on the call. The portal validates prerequisites, sequences the upgrade safely, and reports status in real time.</div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-kpis">
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">14</div><div class="ndu-sub-kpi-lbl">PNC arrays ready to self-upgrade</div></div>
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">&lt;45m</div><div class="ndu-sub-kpi-lbl">Average upgrade time per array</div></div>
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">0</div><div class="ndu-sub-kpi-lbl">Planned outage minutes required</div></div>
+          <div class="ndu-sub-kpi"><div class="ndu-sub-kpi-val">Pure1</div><div class="ndu-sub-kpi-lbl">Single portal — schedule, run, validate</div></div>
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-h">How It Works</div>
+        <div class="ndu-sub-step-row">
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">1</div>
+            <div class="ndu-sub-step-lbl">Eligibility Check</div>
+            <div class="ndu-sub-step-desc">Pure1 auto-validates array health, quorum, and version compatibility before enabling the schedule button.</div>
+          </div>
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">2</div>
+            <div class="ndu-sub-step-lbl">Schedule</div>
+            <div class="ndu-sub-step-desc">Pick a date/time window in Pure1. The system respects your defined change-control calendar.</div>
+          </div>
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">3</div>
+            <div class="ndu-sub-step-lbl">Auto-Execute</div>
+            <div class="ndu-sub-step-desc">Pure1 orchestrates controller failover, upgrade, and failback. I/O continues without interruption.</div>
+          </div>
+          <div class="ndu-sub-step">
+            <div class="ndu-sub-step-num">4</div>
+            <div class="ndu-sub-step-lbl">Report</div>
+            <div class="ndu-sub-step-desc">Completion report auto-generated — version, timestamps, performance delta — for your audit trail.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrays ready -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-h">PNC Arrays Ready for Self-Service Upgrade</div>
+        <table class="ndu-sub-table">
+          <thead><tr><th>Array</th><th>Site</th><th>Current Purity</th><th>Target</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td>FA-PROD-CHI-03</td><td>Chicago</td><td>6.4.0</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-PROD-CHI-04</td><td>Chicago</td><td>6.4.1</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-PROD-CLV-05</td><td>Cleveland</td><td>6.4.0</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-PROD-CLV-06</td><td>Cleveland</td><td>6.4.1</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-PROD-PIT-04</td><td>Pittsburgh</td><td>6.4.0</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-PROD-NYC-05</td><td>New York</td><td>6.3.6</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-md">Medium</span></td></tr>
+            <tr><td>FA-PROD-NYC-06</td><td>New York</td><td>6.3.6</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-md">Medium</span></td></tr>
+            <tr><td>FA-DEV-CHI-02</td><td>Chicago Dev</td><td>6.3.5</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-DEV-CLV-01</td><td>Cleveland Dev</td><td>6.4.0</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FB-PROD-NYC-02</td><td>New York</td><td>4.4.1</td><td>4.4.3</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FB-PROD-PIT-01</td><td>Pittsburgh</td><td>4.4.0</td><td>4.4.3</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-QA-CHI-01</td><td>Chicago QA</td><td>6.4.0</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+            <tr><td>FA-QA-CLV-01</td><td>Cleveland QA</td><td>6.3.6</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-md">Medium</span></td></tr>
+            <tr><td>FA-PROD-DR-NYC-01</td><td>New York DR</td><td>6.4.1</td><td>6.4.2</td><td><span class="ndu-sub-tag risk-lo">Low</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Resources -->
+      <div class="ndu-sub-section">
+        <div class="ndu-sub-h">Access & Resources</div>
+        <div class="ndu-sub-body">All 14 arrays are visible in PNC's Pure1 tenant today. Navigate to <strong style="color:#d07a4e;">Pure1 → Arrays → Upgrade</strong> to begin scheduling. Your Evergreen//Forever subscription covers all software NDU executions at no additional cost. For questions, contact your Pure TAM or open a support case tagged <em>Self-Service NDU</em>.</div>
+      </div>
+    </div><!-- /ndu-learn-ss -->
+
   </div>
 </div>
 
@@ -2187,6 +2389,21 @@ function buildESGGrove(){
 }
 
 // ─── NDU RECOMMENDATION CAROUSEL ─────────────────────────────────────────────
+// ─── NDU LEARN MORE SUB-OVERLAYS ─────────────────────────────────────────────
+function openNduLearn(type){
+  const id = type==='ps' ? 'ndu-learn-ps' : 'ndu-learn-ss';
+  document.getElementById(id).classList.add('open');
+  // hide the pager nav dot while sub-overlay is open so it doesn't bleed through
+  const nav = document.querySelector('#modal-ndu .mpage-nav');
+  if(nav) nav.style.opacity='0';
+}
+function closeNduLearn(type){
+  const id = type==='ps' ? 'ndu-learn-ps' : 'ndu-learn-ss';
+  document.getElementById(id).classList.remove('open');
+  const nav = document.querySelector('#modal-ndu .mpage-nav');
+  if(nav) nav.style.opacity='';
+}
+
 let ndurIdx=0;
 function ndurSlide(dir){
   const slides=document.querySelectorAll('.ndu-slide');
