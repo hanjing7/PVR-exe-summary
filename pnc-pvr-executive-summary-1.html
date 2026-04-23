@@ -1045,7 +1045,7 @@ body.modal-open{overflow:hidden;}
     </div>
 
     <!-- ── CHART + MODERNIZATION PATH ROW ── -->
-    <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:32px;align-items:start;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
       <div>
         <div class="chart-panel-label" style="margin-bottom:8px;">Annual NDU Volume</div>
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
@@ -1136,12 +1136,7 @@ body.modal-open{overflow:hidden;}
 
         <!-- LEFT: Purity Version Mix -->
         <div style="padding-right:40px;border-right:1.5px solid #e7e3dc;">
-          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
-            <span style="font-size:13px;font-weight:700;color:#2d2a27;">Software outdated</span>
-            <span class="tag tag-urg">2 critical</span>
-            <span class="tag tag-low">3 low risk</span>
-          </div>
-          <div class="chart-panel-label" style="margin-bottom:14px;">Purity Version — Fleet Distribution</div>
+          <div class="chart-panel-label" style="margin-bottom:14px;">Purity Version Mix</div>
 
           <!-- 6.4.2 Latest row -->
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
@@ -1195,60 +1190,62 @@ body.modal-open{overflow:hidden;}
           </div>
         </div>
 
-        <!-- RIGHT: Hardware Age — 2×2 card grid -->
+        <!-- RIGHT: Hardware Age -->
         <div style="padding-left:40px;">
-          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
-            <span style="font-size:13px;font-weight:700;color:#2d2a27;">Hardware outdated</span>
-            <span class="tag tag-urg">1 EoL risk</span>
-            <span class="tag tag-low">3 actionable</span>
-          </div>
-          <div class="chart-panel-label" style="margin-bottom:14px;">Hardware Age — Fleet Distribution</div>
+          <div class="chart-panel-label" style="margin-bottom:14px;">Hardware Age</div>
 
           <!-- 0–2 years — no action -->
-          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#5a6359;">0–2 years</span></div>
-            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
-            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-              <strong style="color:#2d2a27;">34</strong><span style="color:#73716f;"> arrays</span>
+          <div style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#5a6359;">0–2 years</span></div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
+              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#2d2a27;">34</strong><span style="color:#73716f;"> arrays</span>
+              </div>
             </div>
-            <div style="width:150px;flex-shrink:0;"></div>
           </div>
 
           <!-- 2–4 years — Controller Upgrade -->
-          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#8fa596;">2–4 years</span></div>
-            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:45%;background:#8fa596;"></div></div>
-            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-              <strong style="color:#2d2a27;">58</strong><span style="color:#73716f;"> arrays</span>
-              <div style="font-size:10px;color:#5a6359;font-weight:600;margin-top:1px;">14 Foundation eligible</div>
+          <div style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#8fa596;">2–4 years</span></div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:45%;background:#8fa596;"></div></div>
+              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#2d2a27;">58</strong><span style="color:#73716f;"> arrays</span>
+                <div style="font-size:10px;color:#5a6359;font-weight:600;margin-top:1px;">14 Foundation eligible</div>
+              </div>
             </div>
-            <div style="width:150px;flex-shrink:0;text-align:right;">
-              <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
+            <div style="margin-top:6px;padding-left:90px;">
+              <button style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
             </div>
           </div>
 
           <!-- 4–6 years — Upgrade to Forever -->
-          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#bd673d;">4–6 years</span></div>
-            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:19%;background:#bd673d;"></div></div>
-            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-              <strong style="color:#2d2a27;">27</strong><span style="color:#73716f;"> arrays</span>
-              <div style="font-size:10px;color:#bd673d;font-weight:600;margin-top:1px;">9 on Foundation</div>
+          <div style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#bd673d;">4–6 years</span></div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:19%;background:#bd673d;"></div></div>
+              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#2d2a27;">27</strong><span style="color:#73716f;"> arrays</span>
+                <div style="font-size:10px;color:#bd673d;font-weight:600;margin-top:1px;">9 on Foundation</div>
+              </div>
             </div>
-            <div style="width:150px;flex-shrink:0;text-align:right;">
-              <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
+            <div style="margin-top:6px;padding-left:90px;">
+              <button style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
             </div>
           </div>
 
           <!-- 6+ years — Consolidate -->
-          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
-            <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#da4d72;">6+ years</span></div>
-            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:9%;background:#da4d72;"></div></div>
-            <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-              <strong style="color:#da4d72;">8</strong><span style="color:#73716f;"> arrays</span>
+          <div style="padding:8px 0;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#da4d72;">6+ years</span></div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:9%;background:#da4d72;"></div></div>
+              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#da4d72;">8</strong><span style="color:#73716f;"> arrays</span>
+              </div>
             </div>
-            <div style="width:150px;flex-shrink:0;text-align:right;">
-              <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
+            <div style="margin-top:6px;padding-left:90px;">
+              <button style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
             </div>
           </div>
         </div><!-- end hardware age col -->
