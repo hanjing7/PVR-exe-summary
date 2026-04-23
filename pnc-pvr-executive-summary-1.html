@@ -485,12 +485,14 @@ body.modal-open{overflow:hidden;}
 .scatter-hex{width:100%;height:100%;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0% 50%);}
 
 /* ── location cards (deployments modal) ── */
-.location-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;}
-.loc-card{background:transparent;border:none;border-radius:0;padding:20px 0;}
-.loc-title{font-size:18px;font-weight:600;color:#2d2a27;display:flex;align-items:baseline;gap:8px;}
-.loc-addr{font-size:11px;font-weight:400;color:#73716f;margin-top:2px;}
-.loc-table{width:100%;border-collapse:collapse;margin-top:10px;}
-.loc-table th{text-align:left;font-size:10px;text-transform:uppercase;color:#73716f;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,0.05);font-weight:500;}
+.location-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:12px;}
+.loc-card{background:transparent;border:none;border-right:1.5px solid #e7e3dc;border-radius:0;padding:12px 20px;}
+.loc-card:first-child{padding-left:0;}
+.loc-card:last-child{border-right:none;border-left:2px solid #d5ccbd;padding-left:28px;} /* extra visual group — western site */
+.loc-title{font-size:14px;font-weight:700;color:#2d2a27;display:flex;align-items:baseline;gap:6px;}
+.loc-addr{font-size:10px;font-weight:400;color:#73716f;margin-top:2px;}
+.loc-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.loc-table th{text-align:left;font-size:9px;text-transform:uppercase;color:#73716f;padding-bottom:7px;border-bottom:1px solid rgba(0,0,0,0.05);font-weight:500;}
 .loc-table td{padding:10px 0;font-size:13px;color:#2d2a27;font-weight:400;border-bottom:0.5px solid #f0ece5;}
 .loc-table .count-col{text-align:center;color:#5a6359;}
 .loc-table .cap-col{text-align:right;}
@@ -783,8 +785,8 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
     </div>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
     <!-- site map -->
-    <div style="position:relative;background:#f0ece5;border-radius:10px;overflow:hidden;border:1px solid #e7e3dc;margin-bottom:16px;">
-      <svg id="detail-map-svg" viewBox="0 0 520 280" width="100%" style="display:block;">
+    <div style="position:relative;background:#f0ece5;border-radius:10px;overflow:hidden;border:1px solid #e7e3dc;margin-bottom:10px;height:220px;">
+      <svg id="detail-map-svg" viewBox="0 55 520 110" width="100%" height="220" preserveAspectRatio="xMidYMid slice" style="display:block;">
         <!-- background built by JS -->
       </svg>
       <div id="detail-map-tooltip" class="map-tooltip"></div>
@@ -2756,7 +2758,7 @@ function buildDetailMap(){
     const fb=apps.filter(a=>a.hw.startsWith("FB")).length;
     const critN=apps.filter(a=>a.status==="critical").length;
     const p=proj(s.lat,s.lng);
-    const r=14+(apps.length/maxC)*28;
+    const r=8+(apps.length/maxC)*16;
     const g=svgEl("g",{style:"cursor:pointer;"});
     g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r,fill:"#8fa596","fill-opacity":"0.2",stroke:"#8fa596","stroke-width":"1.2"}));
     if(fb>0)g.appendChild(svgEl("circle",{cx:p.x,cy:p.y,r:r*0.55,fill:"#5a6359","fill-opacity":"0.28",stroke:"#5a6359","stroke-width":"1"}));
