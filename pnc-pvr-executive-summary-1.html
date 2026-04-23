@@ -578,7 +578,7 @@ body.modal-open{overflow:hidden;}
 .modal-pages{display:flex;flex-direction:column;height:100%;transition:transform .4s cubic-bezier(0.32,0.72,0,1);}
 /* modal-page is a flex column so a pres-inner child can vertically center */
 .modal-page{flex-shrink:0;height:100%;overflow-y:auto;padding:16px 36px 32px 24px;box-sizing:border-box;display:flex;flex-direction:column;}
-.mpage-nav{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:10;}
+.mpage-nav{position:fixed;right:20px;top:50vh;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:10100;}
 .mpage-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;cursor:pointer;transition:background .2s,height .2s,border-radius .2s;flex-shrink:0;}
 .mpage-dot.active{background:#2d2a27;height:16px;border-radius:4px;}
 .mpage-dot:hover:not(.active){background:#aea9a0;}
@@ -705,7 +705,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
 
   <!-- TILE 6: NDU -->
   <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('ndu')">
-    <div class="tile-label">Non-Disruptive Upgrades</div>
+    <div class="tile-label">Action Required</div>
     <div class="tile-headline" style="color:#8fa596;">715</div>
     <div class="tile-sub">total NDUs since 2019</div>
     <div class="tile-viz ndu-wrap" id="mini-ndu-container"><!-- built by JS --></div>
@@ -1162,7 +1162,7 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
   <div class="modal-card has-pages" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
-        <div class="modal-title">Non-Disruptive Upgrades</div>
+        <div class="modal-title">Action Required</div>
       </div>
       <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     </div>
