@@ -199,9 +199,12 @@ body.modal-open{overflow:hidden;}
 .cat-tag{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;}
 
 /* security */
-.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
-.sec-meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
-.sec-meta-item{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#73716f;padding:6px 0;border-bottom:0.5px solid #e7e3dc;}
+.sec-3col{display:grid;grid-template-columns:220px 1fr 1fr;gap:0 28px;align-items:start;}
+.sec-col-1{display:flex;flex-direction:column;}
+.sec-stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:0.5px solid #e7e3dc;font-size:13px;}
+.sec-stat-label{color:#73716f;font-size:12px;}
+.sec-stat-val{font-weight:700;color:#2d2a27;font-size:14px;}
+.sec-stat-unit{font-size:11px;font-weight:400;color:#73716f;margin-left:3px;}
 .rec-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid #e7e3dc;}
 .rec-section-label{font-size:10px;font-weight:700;color:#73716f;letter-spacing:0.06em;text-transform:uppercase;margin:14px 0 6px;}
 /* hex badge: two-layer so border colour shows on all 6 edges */
@@ -1034,30 +1037,28 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
       </div>
       <button class="modal-close" onclick="closeModalById('security')">✕ close</button>
     </div>
-    <div class="pres-body">
+    <div class="pres-body vflex">
+    <div class="pres-inner">
+    <div class="sec-3col">
 
-    <!-- ── HERO ROW: shield score + category summary ── -->
-    <div class="support-hero-row" style="align-items:stretch;">
-
-      <!-- shield card -->
-      <div class="support-chart-card" style="flex-direction:column;align-items:center;justify-content:center;gap:12px;flex:0 0 180px;text-align:center;">
-        <div style="position:relative;width:120px;height:133px;">
-          <svg viewBox="0 0 140 160" width="120" height="133">
-            <path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z" fill="#fff5e3" stroke="#e7e3dc" stroke-width="1.5"/>
-            <clipPath id="sc-modal"><path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z"/></clipPath>
-            <rect x="0" y="76.8" width="140" height="83.2" fill="#bd673d" opacity="0.15" clip-path="url(#sc-modal)"/>
-          </svg>
-          <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);text-align:center;">
-            <div style="font-size:34px;font-weight:800;color:#bd673d;line-height:1;">2.6</div>
-            <div style="font-size:10px;color:#73716f;margin-top:3px;">out of 5.0</div>
+      <!-- ── COL 1: SCORE + CATEGORY BARS + META ROWS ── -->
+      <div class="sec-col-1">
+        <!-- shield + score -->
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding-bottom:16px;border-bottom:1px solid #e7e3dc;margin-bottom:12px;">
+          <div style="position:relative;width:120px;height:133px;">
+            <svg viewBox="0 0 140 160" width="120" height="133">
+              <path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z" fill="#fff5e3" stroke="#e7e3dc" stroke-width="1.5"/>
+              <clipPath id="sc-modal"><path d="M70 4 L130 28 L130 90 C130 128 70 156 70 156 C70 156 10 128 10 90 L10 28 Z"/></clipPath>
+              <rect x="0" y="76.8" width="140" height="83.2" fill="#bd673d" opacity="0.15" clip-path="url(#sc-modal)"/>
+            </svg>
+            <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);text-align:center;">
+              <div style="font-size:34px;font-weight:800;color:#bd673d;line-height:1;">2.6</div>
+              <div style="font-size:10px;color:#73716f;margin-top:3px;">out of 5.0</div>
+            </div>
           </div>
+          <div style="font-size:11px;color:#73716f;margin-top:8px;">57% checks passing</div>
         </div>
-        <div style="font-size:11px;color:#73716f;">57% checks passing</div>
-      </div>
-
-      <!-- category summary + metadata -->
-      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;">
-        <!-- compliance bar -->
+        <!-- category bars -->
         <div class="cat-bar-row">
           <span style="font-size:14px;color:#73716f;width:20px;flex-shrink:0;">⊙</span>
           <span style="font-size:13px;font-weight:600;color:#2d2a27;flex:1;">Compliance</span>
@@ -1068,7 +1069,6 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
           </div>
           <span style="font-size:12px;font-weight:700;color:#bd673d;min-width:40px;text-align:right;">2 / 3</span>
         </div>
-        <!-- operational bar -->
         <div class="cat-bar-row">
           <span style="font-size:14px;color:#73716f;width:20px;flex-shrink:0;">⚙</span>
           <span style="font-size:13px;font-weight:600;color:#2d2a27;flex:1;">Operational</span>
@@ -1078,30 +1078,25 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
           </div>
           <span style="font-size:12px;font-weight:700;color:#da4d72;min-width:40px;text-align:right;">0.6 / 2</span>
         </div>
-        <!-- metadata stats -->
-        <div class="sec-meta-row">
-          <div class="support-stat-tile" style="min-width:100px;padding:12px 16px;">
-            <div class="stat-tile-label">Scored</div>
-            <div class="stat-tile-value" style="font-size:22px;">8</div>
-            <div class="stat-tile-sub">appliances</div>
+        <!-- meta as plain rows -->
+        <div style="margin-top:20px;">
+          <div class="sec-stat-row">
+            <span class="sec-stat-label">Scored</span>
+            <span class="sec-stat-val">8<span class="sec-stat-unit">appliances</span></span>
           </div>
-          <div class="support-stat-tile" style="min-width:100px;padding:12px 16px;">
-            <div class="stat-tile-label">Not phoning home</div>
-            <div class="stat-tile-value" style="font-size:22px;">0</div>
+          <div class="sec-stat-row">
+            <span class="sec-stat-label">Not phoning home</span>
+            <span class="sec-stat-val">0</span>
           </div>
-          <div class="support-stat-tile" style="min-width:100px;padding:12px 16px;">
-            <div class="stat-tile-label">Excluded</div>
-            <div class="stat-tile-value" style="font-size:22px;">0</div>
+          <div class="sec-stat-row" style="border-bottom:none;">
+            <span class="sec-stat-label">Excluded</span>
+            <span class="sec-stat-val">0</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ── TWO PANELS: compliance | operational ── -->
-    <div class="sec-grid">
-
-      <!-- compliance panel -->
-      <div class="chart-panel">
+      <!-- ── COL 2: COMPLIANCE PANEL ── -->
+      <div class="chart-panel" style="padding-top:0;border-left:1px solid #e7e3dc;padding-left:24px;">
         <div class="chart-panel-label">⊙ Compliance</div>
         <div class="rec-section-label">Basic</div>
         <div class="rec-row">
@@ -1135,8 +1130,8 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
         </div>
       </div>
 
-      <!-- operational panel -->
-      <div class="chart-panel">
+      <!-- ── COL 3: OPERATIONAL PANEL ── -->
+      <div class="chart-panel" style="padding-top:0;border-left:1px solid #e7e3dc;padding-left:24px;">
         <div class="chart-panel-label">⚙ Operational</div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">8</span></div></div>
@@ -1156,7 +1151,8 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
         </div>
       </div>
 
-    </div><!-- end sec-grid -->
+    </div><!-- /sec-3col -->
+    </div><!-- /pres-inner -->
     </div><!-- /pres-body -->
   </div>
 </div>
