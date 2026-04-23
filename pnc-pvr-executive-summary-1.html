@@ -223,15 +223,24 @@ body.modal-open{overflow:hidden;}
 
 /* ── ndu enriched sections ── */
 .ndu-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px;}
-/* recommendation cards — reuse fleet-kpi-card feel with a coloured top accent */
-.ndu-reco-card{background:#fff8ec;border:1px solid #d5ccbd;border-top:4px solid #d5ccbd;border-radius:12px;padding:22px;margin-bottom:14px;}
-.ndu-reco-card:last-child{margin-bottom:0;}
-.ndu-reco-card.cx{border-top-color:#5a6359;}
-.ndu-reco-card.self{border-top-color:#bd673d;}
-.ndu-reco-title{font-size:15px;font-weight:800;color:#2d2a27;margin-bottom:6px;letter-spacing:-0.2px;}
-.ndu-reco-desc{font-size:12px;color:#73716f;line-height:1.6;margin-bottom:16px;}
-.ndu-reco-cta{display:inline-flex;align-items:center;gap:6px;border:1.5px solid #2d2a27;border-radius:20px;padding:6px 16px;font-size:11px;font-weight:700;color:#2d2a27;background:transparent;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s;}
-.ndu-reco-cta:hover{background:#2d2a27;color:#fff5e3;}
+/* recommendation cards — dark accent style */
+.ndu-reco-card{border-radius:12px;padding:20px 22px;margin-bottom:0;position:relative;overflow:hidden;}
+.ndu-reco-card.cx{background:linear-gradient(140deg,#1a2820 0%,#243329 100%);border:1px solid rgba(143,165,150,0.25);}
+.ndu-reco-card.self{background:linear-gradient(140deg,#2a1608 0%,#3d2010 100%);border:1px solid rgba(189,103,61,0.3);}
+.ndu-reco-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+.ndu-reco-card.cx .ndu-reco-badge{color:#8fa596;background:rgba(143,165,150,0.15);border:1px solid rgba(143,165,150,0.35);}
+.ndu-reco-card.self .ndu-reco-badge{color:#d07a4e;background:rgba(189,103,61,0.15);border:1px solid rgba(189,103,61,0.35);}
+.ndu-reco-title{font-size:17px;font-weight:800;color:#fff8ec;margin-bottom:6px;letter-spacing:-0.3px;}
+.ndu-reco-desc{font-size:12px;color:rgba(255,245,220,0.62);line-height:1.6;margin-bottom:14px;}
+.ndu-stat-row{display:flex;gap:10px;margin-bottom:16px;}
+.ndu-stat-box{background:rgba(0,0,0,0.28);border-radius:8px;padding:8px 12px;flex:1;min-width:0;}
+.ndu-stat-val{font-size:20px;font-weight:800;line-height:1;}
+.ndu-stat-sub{font-size:10px;color:rgba(255,245,220,0.45);margin-top:2px;}
+.ndu-reco-cta{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:7px 18px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;border:none;letter-spacing:.01em;}
+.ndu-reco-cta.cx-cta{background:#5a6359;color:#fff8ec;}
+.ndu-reco-cta.cx-cta:hover{opacity:0.82;}
+.ndu-reco-cta.self-cta{background:#bd673d;color:#fff8ec;}
+.ndu-reco-cta.self-cta:hover{opacity:0.82;}
 /* business value cards */
 .ndu-value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
 .ndu-value-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:18px;}
@@ -282,6 +291,18 @@ body.modal-open{overflow:hidden;}
 .ndu-carousel-dots{display:flex;gap:6px;align-items:center;}
 .ndu-carousel-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;transition:background 0.2s,width 0.2s;cursor:pointer;}
 .ndu-carousel-dot.active{background:#2d2a27;width:16px;border-radius:8px;}
+
+/* ── ESG Impact modal ── */
+.esg-grove{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end;padding:6px 0 12px;}
+.esg-grove-caption{font-size:10px;color:#73716f;margin-top:6px;line-height:1.5;}
+.esg-eff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px;}
+.esg-eff-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:16px;}
+.esg-eff-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:10px;}
+.esg-eff-compare{display:flex;flex-direction:column;gap:6px;}
+.esg-eff-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#73716f;}
+.esg-eff-bar-wrap{flex:1;height:6px;background:#e7e3dc;border-radius:3px;overflow:hidden;}
+.esg-eff-bar{height:100%;border-radius:3px;}
+.esg-eff-val{font-size:11px;font-weight:700;width:38px;text-align:right;flex-shrink:0;}
 
 /* topology */
 .topo-sites{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
@@ -579,6 +600,14 @@ body.modal-open{overflow:hidden;}
     <div class="tile-viz" style="justify-content:flex-start;padding-top:8px;">
       <div class="dp-metric-bars" id="dp-mini-bars"><!-- built by JS --></div>
     </div>
+  </div>
+
+  <!-- TILE 8: ESG IMPACT -->
+  <div class="tile" style="--accent-color:#3d7a56;" onclick="openModal('esg')">
+    <div class="tile-label">ESG Impact</div>
+    <div class="tile-headline" style="color:#3d7a56;">22K</div>
+    <div class="tile-sub">tree equivalents · per year</div>
+    <div class="tile-viz" style="justify-content:flex-start;padding-top:6px;" id="esg-mini-viz"><!-- built by JS --></div>
   </div>
 
   </div><!-- end tile-grid -->
@@ -987,14 +1016,38 @@ body.modal-open{overflow:hidden;}
 
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
-      <div class="detail-kpi"><div class="label">Total NDUs</div><div class="value" style="color:#2d2a27;">715</div></div>
-      <div class="detail-kpi"><div class="label">Software (SwNDU)</div><div class="value" style="color:#5a6359;">620</div></div>
-      <div class="detail-kpi"><div class="label">Hardware (HwNDU)</div><div class="value" style="color:#bd673d;">95</div></div>
-      <div class="detail-kpi"><div class="label">Hours Saved</div><div class="value" style="color:#ff7023;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2h per NDU · ~$165k labour</div></div>
-      <div class="detail-kpi"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
+      <!-- Combined NDU achievement card with Sw/Hw legend -->
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;">
+        <div class="label">NDUs Achieved</div>
+        <div class="value" style="font-size:40px;font-weight:800;line-height:1;color:#2d2a27;margin:4px 0;">715</div>
+        <div class="label" style="margin-bottom:10px;">successful upgrades since 2019</div>
+        <div style="border-top:1px solid #e7e3dc;padding-top:8px;display:flex;gap:20px;">
+          <div>
+            <div class="label">SwNDU</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:16px;font-weight:700;color:#5a6359;">
+              <span style="width:8px;height:8px;border-radius:2px;background:#8fa596;display:inline-block;flex-shrink:0;"></span>620
+            </div>
+          </div>
+          <div>
+            <div class="label">HwNDU</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:16px;font-weight:700;color:#bd673d;">
+              <span style="width:8px;height:8px;border-radius:2px;background:#bd673d;display:inline-block;flex-shrink:0;"></span>95
+            </div>
+          </div>
+          <div>
+            <div class="label">Success</div>
+            <div style="font-size:16px;font-weight:700;color:#2d2a27;">100%</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Hours Saved</div><div class="value" style="color:#ff7023;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2h per NDU · ~$165k labour</div></div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
     </div>
 
-    <!-- ── ANNUAL BAR CHART ── -->
+    <!-- ── CHART + MODERNIZATION PATH ROW ── -->
+    <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:32px;align-items:start;">
+      <div>
+        <div class="chart-panel-label" style="margin-bottom:8px;">Annual NDU Volume</div>
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
       <div style="position:absolute;left:0;right:0;top:0;pointer-events:none;">
         <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">223</span></div>
@@ -1011,13 +1064,74 @@ body.modal-open{overflow:hidden;}
       <span style="font-size:10px;color:#73716f;margin-left:auto;">2019 – 2026 · 2026 YTD</span>
     </div>
     <div id="ndu-tooltip" style="display:none;margin-top:10px;background:#fff5e3;border:1px solid #d5ccbd;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.1);display:inline-block;min-width:140px;"></div>
+      </div><!-- end chart col -->
+
+      <!-- RIGHT: Modernization Path carousel -->
+      <div>
+        <div class="ndu-carousel-wrap">
+          <div class="ndu-carousel-track" id="ndu-reco-track">
+
+            <!-- Slide 0: Professional Service -->
+            <div class="ndu-slide">
+              <div class="ndu-reco-card cx">
+                <div class="ndu-reco-badge">⟡ White-Glove Modernization</div>
+                <div class="ndu-reco-title">Professional Service</div>
+                <div class="ndu-reco-desc">Pure's experts own the full lifecycle — planning to execution, zero production impact. Recommended for EoL-risk and critical arrays.</div>
+                <div class="ndu-stat-row">
+                  <div class="ndu-stat-box">
+                    <div class="ndu-stat-val" style="color:#8fa596;">100%</div>
+                    <div class="ndu-stat-sub">NDU capable</div>
+                  </div>
+                  <div class="ndu-stat-box">
+                    <div class="ndu-stat-val" style="color:#da4d72;">7</div>
+                    <div class="ndu-stat-sub">Flagged arrays</div>
+                  </div>
+                  <div class="ndu-stat-box">
+                    <div class="ndu-stat-val" style="color:#8fa596;">Zero</div>
+                    <div class="ndu-stat-sub">Downtime risk</div>
+                  </div>
+                </div>
+                <button class="ndu-reco-cta cx-cta">Request PS Engagement →</button>
+              </div>
+            </div>
+
+            <!-- Slide 1: Self-Service Upgrade -->
+            <div class="ndu-slide">
+              <div class="ndu-reco-card self">
+                <div class="ndu-reco-badge">⚡ Self-Directed Upgrade</div>
+                <div class="ndu-reco-title">Self-Service Upgrade</div>
+                <div class="ndu-reco-desc">Orchestrate on your own schedule via Pure1 automation — full visibility, zero-touch execution. Ideal for low-priority and entitled arrays.</div>
+                <div class="ndu-stat-row">
+                  <div class="ndu-stat-box">
+                    <div class="ndu-stat-val" style="color:#d07a4e;">14</div>
+                    <div class="ndu-stat-sub">Arrays ready</div>
+                  </div>
+                  <div class="ndu-stat-box">
+                    <div class="ndu-stat-val" style="color:#d07a4e;">&lt;45m</div>
+                    <div class="ndu-stat-sub">Avg upgrade time</div>
+                  </div>
+                </div>
+                <button class="ndu-reco-cta self-cta">Explore Tools →</button>
+              </div>
+            </div>
+
+          </div><!-- end ndu-reco-track -->
+          <div class="ndu-carousel-nav" style="margin-top:10px;justify-content:center;">
+            <div class="ndu-carousel-dots">
+              <div class="ndu-carousel-dot active" id="ndu-dot-0" onclick="ndurGo(0)"></div>
+              <div class="ndu-carousel-dot" id="ndu-dot-1" onclick="ndurGo(1)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end chart+reco row -->
 
     <hr class="support-divider">
 
-    <!-- ── 2-COL: FLEET COMPOSITION + MODERNIZATION PATH ── -->
-    <div class="ndu-section-grid">
+    <!-- ── FLEET COMPOSITION ── -->
+    <div>
 
-      <!-- LEFT: Purity Version Mix + Hardware Age -->
+      <!-- Purity Version Mix + Hardware Age -->
       <div>
         <div class="chart-panel-label">Purity Version Mix
           <span style="font-size:10px;font-weight:500;color:#bd673d;text-transform:none;letter-spacing:0;">Hover orange &amp; red for arrays</span>
@@ -1190,73 +1304,7 @@ body.modal-open{overflow:hidden;}
         </div>
       </div>
 
-      <!-- RIGHT: Modernization Recommendations — carousel -->
-      <div>
-        <div class="chart-panel-label">Modernization Path
-          <span style="font-size:10px;font-weight:500;color:#73716f;text-transform:none;letter-spacing:0;">For 16 flagged arrays (orange &amp; red)</span>
-        </div>
-        <div class="ndu-carousel-wrap">
-          <div class="ndu-carousel-track" id="ndu-reco-track">
-
-            <!-- Slide 0: Professional Service -->
-            <div class="ndu-slide">
-              <div class="ndu-reco-card cx">
-                <div class="ndu-reco-title">Professional Service</div>
-                <div class="ndu-reco-desc">Let Pure's experts handle the heavy lifting. White-glove modernization for mission-critical arrays — from planning to execution with zero impact on production I/O. <strong style="color:#5a6359;">Recommended for EoL risk &amp; Critical arrays.</strong></div>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
-                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
-                    <div class="stat-tile-label">Coverage</div>
-                    <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">100%</div>
-                    <div class="stat-tile-sub">NDU capable</div>
-                  </div>
-                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
-                    <div class="stat-tile-label">Flagged arrays</div>
-                    <div class="stat-tile-value" style="font-size:18px;color:#da4d72;">7</div>
-                    <div class="stat-tile-sub">need PS-led NDU</div>
-                  </div>
-                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
-                    <div class="stat-tile-label">Risk</div>
-                    <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">Zero</div>
-                    <div class="stat-tile-sub">downtime</div>
-                  </div>
-                </div>
-                <button class="ndu-reco-cta" style="border-color:#5a6359;color:#5a6359;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Request PS Engagement →</button>
-              </div>
-            </div>
-
-            <!-- Slide 1: Self-Service Upgrade -->
-            <div class="ndu-slide">
-              <div class="ndu-reco-card self">
-                <div class="ndu-reco-title">Self-Service Upgrade</div>
-                <div class="ndu-reco-desc">Take control with Purity Cloud-Edge. Orchestrate upgrades on your own timeline using Pure1 automation — full visibility, zero-touch execution. <strong style="color:#bd673d;">Ideal for Low-priority &amp; Entitled arrays.</strong></div>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
-                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
-                    <div class="stat-tile-label">Arrays ready</div>
-                    <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">14</div>
-                    <div class="stat-tile-sub">to self-upgrade</div>
-                  </div>
-                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
-                    <div class="stat-tile-label">Avg time</div>
-                    <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">&lt;45m</div>
-                    <div class="stat-tile-sub">per upgrade</div>
-                  </div>
-                </div>
-                <button class="ndu-reco-cta" style="border-color:#bd673d;color:#bd673d;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Explore Tools →</button>
-              </div>
-            </div>
-
-          </div><!-- end ndu-reco-track -->
-          <div class="ndu-carousel-nav">
-            <button onclick="ndurSlide(-1)">&#8249;</button>
-            <div class="ndu-carousel-dots">
-              <div class="ndu-carousel-dot active" id="ndu-dot-0" onclick="ndurGo(0)"></div>
-              <div class="ndu-carousel-dot" id="ndu-dot-1" onclick="ndurGo(1)"></div>
-            </div>
-            <button onclick="ndurSlide(1)">&#8250;</button>
-          </div>
-        </div>
-      </div>
-    </div><!-- end ndu-section-grid -->
+    </div><!-- end fleet composition -->
 
     <hr class="support-divider">
 
@@ -1350,6 +1398,135 @@ body.modal-open{overflow:hidden;}
           <div class="dp-zone-grid" id="dp-zone-grid"></div>
         </div>
       </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL: ESG IMPACT -->
+<div class="modal-backdrop" id="modal-esg" onclick="closeModal(event,'esg')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">ESG Impact</div>
+        <div class="modal-sub">Carbon avoidance · Energy efficiency · Environmental equivalents · PNC fleet · 2019–2026</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('esg')">✕ close</button>
+    </div>
+
+    <!-- ── HERO KPIs ── -->
+    <div class="detail-kpi-row">
+      <div class="detail-kpi">
+        <div class="label">Tree Equivalents / yr</div>
+        <div class="value" style="color:#3d7a56;font-size:28px;">22,400</div>
+        <div class="label" style="margin-top:4px;">CO₂ absorbed by equivalent forest</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="label">CO₂ Avoided / yr</div>
+        <div class="value" style="color:#3d7a56;font-size:28px;">470 t</div>
+        <div class="label" style="margin-top:4px;">vs traditional enterprise storage</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="label">Cumulative CO₂ Avoided</div>
+        <div class="value" style="color:#2d2a27;font-size:28px;">3,290 t</div>
+        <div class="label" style="margin-top:4px;">since 2019 · 8-year total</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="label">Energy Saved / yr</div>
+        <div class="value" style="color:#3d7a56;font-size:28px;">1,217 MWh</div>
+        <div class="label" style="margin-top:4px;">vs spinning-disk equivalent fleet</div>
+      </div>
+      <div class="detail-kpi">
+        <div class="label">Racks Avoided</div>
+        <div class="value" style="color:#73716f;font-size:28px;">183</div>
+        <div class="label" style="margin-top:4px;">fewer data center racks needed</div>
+      </div>
+    </div>
+
+    <!-- ── MAIN VIZ: CO₂ chart + Tree Grove ── -->
+    <div style="display:flex;gap:28px;align-items:flex-start;margin-top:4px;">
+
+      <!-- LEFT: CO₂ by year (canvas bar chart) -->
+      <div style="flex:3;min-width:0;">
+        <div class="chart-panel-label">CO₂ Avoided — Year over Year (tCO₂)</div>
+        <div style="position:relative;height:200px;">
+          <canvas id="esgCO2Chart" style="width:100%;height:200px;display:block;"></canvas>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:10px;align-items:center;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#3d7a56;"></div><span style="font-size:11px;color:#73716f;">Annual CO₂ avoided (tCO₂)</span></div>
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#a8d5b5;"></div><span style="font-size:11px;color:#73716f;">2026 YTD</span></div>
+          <span style="font-size:10px;color:#73716f;margin-left:auto;">Baseline: equivalent traditional all-flash array fleet</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Tree Grove -->
+      <div style="flex:2;min-width:0;">
+        <div class="chart-panel-label">Equivalent Forest Saved / yr
+          <span style="font-size:10px;font-weight:500;color:#3d7a56;text-transform:none;letter-spacing:0;">🌲 = 500 trees</span>
+        </div>
+        <div class="esg-grove" id="esg-grove"><!-- built by JS --></div>
+        <div class="esg-grove-caption" id="esg-grove-caption"></div>
+      </div>
+
+    </div>
+
+    <hr class="support-divider" style="margin-top:24px;">
+
+    <!-- ── EFFICIENCY COMPARISON ── -->
+    <div class="chart-panel-label" style="margin-top:4px;">Efficiency vs Industry Baseline</div>
+    <div class="esg-eff-grid">
+
+      <div class="esg-eff-card">
+        <div class="esg-eff-label">Power Usage Effectiveness (PUE)</div>
+        <div class="esg-eff-compare">
+          <div class="esg-eff-row">
+            <span style="width:60px;flex-shrink:0;color:#3d7a56;font-weight:700;">Pure</span>
+            <div class="esg-eff-bar-wrap"><div class="esg-eff-bar" style="width:53%;background:#3d7a56;"></div></div>
+            <span class="esg-eff-val" style="color:#3d7a56;">1.28</span>
+          </div>
+          <div class="esg-eff-row">
+            <span style="width:60px;flex-shrink:0;">Industry</span>
+            <div class="esg-eff-bar-wrap"><div class="esg-eff-bar" style="width:69%;background:#d5ccbd;"></div></div>
+            <span class="esg-eff-val">1.67</span>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#3d7a56;font-weight:700;margin-top:10px;">23% better than industry avg</div>
+      </div>
+
+      <div class="esg-eff-card">
+        <div class="esg-eff-label">Power per TB (W/TB)</div>
+        <div class="esg-eff-compare">
+          <div class="esg-eff-row">
+            <span style="width:60px;flex-shrink:0;color:#3d7a56;font-weight:700;">Pure</span>
+            <div class="esg-eff-bar-wrap"><div class="esg-eff-bar" style="width:7%;background:#3d7a56;"></div></div>
+            <span class="esg-eff-val" style="color:#3d7a56;">0.8 W</span>
+          </div>
+          <div class="esg-eff-row">
+            <span style="width:60px;flex-shrink:0;">Traditional</span>
+            <div class="esg-eff-bar-wrap"><div class="esg-eff-bar" style="width:100%;background:#d5ccbd;"></div></div>
+            <span class="esg-eff-val">12.3 W</span>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#3d7a56;font-weight:700;margin-top:10px;">94% reduction in energy per TB</div>
+      </div>
+
+      <div class="esg-eff-card">
+        <div class="esg-eff-label">Data Center Floor Space</div>
+        <div class="esg-eff-compare">
+          <div class="esg-eff-row">
+            <span style="width:60px;flex-shrink:0;color:#3d7a56;font-weight:700;">Pure fleet</span>
+            <div class="esg-eff-bar-wrap"><div class="esg-eff-bar" style="width:6%;background:#3d7a56;"></div></div>
+            <span class="esg-eff-val" style="color:#3d7a56;">117</span>
+          </div>
+          <div class="esg-eff-row">
+            <span style="width:60px;flex-shrink:0;">Equivalent</span>
+            <div class="esg-eff-bar-wrap"><div class="esg-eff-bar" style="width:100%;background:#d5ccbd;"></div></div>
+            <span class="esg-eff-val">1,900+</span>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#3d7a56;font-weight:700;margin-top:10px;">94% fewer rack units required</div>
+      </div>
+
     </div>
 
   </div>
@@ -1526,9 +1703,56 @@ function openModal(id){
     buildProactiveYearBars();
   }
   if(id==="dp") buildDPPlot();
+  if(id==="esg"){ buildESGGrove(); drawESGCO2Chart(); }
 }
 function closeModalById(id){document.getElementById("modal-"+id).classList.remove("open");document.body.classList.remove("modal-open");}
 function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
+
+// ─── ESG DATA ────────────────────────────────────────────────────────────────
+const ESG = {
+  trees_yr: 22400,
+  co2_yr: 470,
+  mwh_yr: 1217,
+  racks: 183,
+  co2_total: 3290,
+  yearly: [
+    {y:'2019',co2:55},{y:'2020',co2:108},{y:'2021',co2:195},
+    {y:'2022',co2:310},{y:'2023',co2:418},{y:'2024',co2:458},
+    {y:'2025',co2:470},{y:'2026',co2:128}
+  ]
+};
+
+// tree SVG template — single clean pine silhouette
+function esgTreeSVG(color,size){
+  return `<svg viewBox="0 0 14 20" width="${size}" height="${size*20/14}" style="display:block;">
+    <polygon points="7,1 13,9 10,9 12,14 8.5,14 8.5,19 5.5,19 5.5,14 2,14 4,9 1,9" fill="${color}"/>
+  </svg>`;
+}
+
+function buildESGTile(){
+  const el=document.getElementById('esg-mini-viz');if(!el)return;
+  // 10 small trees in a row
+  const trees=Array.from({length:10},(_,i)=>
+    `<span style="display:inline-flex;align-items:flex-end;margin-right:2px;">${esgTreeSVG('#3d7a56',12)}</span>`
+  ).join('');
+  el.innerHTML=`
+    <div style="display:flex;align-items:flex-end;flex-wrap:nowrap;overflow:hidden;">${trees}</div>
+    <div style="margin-top:8px;display:flex;gap:14px;">
+      <div style="font-size:11px;color:#73716f;">CO₂ avoided <span style="font-weight:700;color:#3d7a56;">470 t/yr</span></div>
+      <div style="font-size:11px;color:#73716f;">Energy <span style="font-weight:700;color:#3d7a56;">1,217 MWh</span></div>
+    </div>`;
+}
+
+function buildESGGrove(){
+  const grove=document.getElementById('esg-grove');
+  const cap=document.getElementById('esg-grove-caption');
+  if(!grove)return;
+  const count=Math.ceil(ESG.trees_yr/500); // each icon = 500 tree-equivalents
+  grove.innerHTML=Array.from({length:count},(_,i)=>
+    esgTreeSVG('#3d7a56',18)
+  ).join('');
+  if(cap) cap.innerHTML=`Each 🌲 represents 500 tree-equivalents &nbsp;·&nbsp; <strong style="color:#3d7a56;">${ESG.trees_yr.toLocaleString()} trees/yr total</strong><br>Based on 117-array Pure fleet vs traditional all-flash equivalent · CO₂ absorption factor 21 kg/tree/yr`;
+}
 
 // ─── NDU RECOMMENDATION CAROUSEL ─────────────────────────────────────────────
 let ndurIdx=0;
@@ -1542,6 +1766,59 @@ function ndurGo(i){
   ndurIdx=i;
   document.getElementById('ndu-reco-track').style.transform='translateX(-'+i*100+'%)';
   document.querySelectorAll('.ndu-carousel-dot').forEach(function(d,j){d.classList.toggle('active',j===i);});
+}
+setInterval(function(){
+  if(document.getElementById('modal-ndu')&&document.getElementById('modal-ndu').classList.contains('open')){ndurSlide(1);}
+},4500);
+
+// ─── ESG CO₂ CHART ───────────────────────────────────────────────────────────
+function drawESGCO2Chart(){
+  const c=setupCanvas('esgCO2Chart');if(!c)return;
+  const{ctx,W,H}=c;
+  const data=ESG.yearly;
+  const maxVal=500;
+  const padL=36,padR=12,padT=24,padB=32;
+  const chartW=W-padL-padR;
+  const chartH=H-padT-padB;
+  const barW=chartW/data.length;
+  const barGap=barW*0.22;
+
+  // grid lines
+  ctx.strokeStyle='#e7e3dc';ctx.lineWidth=0.5;
+  [100,200,300,400,500].forEach(v=>{
+    const y=padT+chartH-(v/maxVal)*chartH;
+    ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+chartW,y);ctx.stroke();
+    ctx.fillStyle='#73716f';ctx.font='9px system-ui';ctx.textAlign='right';
+    ctx.fillText(v,padL-4,y+3);
+  });
+
+  // bars
+  data.forEach((d,i)=>{
+    const isYTD=(d.y==='2026');
+    const bh=(d.co2/maxVal)*chartH;
+    const bx=padL+i*barW+barGap/2;
+    const by=padT+chartH-bh;
+    const bw=barW-barGap;
+
+    // bar fill
+    ctx.fillStyle=isYTD?'#a8d5b5':'#3d7a56';
+    ctx.beginPath();
+    ctx.roundRect?ctx.roundRect(bx,by,bw,bh,3):ctx.rect(bx,by,bw,bh);
+    ctx.fill();
+
+    // value label above bar
+    ctx.fillStyle=isYTD?'#8fa596':'#2d2a27';
+    ctx.font=`bold 10px system-ui`;ctx.textAlign='center';
+    ctx.fillText(d.co2,bx+bw/2,by-4);
+
+    // x axis label
+    ctx.fillStyle='#73716f';ctx.font='9px system-ui';ctx.textAlign='center';
+    ctx.fillText(isYTD?'2026 YTD':d.y,bx+bw/2,padT+chartH+14);
+  });
+
+  // x axis line
+  ctx.strokeStyle='#e7e3dc';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(padL,padT+chartH);ctx.lineTo(padL+chartW,padT+chartH);ctx.stroke();
 }
 
 // ─── DEPLOYMENT SITES (for location cards) ───────────────────────────────────
@@ -2353,6 +2630,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   buildSupport();
   buildMiniNDU();
   buildNDUDetail();
+  buildESGTile();
 });
 </script>
 </body>
