@@ -16,11 +16,12 @@
   --grid-max-width:1440px;     /* content cap        */
   --grid-row-height:340px;     /* tile row height    */
 }
+html{height:100%;overflow:hidden;}
 body{
   background:#fff5e3;
   color:#2d2a27;
   font-family:'DM Sans','Inter',system-ui,sans-serif;
-  height:100vh;
+  height:100%;
   overflow:hidden;
 }
 .grid{
@@ -569,7 +570,8 @@ body.modal-open{overflow:hidden;}
 .deck-slide{height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px var(--grid-margin);box-sizing:border-box;}
 .deck-slide>.grid{width:100%;}
 /* right-side page position indicator */
-#deck-nav{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:200;pointer-events:all;}
+#deck-nav{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:9999;pointer-events:all;transition:opacity .2s;}
+body.modal-open #deck-nav{opacity:0;pointer-events:none;}
 .deck-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;cursor:pointer;transition:background .2s,height .2s,border-radius .2s;flex-shrink:0;}
 .deck-dot.active{background:#2d2a27;height:16px;border-radius:4px;}
 .deck-dot:hover:not(.active){background:#aea9a0;}
@@ -724,13 +726,6 @@ body.modal-open{overflow:hidden;}
   </section><!-- /slide-2 -->
 
 </div><!-- /deck-container -->
-
-<!-- ── RIGHT-SIDE PAGE POSITION INDICATOR ── -->
-<nav id="deck-nav" aria-label="Page navigation">
-  <div class="deck-dot active" data-slide="0" title="Overview"></div>
-  <div class="deck-dot" data-slide="1" title="Operations"></div>
-  <div class="deck-dot" data-slide="2" title="Intelligence"></div>
-</nav>
 
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!--  MODALS                                                        -->
@@ -3433,5 +3428,12 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
 })();
 </script>
+
+<!-- ── RIGHT-SIDE PAGE POSITION INDICATOR (last in body = always above all content) ── -->
+<nav id="deck-nav" aria-label="Page navigation">
+  <div class="deck-dot active" data-slide="0" title="Overview"></div>
+  <div class="deck-dot" data-slide="1" title="Operations"></div>
+  <div class="deck-dot" data-slide="2" title="Intelligence"></div>
+</nav>
 </body>
 </html>
