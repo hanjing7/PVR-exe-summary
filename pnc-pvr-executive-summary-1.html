@@ -281,10 +281,10 @@ body.modal-open{overflow:hidden;}
 .tag-low{background:#f7ece0;color:#bd673d;border-color:rgba(189,103,61,0.25);}
 .tag-ok{background:#eef5f0;color:#5a6359;border-color:rgba(90,99,89,0.25);}
 /* recommendation carousel */
-.ndu-carousel-wrap{overflow:hidden;}
-.ndu-carousel-track{display:flex;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);}
-.ndu-slide{min-width:100%;flex-shrink:0;box-sizing:border-box;}
-.ndu-slide .ndu-reco-card{margin-bottom:0;}
+.ndu-carousel-wrap{overflow:hidden;width:100%;box-sizing:border-box;}
+.ndu-carousel-track{display:flex;align-items:stretch;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);}
+.ndu-slide{flex:0 0 100%;width:100%;box-sizing:border-box;display:flex;flex-direction:column;}
+.ndu-slide .ndu-reco-card{flex:1;margin-bottom:0;}
 .ndu-carousel-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;}
 .ndu-carousel-nav button{background:#fff8ec;border:1.5px solid #d5ccbd;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:16px;line-height:1;color:#73716f;font-family:inherit;transition:border-color 0.15s,color 0.15s;}
 .ndu-carousel-nav button:hover{border-color:#2d2a27;color:#2d2a27;}
@@ -1067,8 +1067,8 @@ body.modal-open{overflow:hidden;}
       </div><!-- end chart col -->
 
       <!-- RIGHT: Modernization Path carousel -->
-      <div>
-        <div class="ndu-carousel-wrap">
+      <div style="min-width:0;display:flex;flex-direction:column;">
+        <div class="ndu-carousel-wrap" style="flex:1;">
           <div class="ndu-carousel-track" id="ndu-reco-track">
 
             <!-- Slide 0: Professional Service -->
@@ -1131,18 +1131,140 @@ body.modal-open{overflow:hidden;}
     <!-- ── FLEET COMPOSITION ── -->
     <div>
 
-      <!-- Purity Version Mix + Hardware Age -->
-      <div>
-        <div class="chart-panel-label">Purity Version Mix
-          <span style="font-size:10px;font-weight:500;color:#bd673d;text-transform:none;letter-spacing:0;">Hover orange &amp; red for arrays</span>
+      <!-- Fleet: Purity Version + Hardware Age side by side -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;">
+
+        <!-- LEFT: Purity Version Mix -->
+        <div>
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+            <span style="font-size:13px;font-weight:700;color:#2d2a27;">Software outdated</span>
+            <span class="tag tag-urg">2 critical</span>
+            <span class="tag tag-low">3 low risk</span>
+          </div>
+          <div class="chart-panel-label" style="margin-bottom:14px;">Purity Version — Fleet Distribution</div>
+
+          <!-- 6.4.2 Latest row -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:155px;flex-shrink:0;display:flex;align-items:center;gap:6px;">
+              <span style="font-size:12px;font-weight:700;color:#5a6359;">Purity 6.4.2</span>
+              <span class="tag tag-ok" style="font-size:9px;padding:1px 6px;">Latest</span>
+            </div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:53.5%;background:#5a6359;"></div></div>
+            <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <strong style="color:#2d2a27;">68</strong><span style="color:#73716f;"> · 53.5%</span>
+            </div>
+          </div>
+
+          <!-- 6.4.0–6.4.1 row -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:155px;flex-shrink:0;">
+              <span style="font-size:12px;font-weight:600;color:#73716f;">Purity 6.4.0–6.4.1</span>
+            </div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:28.3%;background:#8fa596;"></div></div>
+            <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <strong style="color:#2d2a27;">36</strong><span style="color:#73716f;"> · 28.3%</span>
+            </div>
+          </div>
+
+          <!-- 6.3.x + ≤6.2.x grouped — Schedule action -->
+          <div style="border:1.5px solid rgba(218,77,114,0.2);border-radius:10px;padding:8px 12px;margin-top:10px;background:rgba(218,77,114,0.03);">
+            <div style="display:flex;align-items:center;gap:10px;padding:5px 0;">
+              <div style="width:155px;flex-shrink:0;display:flex;align-items:center;gap:5px;">
+                <span style="font-size:12px;font-weight:700;color:#bd673d;">⚠ Purity 6.3.x</span>
+                <span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span>
+              </div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
+              <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:5px 0;">
+              <div style="width:155px;flex-shrink:0;display:flex;align-items:center;gap:5px;">
+                <span style="font-size:12px;font-weight:700;color:#da4d72;">🚨 Purity ≤6.2.x</span>
+                <span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span>
+              </div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
+              <div style="width:90px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:0.5px solid rgba(218,77,114,0.18);">
+              <span style="font-size:11px;color:#73716f;">23 arrays need upgrade</span>
+              <button style="font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">⟳ Schedule Upgrade →</button>
+            </div>
+          </div>
         </div>
 
-        <!-- Green row — no action needed -->
-        <div class="dp-metric-item" style="margin-bottom:10px;">
-          <span class="dp-metric-label" style="width:140px;color:#5a6359;font-weight:700;">✓ Purity 6.4.x</span>
-          <div class="dp-metric-track"><div class="dp-metric-fill" style="width:81.8%;background:#5a6359;"></div></div>
-          <span class="dp-metric-pct">81.8%</span>
+        <!-- RIGHT: Hardware Age -->
+        <div>
+          <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;">
+            <span style="font-size:13px;font-weight:700;color:#2d2a27;">Hardware outdated</span>
+            <span class="tag tag-urg">1 EoL risk</span>
+            <span class="tag tag-low">3 actionable</span>
+          </div>
+          <div class="chart-panel-label" style="margin-bottom:14px;">Hardware Age — Fleet Distribution</div>
+
+          <!-- 0–2 years — no action -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#5a6359;">0–2 years</span></div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
+            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+              <strong style="color:#2d2a27;">34</strong><span style="color:#73716f;"> arrays</span>
+            </div>
+            <div style="width:160px;flex-shrink:0;"></div>
+          </div>
+
+          <!-- 2–4 years — Controller Upgrade for Foundation eligible -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#8fa596;">2–4 years</span></div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:45%;background:#8fa596;"></div></div>
+            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+              <strong style="color:#2d2a27;">58</strong><span style="color:#73716f;"> arrays</span>
+              <div style="font-size:10px;color:#5a6359;font-weight:600;margin-top:1px;">14 Foundation eligible</div>
+            </div>
+            <div style="width:160px;flex-shrink:0;text-align:right;">
+              <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
+            </div>
+          </div>
+
+          <!-- 4–6 years — Upgrade to Forever for Foundation arrays -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#bd673d;">4–6 years</span></div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:19%;background:#bd673d;"></div></div>
+            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+              <strong style="color:#2d2a27;">27</strong><span style="color:#73716f;"> arrays</span>
+              <div style="font-size:10px;color:#bd673d;font-weight:600;margin-top:1px;">9 on Foundation</div>
+            </div>
+            <div style="width:160px;flex-shrink:0;text-align:right;">
+              <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
+            </div>
+          </div>
+
+          <!-- 6+ years — Consolidate -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;">
+            <div style="width:90px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#da4d72;">6+ years</span></div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:9%;background:#da4d72;"></div></div>
+            <div style="font-size:11px;white-space:nowrap;flex-shrink:0;text-align:right;min-width:70px;">
+              <strong style="color:#da4d72;">8</strong><span style="color:#73716f;"> arrays</span>
+            </div>
+            <div style="width:160px;flex-shrink:0;text-align:right;">
+              <button style="font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
+            </div>
+          </div>
+
+        </div><!-- end hardware age col -->
+      </div><!-- end fleet grid -->
+
+      <div style="display:none;" aria-hidden="true"><!-- legacy data -->
+        <!-- legacy Purity hover popups (removed from UI, data preserved) -->
+        <div class="purity-ver-trigger">
+          <div class="dp-metric-item" style="cursor:pointer;">
+            <span class="dp-metric-label" style="width:140px;color:#bd673d;font-weight:700;">⚠ Purity 6.3.x</span>
+            <div class="dp-metric-track"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
+            <span class="dp-metric-pct" style="color:#bd673d;">14.2%</span>
+          </div>
         </div>
+        <div class="hw-age-trigger"><div class="hw-age-bar"></div></div>
 
         <!-- Orange row — 6.3.x: hover shows SwNDU schedule -->
         <div class="purity-ver-trigger" style="margin-bottom:10px;">
