@@ -1370,59 +1370,135 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
           <div class="chart-panel-label" style="margin-bottom:14px;">Hardware Age</div>
 
           <!-- 0–2 years — no action -->
-          <div style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#5a6359;">0–2 years</span></div>
-              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
-              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-                <strong style="color:#2d2a27;">34</strong><span style="color:#73716f;"> arrays</span>
-              </div>
-            </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">0–2 yrs</div>
+            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
+            <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong>34</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
           </div>
 
-          <!-- 2–4 years — Controller Upgrade -->
-          <div style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+          <!-- 2–4 years — hover for detail -->
+          <div class="hw-age-trigger" style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#8fa596;">2–4 years</span></div>
+              <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">2–4 yrs</div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:45%;background:#8fa596;"></div></div>
-              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-                <strong style="color:#2d2a27;">58</strong><span style="color:#73716f;"> arrays</span>
-                <div style="font-size:10px;color:#5a6359;font-weight:600;margin-top:1px;">14 Foundation eligible</div>
-              </div>
+              <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong>58</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
             </div>
-            <div style="margin-top:6px;padding-left:90px;">
-              <button style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
+            <div class="hw-age-hint">↗ 14 Foundation eligible — hover for detail</div>
+            <div class="hw-action-popup">
+              <div class="hw-popup-head">
+                <span style="font-size:13px;font-weight:700;color:#2d2a27;">2–4 yr arrays · Controller Upgrade</span>
+                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
+              </div>
+              <div class="hw-popup-body">
+                <div class="out-row">
+                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf0-cleanrm-pure01</div>
+                    <div class="odet">FA-C60R3 · &lt;15% performance headroom · <strong>Evergreen//Forever</strong></div>
+                    <div class="oact" style="color:#3d7a56;">✦ Already on Forever — entitled to controller upgrade, schedule HwNDU refresh now</div>
+                  </div>
+                  <span class="tag tag-ok" style="flex-shrink:0;">Entitled</span>
+                </div>
+                <div class="out-row">
+                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">p-prdc-pure05</div>
+                    <div class="odet">FA-X70R3 · 4 yrs old · NVMe-optimised gen available · <strong>Evergreen//Forever</strong></div>
+                    <div class="oact" style="color:#3d7a56;">✦ Already on Forever — entitled to controller upgrade, coordinate with account team</div>
+                  </div>
+                  <span class="tag tag-ok" style="flex-shrink:0;">Entitled</span>
+                </div>
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e7e3dc;">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;margin-bottom:4px;">
+                    <span style="color:#3d7a56;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
+                    <span><strong style="color:#3d7a56;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;">
+                    <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
+                    <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Path: convert to Evergreen//Forever (CapEx) to gain perpetual HwNDU rights.</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 4–6 years — Upgrade to Forever -->
-          <div style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+          <!-- 4–6 years — hover for detail -->
+          <div class="hw-age-trigger" style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#bd673d;">4–6 years</span></div>
+              <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">4–6 yrs</div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:19%;background:#bd673d;"></div></div>
-              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-                <strong style="color:#2d2a27;">27</strong><span style="color:#73716f;"> arrays</span>
-                <div style="font-size:10px;color:#bd673d;font-weight:600;margin-top:1px;">9 on Foundation</div>
-              </div>
+              <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong>27</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
             </div>
-            <div style="margin-top:6px;padding-left:90px;">
-              <button style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
+            <div class="hw-age-hint">↗ 9 on Foundation — hover for detail</div>
+            <div class="hw-action-popup">
+              <div class="hw-popup-head">
+                <span style="font-size:13px;font-weight:700;color:#2d2a27;">4–6 yr arrays · Upgrade to Forever</span>
+                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
+              </div>
+              <div class="hw-popup-body">
+                <div class="out-row">
+                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf0-nas02 (FB-S)</div>
+                    <div class="odet">2018 shelf · capacity expansion blocked by shelf age · <strong>Standard subscription</strong></div>
+                    <div class="oact">→ Upgrade to Evergreen//Forever (CapEx) to unlock free controller upgrade</div>
+                  </div>
+                  <span class="tag tag-low" style="flex-shrink:0;">Upgrade path</span>
+                </div>
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e7e3dc;">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;margin-bottom:4px;">
+                    <span style="color:#3d7a56;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
+                    <span><strong style="color:#3d7a56;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;">
+                    <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
+                    <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Path: convert to Evergreen//Forever (CapEx) to gain perpetual HwNDU rights.</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 6+ years — Consolidate -->
-          <div style="padding:8px 0;">
+          <!-- 6+ years — hover for detail -->
+          <div class="hw-age-trigger" style="padding:8px 0;">
             <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:80px;flex-shrink:0;"><span style="font-size:12px;font-weight:700;color:#da4d72;">6+ years</span></div>
+              <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">6+ yrs</div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:9%;background:#da4d72;"></div></div>
-              <div style="width:70px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-                <strong style="color:#da4d72;">8</strong><span style="color:#73716f;"> arrays</span>
+              <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong style="color:#da4d72;">8</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
+            </div>
+            <div class="hw-age-hint" style="color:#da4d72;">🚨 EoL risk — hover for detail</div>
+            <div class="hw-action-popup">
+              <div class="hw-popup-head">
+                <span style="font-size:13px;font-weight:700;color:#2d2a27;">6+ yr arrays · EoL Risk &amp; Consolidate</span>
+                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
+              </div>
+              <div class="hw-popup-body">
+                <div class="out-row crit">
+                  <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf0-purefb024-01</div>
+                    <div class="odet">Gen 3 controller · Gen 5 available · EoL shelf · <strong>Evergreen//Foundation</strong></div>
+                    <div class="oact" style="color:#3d7a56;">✦ Already on Forever — entitled to controller upgrade via HwNDU at no extra cost</div>
+                  </div>
+                  <span class="tag tag-urg" style="flex-shrink:0;">EoL risk</span>
+                </div>
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e7e3dc;">
+                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;margin-bottom:4px;">
+                    <span style="color:#3d7a56;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
+                    <span><strong style="color:#3d7a56;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
+                  </div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;">
+                    <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
+                    <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Path: convert to Evergreen//Forever (CapEx) to gain perpetual HwNDU rights.</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div style="margin-top:6px;padding-left:90px;">
-              <button style="font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
-            </div>
           </div>
+
         </div><!-- end hardware age col -->
       </div><!-- end fleet grid -->
 
