@@ -87,44 +87,50 @@ body{
 /* ── modal (full-screen) ── */
 .modal-backdrop{
   position:fixed;inset:0;
-  /* translucent scrim — deck shows through, scaled and dimmed */
+  /* translucent scrim — scaled deck shows through at edges */
   background:rgba(18,14,11,.38);
   z-index:10000;
   display:none;
-  overflow-y:auto;
-  /* flex so modal-card is centred inside */
-  padding:20px;
-  box-sizing:border-box;
-  align-items:center;
-  justify-content:center;
+  overflow:hidden;
 }
 body.modal-open{overflow:hidden;}
-/* flex on open so card floats centred over the scrim */
-.modal-backdrop.open{display:flex;}
+.modal-backdrop.open{display:block;}
+
+/* ── card stack: ghost layer 2 (deepest, card #2 in hierarchy) ── */
+.modal-backdrop.open::before{
+  content:'';
+  position:fixed;
+  top:0;left:14px;right:14px;bottom:0;
+  border-radius:22px;
+  background:#ddd8cf;
+  box-shadow:0 8px 32px rgba(18,14,11,.14);
+  z-index:0;
+  pointer-events:none;
+}
+/* ── card stack: ghost layer 1 (middle, card #2 closer) ── */
+.modal-backdrop.open::after{
+  content:'';
+  position:fixed;
+  top:8px;left:7px;right:7px;bottom:0;
+  border-radius:18px;
+  background:#ece7de;
+  box-shadow:0 4px 20px rgba(18,14,11,.09);
+  z-index:1;
+  pointer-events:none;
+}
+
+/* ── modal card: card #3 — the topmost card ── */
 .modal-card{
+  position:fixed;
+  top:16px;left:0;right:0;bottom:0;
+  z-index:2;
   background:#fff5e3;
   border:none;
-  /* rounded card floating above the deck */
-  border-radius:16px;
-  overflow:hidden;
-  /* ghost-card stack via box-shadow:
-     layer 2 (deepest) — warm card peeking 20px below, 14px wider all around
-     layer 1           — slightly closer ghost
-     real drop shadow  */
-  box-shadow:
-    0 20px 0 14px #e3ddd4,
-    0 26px 30px 14px rgba(18,14,11,.07),
-    0 10px 0 7px #ede8e0,
-    0 14px 24px 7px rgba(18,14,11,.09),
-    0 32px 80px rgba(18,14,11,.28),
-    0 6px 20px rgba(18,14,11,.10);
+  border-radius:14px 14px 0 0;
+  overflow-y:auto;
+  box-shadow:0 -4px 28px rgba(18,14,11,.10);
   padding:32px var(--grid-margin);
-  width:100%;
-  max-width:var(--grid-max-width);
-  max-height:calc(100vh - 40px);
-  margin:0 auto;
-  position:relative;
-  flex-shrink:0;
+  box-sizing:border-box;
 }
 .modal-header{
   display:flex;justify-content:space-between;align-items:flex-start;
@@ -582,11 +588,11 @@ body.modal-open{overflow:hidden;}
 
 /* ── modal pagination ── */
 /* ── has-pages modals (Deployments, Support, NDU, ESG) ── */
-.modal-card.has-pages{overflow:hidden;padding:0;display:flex;flex-direction:column;height:calc(100vh - 40px);}
+.modal-card.has-pages{overflow:hidden;padding:0;display:flex;flex-direction:column;}
 .modal-card.has-pages .modal-header{padding:20px 24px 16px;flex-shrink:0;margin-bottom:0;}
 
 /* ── generic presentation card (single-page, non-paged modals) ── */
-.modal-card.pres-slide{overflow:hidden;padding:0;display:flex;flex-direction:column;height:calc(100vh - 40px);}
+.modal-card.pres-slide{overflow:hidden;padding:0;display:flex;flex-direction:column;}
 .modal-card.pres-slide .modal-header{padding:20px 24px 16px;flex-shrink:0;margin-bottom:0;}
 /* body area — scrolls if content overflows, acts as flex column for centering */
 .pres-body{flex:1;min-height:0;overflow-y:auto;padding:20px 36px 40px 24px;box-sizing:border-box;}
@@ -1191,7 +1197,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="modal-card has-pages" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
-        <div class="modal-title">Action Required</div>
+        <div class="modal-title">Non-Disruptive Upgrade</div>
       </div>
       <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     </div>
