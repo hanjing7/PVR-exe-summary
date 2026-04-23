@@ -247,7 +247,7 @@ body.modal-open{overflow:hidden;}
   box-shadow:0 8px 32px rgba(45,42,39,0.18);z-index:500;
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity 0.2s ease,transform 0.2s ease;transform:translateY(-4px);}
-.hw-age-trigger:hover .hw-action-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
+.hw-age-trigger:hover .hw-action-popup,.purity-ver-trigger:hover .hw-action-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
 .hw-action-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;}
 .hw-action-tag.crit{background:#fce8ee;color:#da4d72;border:1px solid rgba(218,77,114,0.25);}
 .hw-action-tag.low{background:#f7ece0;color:#bd673d;border:1px solid rgba(189,103,61,0.25);}
@@ -263,6 +263,25 @@ body.modal-open{overflow:hidden;}
 .oname{font-size:12px;font-weight:700;color:#2d2a27;margin-bottom:2px;}
 .odet{font-size:11px;color:#73716f;line-height:1.5;margin-bottom:3px;}
 .oact{font-size:11px;line-height:1.5;}
+/* purity version row hover trigger */
+.purity-ver-trigger{position:relative;cursor:pointer;}
+.purity-ver-trigger .hw-action-popup{width:440px;}
+/* tag aliases (match reference code naming) */
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;border:1px solid transparent;}
+.tag-urg{background:#fce8ee;color:#da4d72;border-color:rgba(218,77,114,0.25);}
+.tag-low{background:#f7ece0;color:#bd673d;border-color:rgba(189,103,61,0.25);}
+.tag-ok{background:#eef5f0;color:#5a6359;border-color:rgba(90,99,89,0.25);}
+/* recommendation carousel */
+.ndu-carousel-wrap{overflow:hidden;}
+.ndu-carousel-track{display:flex;transition:transform 0.35s cubic-bezier(0.32,0.72,0,1);}
+.ndu-slide{min-width:100%;flex-shrink:0;box-sizing:border-box;}
+.ndu-slide .ndu-reco-card{margin-bottom:0;}
+.ndu-carousel-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;}
+.ndu-carousel-nav button{background:#fff8ec;border:1.5px solid #d5ccbd;border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:16px;line-height:1;color:#73716f;font-family:inherit;transition:border-color 0.15s,color 0.15s;}
+.ndu-carousel-nav button:hover{border-color:#2d2a27;color:#2d2a27;}
+.ndu-carousel-dots{display:flex;gap:6px;align-items:center;}
+.ndu-carousel-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;transition:background 0.2s,width 0.2s;cursor:pointer;}
+.ndu-carousel-dot.active{background:#2d2a27;width:16px;border-radius:8px;}
 
 /* topology */
 .topo-sites{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
@@ -1000,21 +1019,98 @@ body.modal-open{overflow:hidden;}
 
       <!-- LEFT: Purity Version Mix + Hardware Age -->
       <div>
-        <div class="chart-panel-label">Purity Version Mix</div>
+        <div class="chart-panel-label">Purity Version Mix
+          <span style="font-size:10px;font-weight:500;color:#bd673d;text-transform:none;letter-spacing:0;">Hover orange &amp; red for arrays</span>
+        </div>
+
+        <!-- Green row — no action needed -->
         <div class="dp-metric-item" style="margin-bottom:10px;">
-          <span class="dp-metric-label" style="width:140px;">Purity 6.4.x (Latest)</span>
+          <span class="dp-metric-label" style="width:140px;color:#5a6359;font-weight:700;">✓ Purity 6.4.x</span>
           <div class="dp-metric-track"><div class="dp-metric-fill" style="width:81.8%;background:#5a6359;"></div></div>
           <span class="dp-metric-pct">81.8%</span>
         </div>
-        <div class="dp-metric-item" style="margin-bottom:10px;">
-          <span class="dp-metric-label" style="width:140px;">Purity 6.3.x</span>
-          <div class="dp-metric-track"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
-          <span class="dp-metric-pct">14.2%</span>
+
+        <!-- Orange row — 6.3.x: hover shows SwNDU schedule -->
+        <div class="purity-ver-trigger" style="margin-bottom:10px;">
+          <div class="dp-metric-item" style="cursor:pointer;">
+            <span class="dp-metric-label" style="width:140px;color:#bd673d;font-weight:700;">⚠ Purity 6.3.x</span>
+            <div class="dp-metric-track"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
+            <span class="dp-metric-pct" style="color:#bd673d;">14.2%</span>
+          </div>
+          <div class="hw-action-popup">
+            <div class="hw-popup-head" style="border-bottom-color:rgba(189,103,61,0.25);">
+              <span style="font-size:13px;font-weight:800;color:#2d2a27;">6.3.x — Schedule SwNDU to 6.4.x</span>
+              <span class="tag tag-low">12 arrays</span>
+            </div>
+            <div class="hw-popup-body">
+              <div class="out-section-label">⚠ Upgrade recommended — Purity 6.3.x</div>
+              <div class="out-row">
+                <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="oname">gf0-fas-pure03</div>
+                  <div class="odet">Purity 6.3.8 · 4 active CVEs (CVSS 8.1+) · <strong>Evergreen//Foundation</strong></div>
+                  <div class="oact" style="color:#da4d72;">→ Schedule SwNDU to 6.4.x immediately to close CVE exposure window</div>
+                </div>
+                <span class="tag tag-urg">Critical</span>
+              </div>
+              <div class="out-row">
+                <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="oname">gf1-fb-pure09</div>
+                  <div class="odet">Purity 6.3.6 · 2 CVEs Low severity · <strong>Evergreen//Foundation</strong></div>
+                  <div class="oact" style="color:#bd673d;">→ SwNDU to 6.4.x recommended this quarter</div>
+                </div>
+                <span class="tag tag-low">Low</span>
+              </div>
+              <div class="out-row">
+                <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="oname">gf2-array-p07</div>
+                  <div class="odet">Purity 6.3.5 · performance patch available in 6.4.3 · <strong>Evergreen//Foundation</strong></div>
+                  <div class="oact" style="color:#73716f;">→ Minor SwNDU resolves latency regression under sequential write</div>
+                </div>
+                <span class="tag tag-low">Low</span>
+              </div>
+              <div style="padding:8px 0;font-size:11px;color:#73716f;border-top:0.5px solid #e7e3dc;margin-top:4px;">+ 9 more arrays on 6.3.x — contact account team for batch upgrade schedule</div>
+            </div>
+          </div>
         </div>
-        <div class="dp-metric-item">
-          <span class="dp-metric-label" style="width:140px;">Purity ≤6.2.x</span>
-          <div class="dp-metric-track"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
-          <span class="dp-metric-pct">3.9%</span>
+
+        <!-- Red row — ≤6.2.x: hover shows critical EoL SwNDU action -->
+        <div class="purity-ver-trigger">
+          <div class="dp-metric-item" style="cursor:pointer;">
+            <span class="dp-metric-label" style="width:140px;color:#da4d72;font-weight:700;">🚨 Purity ≤6.2.x</span>
+            <div class="dp-metric-track"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
+            <span class="dp-metric-pct" style="color:#da4d72;">3.9%</span>
+          </div>
+          <div class="hw-action-popup">
+            <div class="hw-popup-head" style="border-bottom-color:rgba(218,77,114,0.3);">
+              <span style="font-size:13px;font-weight:800;color:#2d2a27;">≤6.2.x — Urgent SwNDU Required</span>
+              <span class="tag tag-urg">4 arrays · EoL</span>
+            </div>
+            <div class="hw-popup-body">
+              <div class="out-section-label">🚨 EoL version — no further security patches</div>
+              <div class="out-row">
+                <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="oname">gf0-purefb024-01</div>
+                  <div class="odet">Purity 6.2.4 · EoL version · active CVE exposure · <strong>Evergreen//Foundation</strong></div>
+                  <div class="oact" style="color:#da4d72;">→ Upgrade to 6.4.x urgently — version no longer receives security patches</div>
+                </div>
+                <span class="tag tag-urg">Critical</span>
+              </div>
+              <div class="out-row">
+                <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="oname">p-test-pure01</div>
+                  <div class="odet">Purity 6.1.8 · EoL version · no further bug fixes · <strong>Standard subscription</strong></div>
+                  <div class="oact" style="color:#da4d72;">→ Emergency SwNDU required before next maintenance window</div>
+                </div>
+                <span class="tag tag-urg">Critical</span>
+              </div>
+              <div style="padding:8px 0;font-size:11px;color:#da4d72;font-weight:600;border-top:0.5px solid #e7e3dc;margin-top:4px;">+ 2 more arrays on ≤6.2.x — escalate to account team immediately</div>
+            </div>
+          </div>
         </div>
 
         <div class="chart-panel-label" style="margin-top:28px;">Hardware Age
@@ -1030,21 +1126,17 @@ body.modal-open{overflow:hidden;}
           <div style="display:flex;justify-content:space-between;font-size:10px;color:#73716f;">
             <span>0–2 yrs (27%)</span><span>2–4 yrs (45%)</span><span>4–6 yrs (19%)</span><span>6+ yrs (9%)</span>
           </div>
-          <!-- hover popup — array-level upgrade recommendations by category -->
+          <!-- hover popup — hardware age controller action items (reference spec) -->
           <div class="hw-action-popup">
             <div class="hw-popup-head">
-              <span style="font-size:13px;font-weight:800;color:#2d2a27;">Upgrade Action Items</span>
+              <span style="font-size:13px;font-weight:800;color:#2d2a27;">Controller Action Items</span>
               <div style="display:flex;gap:6px;">
-                <span class="hw-action-tag crit">3 Critical</span>
-                <span class="hw-action-tag low">2 Upgrade Path</span>
-                <span class="hw-action-tag ok">2 Entitled</span>
+                <span class="tag tag-urg">1 EoL risk</span>
+                <span class="tag tag-low">1 Upgrade path</span>
+                <span class="tag tag-ok">2 Entitled</span>
               </div>
             </div>
             <div class="hw-popup-body">
-
-              <!-- ── SECTION 1: EoL / CVE risk ── -->
-              <div class="out-section-label">⚠ Upgrade Required</div>
-
               <div class="out-row">
                 <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
                 <div style="flex:1;min-width:0;">
@@ -1052,55 +1144,17 @@ body.modal-open{overflow:hidden;}
                   <div class="odet">Gen 3 controller · Gen 5 available · EoL shelf · <strong>Evergreen//Foundation</strong></div>
                   <div class="oact" style="color:#5a6359;">✦ Already on Forever — entitled to controller upgrade via HwNDU at no extra cost</div>
                 </div>
-                <span class="hw-action-tag eol">EoL risk</span>
+                <span class="tag tag-urg">EoL risk</span>
               </div>
-
-              <div class="out-row">
-                <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
-                <div style="flex:1;min-width:0;">
-                  <div class="oname">gf0-fas-pure03</div>
-                  <div class="odet">Purity 6.3.8 · 4 active CVEs (CVSS 8.1+) · <strong>Evergreen//Foundation</strong></div>
-                  <div class="oact" style="color:#da4d72;">→ Schedule SwNDU to 6.4.x immediately to close CVE exposure window</div>
-                </div>
-                <span class="hw-action-tag crit">Critical</span>
-              </div>
-
-              <div class="out-row">
-                <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
-                <div style="flex:1;min-width:0;">
-                  <div class="oname">gf1-purefb042-01</div>
-                  <div class="odet">Purity 6.4.0 · Performance regression patch in 6.4.3 · <strong>Evergreen//Foundation</strong></div>
-                  <div class="oact" style="color:#bd673d;">→ Minor SwNDU to 6.4.3 resolves latency spike under heavy sequential write</div>
-                </div>
-                <span class="hw-action-tag low">Low</span>
-              </div>
-
-              <!-- ── SECTION 2: Standard subscription — upgrade path ── -->
-              <div class="out-section-label">→ Upgrade Path Recommended</div>
-
               <div class="out-row">
                 <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
                 <div style="flex:1;min-width:0;">
                   <div class="oname">gf0-nas02 (FB-S)</div>
                   <div class="odet">2018 shelf · capacity expansion blocked by shelf age · <strong>Standard subscription</strong></div>
-                  <div class="oact" style="color:#73716f;">→ Upgrade to Evergreen//Forever (CapEx) to unlock free controller upgrade</div>
+                  <div class="oact">→ Upgrade to Evergreen//Forever (CapEx) to unlock free controller upgrade</div>
                 </div>
-                <span class="hw-action-tag low">Upgrade path</span>
+                <span class="tag tag-low">Upgrade path</span>
               </div>
-
-              <div class="out-row">
-                <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
-                <div style="flex:1;min-width:0;">
-                  <div class="oname">gf2-array-pure08</div>
-                  <div class="odet">FA-X50R2 · 5 yrs old · NVMe-ready gen available · <strong>Standard subscription</strong></div>
-                  <div class="oact" style="color:#73716f;">→ Transition to Forever subscription to gain access to HwNDU refresh</div>
-                </div>
-                <span class="hw-action-tag low">Upgrade path</span>
-              </div>
-
-              <!-- ── SECTION 3: Already on Forever — entitled ── -->
-              <div class="out-section-label">✦ Entitled — Schedule Now</div>
-
               <div class="out-row">
                 <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
                 <div style="flex:1;min-width:0;">
@@ -1108,9 +1162,8 @@ body.modal-open{overflow:hidden;}
                   <div class="odet">FA-C60R3 · &lt;15% performance headroom · <strong>Evergreen//Forever</strong></div>
                   <div class="oact" style="color:#5a6359;">✦ Already on Forever — entitled to controller upgrade, schedule HwNDU refresh now</div>
                 </div>
-                <span class="hw-action-tag ok">Entitled</span>
+                <span class="tag tag-ok">Entitled</span>
               </div>
-
               <div class="out-row">
                 <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
                 <div style="flex:1;min-width:0;">
@@ -1118,52 +1171,89 @@ body.modal-open{overflow:hidden;}
                   <div class="odet">FA-X70R3 · 4 yrs old · NVMe-optimised gen available · <strong>Evergreen//Forever</strong></div>
                   <div class="oact" style="color:#5a6359;">✦ Already on Forever — entitled to controller upgrade, coordinate with account team</div>
                 </div>
-                <span class="hw-action-tag ok">Entitled</span>
+                <span class="tag tag-ok">Entitled</span>
               </div>
-
+              <!-- Entitlement key -->
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #d5ccbd;display:flex;flex-direction:column;gap:6px;">
+                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:4px;">Controller upgrade entitlement key</div>
+                <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#2d2a27;">
+                  <span style="color:#5a6359;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
+                  <span><strong style="color:#5a6359;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
+                </div>
+                <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#2d2a27;">
+                  <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
+                  <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Convert to Evergreen//Forever (CapEx trade-in) to gain perpetual HwNDU rights.</span>
+                </div>
+              </div>
             </div><!-- end hw-popup-body -->
           </div>
         </div>
       </div>
 
-      <!-- RIGHT: Modernization Recommendations -->
+      <!-- RIGHT: Modernization Recommendations — carousel -->
       <div>
-        <div class="chart-panel-label">Modernization Path</div>
-
-        <div class="ndu-reco-card cx">
-          <div class="ndu-reco-title">CX Managed Services</div>
-          <div class="ndu-reco-desc">Let Pure's experts handle the heavy lifting. White-glove modernization for mission-critical arrays — from planning to execution with zero impact on production I/O.</div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
-            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
-              <div class="stat-tile-label">Coverage</div>
-              <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">100%</div>
-              <div class="stat-tile-sub">NDU capable</div>
-            </div>
-            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
-              <div class="stat-tile-label">Risk</div>
-              <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">Zero</div>
-              <div class="stat-tile-sub">downtime</div>
-            </div>
-          </div>
-          <button class="ndu-reco-cta" style="border-color:#5a6359;color:#5a6359;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Request CX Sync →</button>
+        <div class="chart-panel-label">Modernization Path
+          <span style="font-size:10px;font-weight:500;color:#73716f;text-transform:none;letter-spacing:0;">For 16 flagged arrays (orange &amp; red)</span>
         </div>
+        <div class="ndu-carousel-wrap">
+          <div class="ndu-carousel-track" id="ndu-reco-track">
 
-        <div class="ndu-reco-card self">
-          <div class="ndu-reco-title">Self-Service Upgrade</div>
-          <div class="ndu-reco-desc">Take control with Purity Cloud-Edge. Orchestrate upgrades on your own timeline using Pure1 automation — full visibility, zero-touch execution.</div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
-            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
-              <div class="stat-tile-label">Arrays ready</div>
-              <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">14</div>
-              <div class="stat-tile-sub">to self-upgrade</div>
+            <!-- Slide 0: Professional Service -->
+            <div class="ndu-slide">
+              <div class="ndu-reco-card cx">
+                <div class="ndu-reco-title">Professional Service</div>
+                <div class="ndu-reco-desc">Let Pure's experts handle the heavy lifting. White-glove modernization for mission-critical arrays — from planning to execution with zero impact on production I/O. <strong style="color:#5a6359;">Recommended for EoL risk &amp; Critical arrays.</strong></div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
+                    <div class="stat-tile-label">Coverage</div>
+                    <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">100%</div>
+                    <div class="stat-tile-sub">NDU capable</div>
+                  </div>
+                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
+                    <div class="stat-tile-label">Flagged arrays</div>
+                    <div class="stat-tile-value" style="font-size:18px;color:#da4d72;">7</div>
+                    <div class="stat-tile-sub">need PS-led NDU</div>
+                  </div>
+                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
+                    <div class="stat-tile-label">Risk</div>
+                    <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">Zero</div>
+                    <div class="stat-tile-sub">downtime</div>
+                  </div>
+                </div>
+                <button class="ndu-reco-cta" style="border-color:#5a6359;color:#5a6359;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Request PS Engagement →</button>
+              </div>
             </div>
-            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
-              <div class="stat-tile-label">Avg time</div>
-              <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">&lt;45m</div>
-              <div class="stat-tile-sub">per upgrade</div>
+
+            <!-- Slide 1: Self-Service Upgrade -->
+            <div class="ndu-slide">
+              <div class="ndu-reco-card self">
+                <div class="ndu-reco-title">Self-Service Upgrade</div>
+                <div class="ndu-reco-desc">Take control with Purity Cloud-Edge. Orchestrate upgrades on your own timeline using Pure1 automation — full visibility, zero-touch execution. <strong style="color:#bd673d;">Ideal for Low-priority &amp; Entitled arrays.</strong></div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
+                    <div class="stat-tile-label">Arrays ready</div>
+                    <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">14</div>
+                    <div class="stat-tile-sub">to self-upgrade</div>
+                  </div>
+                  <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
+                    <div class="stat-tile-label">Avg time</div>
+                    <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">&lt;45m</div>
+                    <div class="stat-tile-sub">per upgrade</div>
+                  </div>
+                </div>
+                <button class="ndu-reco-cta" style="border-color:#bd673d;color:#bd673d;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Explore Tools →</button>
+              </div>
             </div>
+
+          </div><!-- end ndu-reco-track -->
+          <div class="ndu-carousel-nav">
+            <button onclick="ndurSlide(-1)">&#8249;</button>
+            <div class="ndu-carousel-dots">
+              <div class="ndu-carousel-dot active" id="ndu-dot-0" onclick="ndurGo(0)"></div>
+              <div class="ndu-carousel-dot" id="ndu-dot-1" onclick="ndurGo(1)"></div>
+            </div>
+            <button onclick="ndurSlide(1)">&#8250;</button>
           </div>
-          <button class="ndu-reco-cta" style="border-color:#bd673d;color:#bd673d;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Explore Tools →</button>
         </div>
       </div>
     </div><!-- end ndu-section-grid -->
@@ -1439,6 +1529,20 @@ function openModal(id){
 }
 function closeModalById(id){document.getElementById("modal-"+id).classList.remove("open");document.body.classList.remove("modal-open");}
 function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
+
+// ─── NDU RECOMMENDATION CAROUSEL ─────────────────────────────────────────────
+let ndurIdx=0;
+function ndurSlide(dir){
+  const slides=document.querySelectorAll('.ndu-slide');
+  ndurIdx=(ndurIdx+dir+slides.length)%slides.length;
+  document.getElementById('ndu-reco-track').style.transform='translateX(-'+ndurIdx*100+'%)';
+  document.querySelectorAll('.ndu-carousel-dot').forEach(function(d,i){d.classList.toggle('active',i===ndurIdx);});
+}
+function ndurGo(i){
+  ndurIdx=i;
+  document.getElementById('ndu-reco-track').style.transform='translateX(-'+i*100+'%)';
+  document.querySelectorAll('.ndu-carousel-dot').forEach(function(d,j){d.classList.toggle('active',j===i);});
+}
 
 // ─── DEPLOYMENT SITES (for location cards) ───────────────────────────────────
 const SITES_DEPLOY=[
