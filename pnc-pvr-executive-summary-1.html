@@ -121,7 +121,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── kpi card ── */
 .kpi-card{
-  background:#f0ece5;border:1px solid #e7e3dc;
+  background:#fff8ec;border:1px solid #d5ccbd;
   border-radius:8px;padding:10px 16px;flex:1 1 110px;
 }
 .kpi-label{font-size:11px;color:#73716f;margin-bottom:4px;}
@@ -182,7 +182,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── detail modal content ── */
 .detail-kpi-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
-.detail-kpi{background:#f0ece5;border:1px solid #e7e3dc;border-radius:8px;padding:10px 16px;flex:1 1 110px;}
+.detail-kpi{background:#fff8ec;border:1px solid #d5ccbd;border-radius:8px;padding:10px 16px;flex:1 1 110px;}
 .detail-kpi .label{font-size:11px;color:#73716f;margin-bottom:4px;}
 .detail-kpi .value{font-size:20px;font-weight:600;}
 
@@ -286,7 +286,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── fleet KPI cards ── */
 .fleet-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.fleet-kpi-card{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:16px 20px;min-height:80px;}
+.fleet-kpi-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:16px 20px;min-height:80px;}
 .fleet-kpi-label{font-size:13px;color:#73716f;margin-bottom:8px;font-weight:400;}
 .fleet-kpi-value{font-size:28px;font-weight:600;}
 .kpi-avg-val{color:#5a6359;} .kpi-healthy-val{color:#8fa596;} .kpi-caution-val{color:#bd673d;} .kpi-critical-val{color:#da4d72;}
@@ -336,7 +336,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── location cards (deployments modal) ── */
 .location-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;}
-.loc-card{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:20px;}
+.loc-card{background:transparent;border:none;border-radius:0;padding:20px 0;}
 .loc-title{font-size:18px;font-weight:600;color:#2d2a27;display:flex;align-items:baseline;gap:8px;}
 .loc-addr{font-size:11px;font-weight:400;color:#73716f;margin-top:2px;}
 .loc-table{width:100%;border-collapse:collapse;margin-top:10px;}
@@ -347,9 +347,9 @@ body.modal-open{overflow:hidden;}
 
 /* ── support health modal ── */
 .support-hero-row{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;}
-.support-chart-card{background:#f0ece5;border:1px solid #e7e3dc;border-radius:14px;padding:20px;flex:0 0 280px;display:flex;align-items:center;gap:16px;}
+.support-chart-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:14px;padding:20px;flex:0 0 280px;display:flex;align-items:center;gap:16px;}
 .support-stat-tiles{display:flex;gap:10px;flex:1;flex-wrap:wrap;}
-.support-stat-tile{background:#f0ece5;border:1px solid #e7e3dc;border-radius:14px;padding:18px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:100px;}
+.support-stat-tile{background:#fff8ec;border:1px solid #d5ccbd;border-radius:14px;padding:18px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:100px;}
 .stat-tile-label{font-size:11px;color:#73716f;margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.02em;}
 .stat-tile-value{font-size:28px;font-weight:700;color:#2d2a27;line-height:1.1;}
 .stat-tile-value.highlight{color:#bd673d;}
@@ -360,7 +360,7 @@ body.modal-open{overflow:hidden;}
 .bar-row{display:grid;grid-template-columns:52px 1fr 36px;align-items:center;gap:10px;}
 .bar-track{height:8px;background:#e7e3dc;border-radius:4px;overflow:hidden;}
 .support-year-select{background:#fdfaf3;border:1.5px solid #d1e5d9;border-radius:8px;padding:4px 10px;font-size:12px;color:#5a6359;font-weight:600;cursor:pointer;outline:none;font-family:inherit;}
-.chart-panel{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:24px;}
+.chart-panel{background:transparent;border:none;border-radius:0;padding:24px 0;}
 .chart-panel-label{font-size:11px;font-weight:600;color:#73716f;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
 
 /* ── data protection tile mini bars ── */
@@ -924,8 +924,8 @@ body.modal-open{overflow:hidden;}
     </div>
     <div class="detail-kpi-row">
       <div class="detail-kpi"><div class="label">Total NDUs</div><div class="value" style="color:#2d2a27;">715</div></div>
-      <div class="detail-kpi" style="background:#eef5f0;"><div class="label">Software (SwNDU)</div><div class="value" style="color:#5a6359;">620</div></div>
-      <div class="detail-kpi" style="background:#f7ece0;"><div class="label">Hardware (HwNDU)</div><div class="value" style="color:#bd673d;">95</div></div>
+      <div class="detail-kpi"><div class="label">Software (SwNDU)</div><div class="value" style="color:#5a6359;">620</div></div>
+      <div class="detail-kpi"><div class="label">Hardware (HwNDU)</div><div class="value" style="color:#bd673d;">95</div></div>
       <div class="detail-kpi"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
     </div>
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
