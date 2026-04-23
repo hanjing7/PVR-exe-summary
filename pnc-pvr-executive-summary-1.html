@@ -348,6 +348,28 @@ body.modal-open{overflow:hidden;}
 .esg-eff-bar{height:100%;border-radius:3px;}
 .esg-eff-val{font-size:11px;font-weight:700;width:38px;text-align:right;flex-shrink:0;}
 
+/* ── ESG Asset Library ── */
+.asset-lib-section{margin-top:22px;}
+.asset-lib-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#73716f;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.asset-lib-label::after{content:'';flex:1;height:1px;background:#e7e3dc;}
+.asset-lib-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.asset-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s;}
+.asset-card:hover{box-shadow:0 4px 16px rgba(61,122,86,0.12);border-color:#a8d5a0;}
+.asset-thumb{width:100%;height:88px;object-fit:cover;background:#e7e3dc;display:block;flex-shrink:0;}
+.asset-thumb-placeholder{width:100%;height:88px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef7ea,#e3f2dc);flex-shrink:0;}
+.asset-meta{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.asset-type-tag{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:8px;width:fit-content;}
+.asset-type-tag.tag-article{background:rgba(61,122,86,0.12);color:#3d7a56;}
+.asset-type-tag.tag-image{background:rgba(61,107,189,0.1);color:#3d5abd;}
+.asset-type-tag.tag-svg{background:rgba(189,103,61,0.12);color:#bd673d;}
+.asset-name{font-size:11px;font-weight:700;color:#2d2a27;line-height:1.4;}
+.asset-url-text{font-size:9px;color:#73716f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:monospace;}
+.asset-actions{display:flex;gap:6px;margin-top:auto;padding-top:6px;}
+.asset-open-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:5px 0;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s;background:#3d7a56;color:#fff;border:none;}
+.asset-open-btn:hover{opacity:.82;}
+.asset-copy-btn{display:inline-flex;align-items:center;justify-content:center;padding:5px 10px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;background:transparent;border:1.5px solid #d5ccbd;color:#73716f;transition:border-color .15s,color .15s;}
+.asset-copy-btn:hover{border-color:#3d7a56;color:#3d7a56;}
+
 /* topology */
 .topo-sites{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
 .topo-site-card{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:12px 14px;display:inline-flex;flex-direction:column;gap:8px;}
@@ -2102,6 +2124,81 @@ body.modal-open{overflow:hidden;}
         <a href="#" onclick="return false;" style="font-size:11px;font-weight:700;color:#3d7a56;text-decoration:none;text-align:center;line-height:1.4;border-bottom:1.5px solid rgba(61,122,86,0.4);padding-bottom:1px;">Pure Impact<br>Report →</a>
       </div>
     </div>
+
+    <!-- ── RESOURCE ASSET LIBRARY ── -->
+    <div class="asset-lib-section">
+      <div class="asset-lib-label">Resource Assets</div>
+      <div class="asset-lib-grid">
+
+        <!-- Asset 1: ESG Blog -->
+        <div class="asset-card">
+          <div class="asset-thumb-placeholder">
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="44" height="44" rx="10" fill="rgba(61,122,86,0.12)"/>
+              <path d="M14 14h16v3H14zM14 20h16v2H14zM14 25h10v2H14z" fill="#3d7a56" opacity=".7"/>
+              <circle cx="32" cy="30" r="6" fill="#3d7a56"/>
+              <path d="M30 30l1.5 1.5L34 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="asset-meta">
+            <span class="asset-type-tag tag-article">Article Collection</span>
+            <div class="asset-name">Pure Storage ESG Blog</div>
+            <div class="asset-url-text">blog.purestorage.com/tag/esg/</div>
+            <div class="asset-actions">
+              <a class="asset-open-btn" href="https://blog.purestorage.com/tag/esg/" target="_blank" rel="noopener">↗ Open</a>
+              <button class="asset-copy-btn" onclick="copyAssetUrl('https://blog.purestorage.com/tag/esg/',this)">⎘</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 2: Data Storage Innovation PNG -->
+        <div class="asset-card">
+          <img class="asset-thumb" src="https://blog.purestorage.com/wp-content/uploads/2023/07/data-storage-innovation.png" alt="Data Storage Innovation" loading="lazy" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='flex')">
+          <div class="asset-thumb-placeholder" style="display:none;">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="rgba(61,90,189,0.1)"/><path d="M6 22l7-8 5 6 3-4 5 6H6z" fill="#3d5abd" opacity=".5"/><circle cx="22" cy="12" r="3" fill="#3d5abd" opacity=".5"/></svg>
+          </div>
+          <div class="asset-meta">
+            <span class="asset-type-tag tag-image">Image · PNG</span>
+            <div class="asset-name">Data Storage Innovation</div>
+            <div class="asset-url-text">blog.purestorage.com/…/data-storage-innovation.png</div>
+            <div class="asset-actions">
+              <a class="asset-open-btn" href="https://blog.purestorage.com/wp-content/uploads/2023/07/data-storage-innovation.png" target="_blank" rel="noopener">↗ Open</a>
+              <button class="asset-copy-btn" onclick="copyAssetUrl('https://blog.purestorage.com/wp-content/uploads/2023/07/data-storage-innovation.png',this)">⎘</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 3: Conserve Save Education SVG -->
+        <div class="asset-card">
+          <img class="asset-thumb" src="https://www.purestorage.com/content/dam/purestorage/online-assets/graphics/conserve-save-education.svg.imgo.svg" alt="Conserve Save Education" loading="lazy" style="object-fit:contain;background:#eef7ea;padding:8px;box-sizing:border-box;" onerror="this.style.display='none'">
+          <div class="asset-meta">
+            <span class="asset-type-tag tag-svg">Graphic · SVG</span>
+            <div class="asset-name">Conserve · Save · Education</div>
+            <div class="asset-url-text">purestorage.com/…/conserve-save-education.svg</div>
+            <div class="asset-actions">
+              <a class="asset-open-btn" href="https://www.purestorage.com/content/dam/purestorage/online-assets/graphics/conserve-save-education.svg.imgo.svg" target="_blank" rel="noopener">↗ Open</a>
+              <button class="asset-copy-btn" onclick="copyAssetUrl('https://www.purestorage.com/content/dam/purestorage/online-assets/graphics/conserve-save-education.svg.imgo.svg',this)">⎘</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset 4: ESG Report & Webinar PNG -->
+        <div class="asset-card">
+          <img class="asset-thumb" src="https://blog.purestorage.com/wp-content/uploads/2023/08/TSK-3526-Promote-ESG-Report-and-Webinar.png" alt="ESG Report and Webinar" loading="lazy" onerror="this.style.display='none'">
+          <div class="asset-meta">
+            <span class="asset-type-tag tag-image">Image · PNG</span>
+            <div class="asset-name">ESG Report &amp; Webinar Promo</div>
+            <div class="asset-url-text">blog.purestorage.com/…/ESG-Report-and-Webinar.png</div>
+            <div class="asset-actions">
+              <a class="asset-open-btn" href="https://blog.purestorage.com/wp-content/uploads/2023/08/TSK-3526-Promote-ESG-Report-and-Webinar.png" target="_blank" rel="noopener">↗ Open</a>
+              <button class="asset-copy-btn" onclick="copyAssetUrl('https://blog.purestorage.com/wp-content/uploads/2023/08/TSK-3526-Promote-ESG-Report-and-Webinar.png',this)">⎘</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /asset library -->
+
     </div><!-- /page 3 -->
     </div><!-- /modal-pages -->
     <div class="mpage-nav">
@@ -2272,6 +2369,21 @@ const NDU_BY_YEAR = [
 function utilColor(u){if(u>=80)return"#da4d72";if(u>=60)return"#bd673d";return"#8fa596";}
 function fmtM(m){if(m<60)return Math.round(m)+"m";const h=Math.floor(m/60),r=Math.round(m%60);return r?`${h}h ${r}m`:`${h}h`;}
 function svgEl(tag,attrs){const e=document.createElementNS("http://www.w3.org/2000/svg",tag);Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));return e;}
+function copyAssetUrl(url,btn){
+  navigator.clipboard.writeText(url).then(function(){
+    const orig=btn.textContent;
+    btn.textContent='✓';
+    btn.style.color='#3d7a56';
+    btn.style.borderColor='#3d7a56';
+    setTimeout(function(){btn.textContent=orig;btn.style.color='';btn.style.borderColor='';},1800);
+  }).catch(function(){
+    // fallback for non-https contexts
+    const ta=document.createElement('textarea');
+    ta.value=url;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    const orig=btn.textContent;btn.textContent='✓';setTimeout(function(){btn.textContent=orig;},1800);
+  });
+}
 
 // ─── MODAL PAGER ─────────────────────────────────────────────────────────────
 function initModalPager(id){
