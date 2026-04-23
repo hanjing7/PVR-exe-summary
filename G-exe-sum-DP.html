@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PNC — Data Protection Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root {
+  --pnc-bg: #fff5e3;
+  --pnc-card: #fffdf9;
+  --pnc-border: #e7e3dc;
+  --pnc-text: #2d2a27;
+  --pnc-sub: #73716f;
+  --pnc-green: #5a6359;
+  --pnc-warn: #bd673d;
+  --pnc-danger: #da4d72;
+  --pnc-purple: #8b5cf6;
+}
+body {
+  background: var(--pnc-bg);
+  color: var(--pnc-text);
+  font-family: 'DM Sans', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Full Screen Header ── */
+header {
+  padding: 24px 40px;
+  border-bottom: 1px solid var(--pnc-border);
+  background: var(--pnc-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand h1 { font-size: 20px; font-weight: 800; color: var(--pnc-text); }
+
+/* ── Metrics Bar ── */
+.metrics-bar {
+  display: flex;
+  justify-content: space-around;
+  padding: 24px 40px;
+  background: #fffcf8;
+  border-bottom: 1.5px solid var(--pnc-border);
+}
+.metric-item { width: 150px; display: flex; flex-direction: column; align-items: center; }
+.metric-icon { width: 28px; height: 28px; margin-bottom: 10px; color: var(--pnc-text); }
+.metric-bar-outer { width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+.metric-bar-inner { height: 100%; background: var(--pnc-green); border-radius: 3px; }
+.metric-label { font-size: 11px; font-weight: 700; color: var(--pnc-text); text-align: center; }
+
+/* ── Content Area ── */
+main {
+  flex: 1;
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Plot Styling ── */
+.plot-frame {
+  flex: 1;
+  position: relative;
+  border-left: 1.5px solid #d1d5db;
+  border-bottom: 1.5px solid #d1d5db;
+  margin: 20px 40px 60px 80px;
+  background: #fffcf0;
+}
+
+.y-label {
+  position: absolute;
+  left: -110px;
+  top: 50%;
+  transform: rotate(-90deg) translateY(-50%);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pnc-sub);
+  width: 200px;
+  text-align: center;
+}
+.x-label {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pnc-sub);
+}
+
+.y-ticks { position: absolute; left: -45px; height: 100%; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; font-weight: 600; color: #9ca3af; text-align: right; width: 35px; top: 0; }
+.x-ticks { position: absolute; bottom: -30px; width: 100%; display: flex; justify-content: space-between; font-size: 11px; font-weight: 600; color: #9ca3af; }
+
+/* ── Risk Zoning ── */
+.plot-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+.cell { border-right: 1px solid rgba(0,0,0,0.04); border-top: 1px solid rgba(0,0,0,0.04); }
+
+/* Updated Logic: Left Column & Bottom Row = Alerted (Orange), Bottom-Left = Critical (Red) */
+.alert-orange { background: rgba(189, 103, 61, 0.08); }
+.alert-red { background: rgba(218, 77, 114, 0.14); }
+
+/* ── Data Points ── */
+.hexagon {
+  position: absolute;
+  width: 22px;
+  height: 24px;
+  background-color: var(--color);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10;
+}
+.hexagon:hover { transform: translate(-50%, 50%) scale(1.6); z-index: 100; filter: brightness(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+
+/* ── Tooltip ── */
+#tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: white;
+  border: 1px solid var(--pnc-border);
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+  min-width: 200px;
+}
+.tt-header { font-weight: 800; font-size: 13px; color: #1a1a1a; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid #f1f5f9; }
+.tt-row { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px; align-items: center; }
+.tt-lbl { color: #64748b; font-weight: 500; }
+.tt-val { font-weight: 700; color: #1e293b; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Data Protection Analysis</h1>
+  </div>
+  <div style="font-size: 11px; color: var(--pnc-sub); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">
+    Risk Distribution Heatmap
+  </div>
+</header>
+
+<div class="metrics-bar">
+  <div class="metric-item">
+    <svg class="metric-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+    <div class="metric-bar-outer"><div class="metric-bar-inner" style="width: 21%;"></div></div>
+    <span class="metric-label">21% Snapshots</span>
+  </div>
+  <div class="metric-item">
+    <svg class="metric-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+    <div class="metric-bar-outer"><div class="metric-bar-inner" style="width: 21%;"></div></div>
+    <span class="metric-label">21% Replication</span>
+  </div>
+  <div class="metric-item">
+    <svg class="metric-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+    <div class="metric-bar-outer"><div class="metric-bar-inner" style="width: 16%;"></div></div>
+    <span class="metric-label">16% Async</span>
+  </div>
+  <div class="metric-item">
+    <svg class="metric-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+    <div class="metric-bar-outer"><div class="metric-bar-inner" style="width: 82%;"></div></div>
+    <span class="metric-label">82% SafeMode</span>
+  </div>
+  <div class="metric-item">
+    <svg class="metric-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+    <div class="metric-bar-outer"><div class="metric-bar-inner" style="width: 8%;"></div></div>
+    <span class="metric-label">8% ActiveCluster</span>
+  </div>
+</div>
+
+<main>
+  <div class="plot-frame" id="plot-area">
+    <div class="y-label">Data Protection Coverage %</div>
+    <div class="x-label">SafeMode Adoption %</div>
+    
+    <div class="y-ticks"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div>
+    <div class="x-ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+
+    <div class="plot-grid">
+      <!-- Grid Cells with Updated Risk Rules -->
+      <div class="cell alert-orange"></div> <div class="cell"></div> <div class="cell"></div> <div class="cell"></div>
+      <div class="cell alert-orange"></div> <div class="cell"></div> <div class="cell"></div> <div class="cell"></div>
+      <div class="cell alert-orange"></div> <div class="cell"></div> <div class="cell"></div> <div class="cell"></div>
+      
+      <!-- Bottom Row & Left Column Overlap -->
+      <div class="cell alert-red"></div> <!-- Bottom Left: Low SafeMode AND Low Protection -->
+      <div class="cell alert-orange"></div> 
+      <div class="cell alert-orange"></div> 
+      <div class="cell alert-orange"></div>
+    </div>
+  </div>
+</main>
+
+<div id="tooltip"></div>
+
+<script>
+const data = [
+  // Red/Critical Zone (Bottom Left)
+  {name: 'CLE-FA-01', x: 8, y: 12, sn: 10, rp: 5, sm: 8, c: '#da4d72'},
+  {name: 'PIT-FB-05', x: 12, y: 18, sn: 15, rp: 2, sm: 12, c: '#da4d72'},
+  
+  // Alerted Left Column (Low SafeMode)
+  {name: 'DET-FA-09', x: 15, y: 88, sn: 95, rp: 35, sm: 15, c: '#bd673d'},
+  {name: 'CHI-PROD-01', x: 10, y: 55, sn: 52, rp: 5, sm: 10, c: '#bd673d'},
+  
+  // Alerted Bottom Row (Low Protection)
+  {name: 'ATL-DR-02', x: 65, y: 10, sn: 8, rp: 5, sm: 65, c: '#bd673d'},
+  {name: 'DAL-STAGE-A', x: 85, y: 15, sn: 12, rp: 10, sm: 85, c: '#bd673d'},
+
+  // Safe/Standard Zones
+  {name: 'NYC-CORP-1', x: 55, y: 65, sn: 62, rp: 60, sm: 55, c: '#5a6359'},
+  {name: 'NYC-CORP-2', x: 75, y: 82, sn: 80, rp: 72, sm: 75, c: '#5a6359'},
+  {name: 'SEA-BACKUP-04', x: 92, y: 45, sn: 40, rp: 95, sm: 92, c: '#8b5cf6'},
+  {name: 'PHL-FA-22', x: 45, y: 55, sn: 52, rp: 40, sm: 45, c: '#5a6359'}
+];
+
+const plotArea = document.getElementById('plot-area');
+const tooltip = document.getElementById('tooltip');
+
+function render() {
+  data.forEach(d => {
+    const hex = document.createElement('div');
+    hex.className = 'hexagon';
+    hex.style.setProperty('--color', d.c);
+    hex.style.left = `${d.x}%`;
+    hex.style.bottom = `${d.y}%`;
+
+    hex.addEventListener('mouseenter', (e) => {
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `
+        <div class="tt-header">${d.name}</div>
+        <div class="tt-row"><span class="tt-lbl">Protection Coverage</span><span class="tt-val">${d.y}%</span></div>
+        <div class="tt-row"><span class="tt-lbl">SafeMode Adoption</span><span class="tt-val">${d.x}%</span></div>
+        <div class="tt-row"><span class="tt-lbl">Snapshots Depth</span><span class="tt-val">${d.sn}%</span></div>
+      `;
+    });
+
+    hex.addEventListener('mousemove', (e) => {
+      tooltip.style.left = (e.clientX + 15) + 'px';
+      tooltip.style.top = (e.clientY + 15) + 'px';
+    });
+
+    hex.addEventListener('mouseleave', () => tooltip.style.display = 'none');
+    plotArea.appendChild(hex);
+  });
+}
+
+window.onload = render;
+</script>
+</body>
+</html>

@@ -362,6 +362,47 @@ body.modal-open{overflow:hidden;}
 .support-year-select{background:#fdfaf3;border:1.5px solid #d1e5d9;border-radius:8px;padding:4px 10px;font-size:12px;color:#5a6359;font-weight:600;cursor:pointer;outline:none;font-family:inherit;}
 .chart-panel{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:24px;}
 .chart-panel-label{font-size:11px;font-weight:600;color:#73716f;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+
+/* ── data protection tile mini bars ── */
+.dp-metric-bars{display:flex;flex-direction:column;gap:9px;margin-top:6px;width:100%;}
+.dp-metric-item{display:flex;align-items:center;gap:8px;}
+.dp-metric-label{font-size:11px;color:#73716f;width:80px;flex-shrink:0;}
+.dp-metric-track{flex:1;height:6px;background:#e7e3dc;border-radius:3px;overflow:hidden;}
+.dp-metric-fill{height:100%;border-radius:3px;transition:width 0.4s ease;}
+.dp-metric-pct{font-size:11px;font-weight:700;color:#2d2a27;width:28px;text-align:right;}
+
+/* ── data protection scatter plot ── */
+.dp-plot-wrap{position:relative;width:100%;height:400px;margin-top:8px;}
+.dp-plot-area{position:absolute;top:20px;right:20px;bottom:48px;left:64px;
+  border-left:1.5px solid #d0c8ba;border-bottom:1.5px solid #d0c8ba;
+  background:#f8f4ed;overflow:hidden;}
+.dp-zone-grid{position:absolute;inset:0;display:grid;
+  grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);}
+.dp-cell{border-right:1px solid rgba(0,0,0,0.04);border-top:1px solid rgba(0,0,0,0.04);}
+.dp-cell-red{background:rgba(218,77,114,0.12);}
+.dp-cell-orange{background:rgba(189,103,61,0.07);}
+.dp-point{position:absolute;width:22px;height:24px;
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  transform:translate(-50%,50%);cursor:pointer;
+  transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275);z-index:10;}
+.dp-point:hover{transform:translate(-50%,50%) scale(1.6);filter:brightness(1.1);}
+.dp-y-ticks{position:absolute;top:20px;left:0;bottom:48px;width:58px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  align-items:flex-end;padding-right:10px;font-size:11px;color:#73716f;font-weight:600;}
+.dp-x-ticks{position:absolute;left:64px;right:20px;bottom:18px;
+  display:flex;justify-content:space-between;font-size:11px;color:#73716f;font-weight:600;}
+.dp-y-axis-title{position:absolute;left:0;top:50%;
+  transform:rotate(-90deg) translateX(-50%);
+  font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;
+  white-space:nowrap;transform-origin:left center;}
+.dp-x-axis-title{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;}
+
+/* ── tooltip content (shared with dp and heatmap) ── */
+.tt-header{font-weight:700;font-size:14px;color:#2d2a27;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e7e3dc;}
+.tt-row{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;align-items:center;gap:16px;}
+.tt-lbl{color:#73716f;font-weight:500;}
+.tt-val{font-weight:700;color:#2d2a27;}
 </style>
 </head>
 <body>
@@ -466,6 +507,16 @@ body.modal-open{overflow:hidden;}
     <div class="tile-sub">total NDUs since 2019</div>
     <div class="tile-viz ndu-wrap" id="mini-ndu-container"><!-- built by JS --></div>
     <div class="surface-tip" id="tip-ndu"></div>
+  </div>
+
+  <!-- TILE 7: DATA PROTECTION -->
+  <div class="tile" style="--accent-color:#7c729c;" onclick="openModal('dp')">
+    <div class="tile-label">Data Protection</div>
+    <div class="tile-headline" style="color:#7c729c;">41%</div>
+    <div class="tile-sub">overall coverage</div>
+    <div class="tile-viz" style="justify-content:flex-start;padding-top:8px;">
+      <div class="dp-metric-bars" id="dp-mini-bars"><!-- built by JS --></div>
+    </div>
   </div>
 
   </div><!-- end tile-grid -->
@@ -897,6 +948,81 @@ body.modal-open{overflow:hidden;}
   </div>
 </div>
 
+<!-- MODAL: DATA PROTECTION -->
+<div class="modal-backdrop" id="modal-dp" onclick="closeModal(event,'dp')">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Data Protection</div>
+        <div class="modal-sub">Snapshots · SafeMode · Replication coverage across the fleet</div>
+      </div>
+      <button class="modal-close" onclick="closeModalById('dp')">✕ close</button>
+    </div>
+
+    <!-- hero: composite score + 5 metric stat tiles -->
+    <div class="support-hero-row" style="align-items:stretch;">
+      <div class="support-chart-card" style="flex-direction:column;align-items:center;justify-content:center;gap:6px;flex:0 0 160px;text-align:center;">
+        <div class="stat-tile-label">Overall Coverage</div>
+        <div style="font-size:52px;font-weight:800;color:#7c729c;line-height:1;">41%</div>
+        <div class="stat-tile-sub">10 arrays in scope</div>
+      </div>
+      <div class="support-stat-tiles">
+        <div class="support-stat-tile">
+          <div class="stat-tile-label">Snapshots</div>
+          <div class="stat-tile-value" style="font-size:26px;color:#5a6359;">21%</div>
+          <div class="stat-tile-sub">arrays with snapshot policy</div>
+        </div>
+        <div class="support-stat-tile">
+          <div class="stat-tile-label">Replication</div>
+          <div class="stat-tile-value" style="font-size:26px;color:#5a6359;">21%</div>
+          <div class="stat-tile-sub">replication-enabled arrays</div>
+        </div>
+        <div class="support-stat-tile">
+          <div class="stat-tile-label">Async</div>
+          <div class="stat-tile-value" style="font-size:26px;color:#bd673d;">16%</div>
+          <div class="stat-tile-sub">async replication active</div>
+        </div>
+        <div class="support-stat-tile">
+          <div class="stat-tile-label">SafeMode</div>
+          <div class="stat-tile-value" style="font-size:26px;color:#8fa596;">82%</div>
+          <div class="stat-tile-sub">arrays with SafeMode on</div>
+        </div>
+        <div class="support-stat-tile">
+          <div class="stat-tile-label">ActiveCluster</div>
+          <div class="stat-tile-value" style="font-size:26px;color:#da4d72;">8%</div>
+          <div class="stat-tile-sub">arrays in ActiveCluster</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- scatter plot -->
+    <div class="chart-panel" style="margin-top:20px;">
+      <div class="chart-panel-label">
+        Risk Distribution — Protection Coverage vs SafeMode Adoption
+        <span style="display:flex;gap:16px;font-weight:500;text-transform:none;letter-spacing:0;">
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#da4d72;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Critical</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#bd673d;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Alerted</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#5a6359;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Safe</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#7c729c;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Outlier</span>
+        </span>
+      </div>
+      <div class="dp-plot-wrap">
+        <!-- y-axis ticks -->
+        <div class="dp-y-ticks"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div>
+        <!-- x-axis ticks -->
+        <div class="dp-x-ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+        <!-- axis titles -->
+        <div class="dp-x-axis-title">SafeMode Adoption %</div>
+        <!-- plot area: zone grid + hex points injected by JS -->
+        <div class="dp-plot-area" id="dp-plot-area">
+          <div class="dp-zone-grid" id="dp-zone-grid"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════════════════════════════ -->
 <!--  JAVASCRIPT                                                    -->
 <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -1067,6 +1193,7 @@ function openModal(id){
     drawSevChart();
     buildProactiveYearBars();
   }
+  if(id==="dp") buildDPPlot();
 }
 function closeModalById(id){document.getElementById("modal-"+id).classList.remove("open");document.body.classList.remove("modal-open");}
 function closeModal(e,id){if(e.target===document.getElementById("modal-"+id))closeModalById(id);}
@@ -1793,6 +1920,79 @@ function buildProactiveYearBars(){
   c.innerHTML=data.map(d=>`<div class="bar-row"><span style="font-size:12px;color:#73716f;">${d.y}</span><div class="bar-track"><div style="width:${d.v}%;height:100%;background:${d.c};border-radius:4px;"></div></div><span style="font-size:11px;font-weight:700;color:#2d2a27;">${d.v}%</span></div>`).join("");
 }
 
+// ─── DATA PROTECTION ─────────────────────────────────────────────────────────
+const DP_DATA=[
+  {name:'CLE-FA-01', x:8,  y:12, sn:10, rp:5,  sm:8,  c:'#da4d72'},
+  {name:'PIT-FB-05', x:12, y:18, sn:15, rp:2,  sm:12, c:'#da4d72'},
+  {name:'DET-FA-09', x:15, y:88, sn:95, rp:35, sm:15, c:'#bd673d'},
+  {name:'CHI-PROD-01',x:10,y:55, sn:52, rp:5,  sm:10, c:'#bd673d'},
+  {name:'ATL-DR-02', x:65, y:10, sn:8,  rp:5,  sm:65, c:'#bd673d'},
+  {name:'DAL-STAGE-A',x:85,y:15, sn:12, rp:10, sm:85, c:'#bd673d'},
+  {name:'NYC-CORP-1', x:55, y:65, sn:62, rp:60, sm:55, c:'#5a6359'},
+  {name:'NYC-CORP-2', x:75, y:82, sn:80, rp:72, sm:75, c:'#5a6359'},
+  {name:'SEA-BACKUP-04',x:92,y:45,sn:40,rp:95,sm:92, c:'#7c729c'},
+  {name:'PHL-FA-22', x:45, y:55, sn:52, rp:40, sm:45, c:'#5a6359'},
+];
+const DP_METRICS=[
+  {label:'Snapshots',   pct:21, c:'#5a6359'},
+  {label:'Replication', pct:21, c:'#5a6359'},
+  {label:'Async',       pct:16, c:'#bd673d'},
+  {label:'SafeMode',    pct:82, c:'#8fa596'},
+  {label:'ActiveCluster',pct:8, c:'#da4d72'},
+];
+
+function buildDPTile(){
+  const c=document.getElementById('dp-mini-bars');if(!c)return;
+  c.innerHTML=DP_METRICS.slice(0,3).map(m=>`
+    <div class="dp-metric-item">
+      <span class="dp-metric-label">${m.label}</span>
+      <div class="dp-metric-track"><div class="dp-metric-fill" style="width:${m.pct}%;background:${m.c};"></div></div>
+      <span class="dp-metric-pct">${m.pct}%</span>
+    </div>`).join('');
+}
+
+function buildDPZoneGrid(){
+  const g=document.getElementById('dp-zone-grid');if(!g)return;
+  g.innerHTML='';
+  for(let row=0;row<4;row++){
+    for(let col=0;col<4;col++){
+      const cell=document.createElement('div');
+      cell.className='dp-cell';
+      if(col===0&&row===3)cell.classList.add('dp-cell-red');
+      else if(col===0||row===3)cell.classList.add('dp-cell-orange');
+      g.appendChild(cell);
+    }
+  }
+}
+
+function buildDPPlot(){
+  buildDPZoneGrid();
+  const area=document.getElementById('dp-plot-area');if(!area)return;
+  area.querySelectorAll('.dp-point').forEach(e=>e.remove());
+  DP_DATA.forEach(d=>{
+    const pt=document.createElement('div');
+    pt.className='dp-point';
+    pt.style.left=d.x+'%';
+    pt.style.bottom=d.y+'%';
+    pt.style.background=d.c;
+    pt.addEventListener('mouseenter',e=>{
+      const vt=document.getElementById('viz-tooltip');if(!vt)return;
+      vt.style.display='block';
+      vt.innerHTML=`<div class="tt-header">${d.name}</div>
+        <div class="tt-row"><span class="tt-lbl">Protection Coverage</span><span class="tt-val">${d.y}%</span></div>
+        <div class="tt-row"><span class="tt-lbl">SafeMode Adoption</span><span class="tt-val">${d.x}%</span></div>
+        <div class="tt-row"><span class="tt-lbl">Snapshots Depth</span><span class="tt-val">${d.sn}%</span></div>
+        <div class="tt-row"><span class="tt-lbl">Replication</span><span class="tt-val">${d.rp}%</span></div>`;
+    });
+    pt.addEventListener('mousemove',e=>{
+      const vt=document.getElementById('viz-tooltip');
+      if(vt){let x=e.clientX+16,y=e.clientY+16;if(x+260>window.innerWidth)x=e.clientX-275;vt.style.left=x+'px';vt.style.top=y+'px';}
+    });
+    pt.addEventListener('mouseleave',()=>{const vt=document.getElementById('viz-tooltip');if(vt)vt.style.display='none';});
+    area.appendChild(pt);
+  });
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded",()=>{
   buildHeatmap("mini-heatmap-container",false);
@@ -1801,6 +2001,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   buildDetailMap();
   buildTopoHex("all");
   buildLocationCards();
+  buildDPTile();
   buildMiniFleet();
   buildFullFleet();
   buildSupport();
