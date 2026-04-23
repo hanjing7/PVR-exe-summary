@@ -2433,20 +2433,23 @@ function initModalPager(id){
   const total  = dots.length;
   let current  = 0;
 
-  // size each page to the pager's visible height
+  // size each page to pager's visible height.
+  // Must be deferred with rAF so the browser has computed layout after
+  // the backdrop switches from display:none → display:block.
   function sizepages(){
     const h = pager.clientHeight;
+    if(!h) return;   // guard: layout not ready yet, skip
     card.querySelectorAll(".modal-page").forEach(p=>p.style.height=h+"px");
   }
-  sizepages();
 
   function goTo(n){
     n = Math.max(0, Math.min(total-1, n));
     current = n;
-    pages.style.transform = "translateY(-"+(n*100)+"%)" ;
+    pages.style.transform = "translateY(-"+(n*100)+"%)";
     dots.forEach((d,i)=>d.classList.toggle("active", i===n));
   }
 
+  // wire dot clicks — dots are inside modal-pager but visually fixed via CSS
   dots.forEach((d,i)=>d.addEventListener("click",()=>goTo(i)));
 
   // keyboard: prevent deck keyboard handler from firing inside a paged modal
@@ -2456,8 +2459,11 @@ function initModalPager(id){
   };
   document.addEventListener("keydown", card._pagerKeydown, true);
 
-  // reset to page 0 on next open (store cleanup fn)
-  card._pagerReset = function(){ goTo(0); sizepages(); };
+  // reset to page 0 on re-open; re-size after layout is ready
+  card._pagerReset = function(){ goTo(0); requestAnimationFrame(sizepages); };
+
+  // initial size: defer until the browser has painted the open modal
+  requestAnimationFrame(sizepages);
 }
 
 // ─── MODAL ───────────────────────────────────────────────────────────────────
