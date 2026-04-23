@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PNC — Upgrade Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fff5e3;
+  --card:transparent; 
+  --card-border:rgba(45,42,39,0.12);
+  --s100:#efede8;--s200:#e7e3dc;--s300:#d0c8ba;
+  --fg:#2d2a27;--fg2:#73716f;--fg3:#9e9b98;
+  --orange:#ff7023;--orangeDk:#d55d1d;
+  --sage:#8fa596;--sageDk:#5a6359;--cin:#bd673d;--dng:#da4d72;
+  --r:14px;--r-sm:8px;
+}
+html{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--fg);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.page{max-width:1200px;margin:0 auto;padding:36px 28px 64px}
+
+/* HEADER */
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:34px;padding-bottom:20px;border-bottom:1px solid var(--s200)}
+.hdr h1{font-size:23px;font-weight:800;letter-spacing:-.3px}
+.hdr .sub{font-size:12px;color:var(--fg2);margin-top:3px}
+.hdr-r{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sbadge{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--s200);border-radius:20px;padding:5px 13px;font-size:11px;font-weight:700;color:var(--sageDk)}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--sage)}
+
+/* SECTION LABEL */
+.sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sl::after{content:'';flex:1;height:1px;background:var(--s200)}
+
+/* CARD - NO WHITE FILL */
+.card{border:1px solid var(--card-border);border-radius:var(--r);padding:22px 24px;background:var(--card);position:relative}
+.ct{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);margin-bottom:16px}
+
+/* KPI STRIP - Updated to 3 columns */
+.kpi-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.kpi{border:1px solid var(--card-border);border-radius:var(--r);padding:26px 28px;position:relative;overflow:hidden;background:rgba(255,255,255,0.2);display:flex;flex-direction:column}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.kpi.sage::before{background:var(--sageDk)}
+.kpi.orange::before{background:var(--orange)}
+.kpi.promo::before{background:var(--fg)}
+
+.kpi-ey{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg2);margin-bottom:12px}
+.kpi-n{font-size:42px;font-weight:800;line-height:1;margin-bottom:6px;letter-spacing:-1.2px}
+.kpi-d{font-size:11px;color:var(--fg2);margin-bottom:20px}
+.kpi-s{display:flex;gap:20px;padding-top:16px;border-top:1px solid var(--s100);margin-top:auto}
+.ks .l{font-size:10px;color:var(--fg3);margin-bottom:3px}
+.ks .v{font-size:16px;font-weight:700}
+
+/* CAROUSEL WIDGET */
+.promo-carousel {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+.slide {
+  display: none;
+  animation: fadeIn 0.5s ease;
+}
+.slide.active {
+  display: block;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+.promo-title { font-size: 16px; font-weight: 800; margin-bottom: 8px; color: var(--fg); letter-spacing: -0.2px; }
+.promo-desc { font-size: 11px; color: var(--fg2); line-height: 1.5; margin-bottom: 16px; }
+.promo-btn { 
+  display: inline-flex; align-items:center; gap: 6px; background: var(--fg); color: #fff; 
+  padding: 6px 14px; border-radius: 20px; font-size: 10px; font-weight: 700; border: none; cursor: pointer;
+  transition: background 0.2s;
+}
+.promo-btn:hover { background: #000; }
+.dots { display: flex; gap: 6px; margin-top: 12px; }
+.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--s300); cursor: pointer; }
+.dot.active { background: var(--orange); width: 12px; border-radius: 3px; }
+
+/* HARDWARE AGE HOVER TOOLTIP */
+.hw-trigger-zone {
+  position: relative;
+  cursor: pointer;
+  padding-top: 15px;
+  border-top: 1px solid var(--s100);
+}
+.overlay-container {
+  position: absolute;
+  bottom: 110%;
+  right: 0;
+  width: 320px;
+  background: #fffdf9;
+  border: 1px solid var(--s300);
+  border-radius: var(--r);
+  box-shadow: 0 12px 30px rgba(45,42,39,0.2);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(10px);
+  padding: 20px;
+}
+.hw-trigger-zone:hover .overlay-container {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.out-list{display:flex;flex-direction:column;gap:8px}
+.out-row{border-radius:var(--r-sm);padding:10px;display:flex;align-items:flex-start;gap:10px;border:1px solid var(--s200);background:var(--bg);border-left:3px solid var(--cin)}
+.out-row.crit{border-left-color:var(--dng)}
+.oname{font-size:11px;font-weight:700;color:var(--fg)}
+.odet{font-size:9px;color:var(--fg2);line-height:1.3}
+.tag{display:inline-flex;padding:2px 6px;border-radius:10px;font-size:9px;font-weight:700;border:1px solid}
+.tag-urg{background:#fde8ed;color:#9b2040;border-color:#da4d72}
+.tag-low{background:#fff0e9;color:#b35320;border-color:#ff7023}
+
+/* GRIDS */
+.g3-1{display:grid;grid-template-columns:1.8fr 1fr;gap:16px;margin-bottom:16px}
+
+/* PROGRESS */
+.pr{margin-bottom:12px}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.pl{font-size:11px;font-weight:600;color:var(--fg)}
+.pv{font-size:11px;font-weight:700}
+.pt{background:var(--s200);border-radius:4px;height:5px;overflow:hidden}
+.pf{height:100%;border-radius:4px}
+
+/* BOTTOM CARDS */
+.bg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.bc{border:1px solid var(--card-border);border-radius:var(--r);padding:20px;background:rgba(255,255,255,0.1)}
+.bt{font-size:13px;font-weight:700;margin-bottom:6px}
+.bb{font-size:11px;color:var(--fg2);line-height:1.6}
+
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.kpi{animation:fu .4s ease both}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div>
+    <h1>PNC Financial Services Group</h1>
+    <p class="sub">Non-Disruptive Upgrades · Fleet Health &amp; Intelligence</p>
+  </div>
+  <div class="hdr-r">
+    <div class="sbadge"><span class="sdot"></span>99.9997% uptime maintained</div>
+  </div>
+</div>
+
+<!-- KPI HERO - 3 COLUMN LAYOUT -->
+<div class="sl">Fleet performance summary</div>
+<div class="kpi-strip">
+  
+  <div class="kpi sage">
+    <div class="kpi-ey">Total NDUs achieved</div>
+    <div class="kpi-n" style="color:var(--sageDk)">715</div>
+    <div class="kpi-d">successful upgrades since 2019</div>
+    <div class="kpi-s">
+      <div class="ks"><div class="l">SwNDU</div><div class="v">620</div></div>
+      <div class="ks"><div class="l">HwNDU</div><div class="v">95</div></div>
+      <div class="ks"><div class="l">Success</div><div class="v">100%</div></div>
+    </div>
+  </div>
+
+  <div class="kpi orange">
+    <div class="kpi-ey">Downtime avoided</div>
+    <div class="kpi-n" style="color:var(--orange)">1,240 hrs</div>
+    <div class="kpi-d">Est. 2h saved per SwNDU</div>
+    <div class="kpi-s">
+      <div class="ks"><div class="l">Labour saved</div><div class="v">~$143k</div></div>
+      <div class="ks"><div class="l">Impact</div><div class="v" style="color:var(--orange)">High</div></div>
+    </div>
+  </div>
+
+  <!-- NEW PROMO CAROUSEL WIDGET -->
+  <div class="kpi promo">
+    <div class="kpi-ey" style="color:var(--orangeDk)">Modernization Path</div>
+    <div class="promo-carousel" id="modernCarousel">
+      <!-- SLIDE 1 -->
+      <div class="slide active">
+        <div class="promo-title">Self-Service Upgrade</div>
+        <div class="promo-desc">Take control with Purity Cloud-Edge. Orchestrate 100% NDUs on your timeline with zero risk.</div>
+        <button class="promo-btn">Explore Tools →</button>
+      </div>
+      <!-- SLIDE 2 -->
+      <div class="slide">
+        <div class="promo-title">CX Managed Services</div>
+        <div class="promo-desc">Let our experts handle the heavy lifting. White-glove modernization for mission-critical apps.</div>
+        <button class="promo-btn">Request CX Sync →</button>
+      </div>
+    </div>
+    <div class="dots" id="carouselDots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHART SECTION -->
+<div class="sl">Historical Pace &amp; Fleet Composition</div>
+<div class="g3-1">
+  <div class="card">
+    <div class="ct">Annual NDU volume</div>
+    <div style="height:240px">
+      <canvas id="annualChart"></canvas>
+    </div>
+    <div style="display:flex;gap:18px;margin-top:12px">
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--fg2)"><span style="width:9px;height:9px;border-radius:2px;background:var(--sage)"></span>Software NDU</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--fg2)"><span style="width:9px;height:9px;border-radius:2px;background:var(--cin)"></span>Hardware NDU</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Purity version mix</div>
+    <div class="pr"><div class="ph"><span class="pl">Purity 6.4.x (Latest)</span><span class="pv">81.8%</span></div><div class="pt"><div class="pf" style="width:81.8%;background:var(--sageDk)"></div></div></div>
+    <div class="pr"><div class="ph"><span class="pl">Purity 6.3.x</span><span class="pv">14.2%</span></div><div class="pt"><div class="pf" style="width:14.2%;background:var(--cin)"></div></div></div>
+    <div class="pr"><div class="ph"><span class="pl">Purity ≤6.2.x</span><span class="pv">3.9%</span></div><div class="pt"><div class="pf" style="width:3.9%;background:var(--dng)"></div></div></div>
+    
+    <div class="hw-trigger-zone">
+        <div class="ct" style="margin-bottom:8px">Hardware Age · <span style="color:var(--orange)">Hover for Actions</span></div>
+        <div style="display:flex;gap:4px">
+            <div style="height:8px;flex:3;background:var(--sageDk);border-radius:4px 0 0 4px" title="0-2 yrs"></div>
+            <div style="height:8px;flex:5;background:var(--sage)" title="2-4 yrs"></div>
+            <div style="height:8px;flex:2;background:var(--cin)" title="4-6 yrs"></div>
+            <div style="height:8px;flex:1;background:var(--dng);border-radius:0 4px 4px 0" title="6+ yrs"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--fg3);margin-top:5px">
+            <span>Modern (73%)</span>
+            <span>Legacy (27%)</span>
+        </div>
+
+        <div class="overlay-container">
+          <div style="font-size:12px;font-weight:800;margin-bottom:12px;display:flex;justify-content:space-between">
+            <span>Action Required Now</span>
+            <span style="font-size:9px;padding:2px 6px;background:var(--dng);color:#fff;border-radius:10px">9 Items</span>
+          </div>
+          <div class="out-list">
+            <div class="out-row crit">
+              <div style="flex:1">
+                <div class="oname">gf0-purefb024-01</div>
+                <div class="odet">Purity 6.3.8 · CVE exposure risk</div>
+              </div>
+              <span class="tag tag-urg">Critical</span>
+            </div>
+            <div class="out-row">
+              <div style="flex:1">
+                <div class="oname">gf1-purefb042-01</div>
+                <div class="odet">Purity 6.4.0 · Performance patch</div>
+              </div>
+              <span class="tag tag-low">Low</span>
+            </div>
+            <div class="out-row crit">
+              <div style="flex:1">
+                <div class="oname">p-prdc-pure05</div>
+                <div class="odet">Gen 3 controller · EoL shelf</div>
+              </div>
+              <span class="tag tag-urg">EoL</span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- VALUE SUMMARY (Restored Footer Widgets) -->
+<div class="sl">Business value summary</div>
+<div class="bg">
+  <div class="bc">
+    <div class="bt">Zero planned downtime</div>
+    <div class="bb">Every upgrade completes while arrays serve I/O. No maintenance windows, no app freezes.</div>
+  </div>
+  <div class="bc">
+    <div class="bt">Always current, always secure</div>
+    <div class="bb">Apply security releases as they ship at zero operational cost. No deferred patches.</div>
+  </div>
+  <div class="bc">
+    <div class="bt">In-service capacity growth</div>
+    <div class="bb">Shelf additions happen while in production. 95 hardware events — zero migrations.</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const EV={sage:'#8fa596',cin:'#bd673d',fg2:'#73716f'};
+
+// Initialize Chart
+new Chart(document.getElementById('annualChart'),{
+  type:'bar',
+  data:{
+    labels:['2019','2020','2021','2022','2023','2024','2025','2026'],
+    datasets:[
+      {label:'Software NDU',data:[5,3,39,64,110,143,223,33],backgroundColor:EV.sage,borderRadius:3,stack:'s'},
+      {label:'Hardware NDU',data:[0,1,20,2,18,39,11,4],backgroundColor:EV.cin,borderRadius:3,stack:'s'}
+    ]
+  },
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{grid:{display:false},ticks:{color:EV.fg2,font:{size:10}}},
+      y:{grid:{color:'rgba(0,0,0,0.03)'},ticks:{color:EV.fg2,font:{size:10}},beginAtZero:true}
+    }
+  }
+});
+
+// Carousel Logic
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(index) {
+  slides.forEach((s, i) => s.classList.toggle('active', i === index));
+  dots.forEach((d, i) => d.classList.toggle('active', i === index));
+}
+
+setInterval(() => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}, 6000);
+
+dots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    currentSlide = i;
+    showSlide(currentSlide);
+  });
+});
+</script>
+</body>
+</html>
