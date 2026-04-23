@@ -221,6 +221,38 @@ body.modal-open{overflow:hidden;}
 /* ndu detail */
 .ndu-bar-wrap{position:relative;overflow-x:auto;}
 
+/* ── ndu enriched sections ── */
+.ndu-section-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:20px;}
+/* recommendation cards — reuse fleet-kpi-card feel with a coloured top accent */
+.ndu-reco-card{background:#fff8ec;border:1px solid #d5ccbd;border-top:4px solid #d5ccbd;border-radius:12px;padding:22px;margin-bottom:14px;}
+.ndu-reco-card:last-child{margin-bottom:0;}
+.ndu-reco-card.cx{border-top-color:#5a6359;}
+.ndu-reco-card.self{border-top-color:#bd673d;}
+.ndu-reco-title{font-size:15px;font-weight:800;color:#2d2a27;margin-bottom:6px;letter-spacing:-0.2px;}
+.ndu-reco-desc{font-size:12px;color:#73716f;line-height:1.6;margin-bottom:16px;}
+.ndu-reco-cta{display:inline-flex;align-items:center;gap:6px;border:1.5px solid #2d2a27;border-radius:20px;padding:6px 16px;font-size:11px;font-weight:700;color:#2d2a27;background:transparent;cursor:pointer;font-family:inherit;transition:background 0.15s,color 0.15s;}
+.ndu-reco-cta:hover{background:#2d2a27;color:#fff5e3;}
+/* business value cards */
+.ndu-value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+.ndu-value-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:18px;}
+.ndu-value-title{font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:6px;}
+.ndu-value-desc{font-size:12px;color:#73716f;line-height:1.6;}
+/* hardware age bar */
+.hw-age-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:10px 0 5px;}
+.hw-age-seg{height:100%;}
+.hw-age-trigger{position:relative;cursor:pointer;padding-bottom:4px;}
+.hw-age-hint{font-size:10px;color:#bd673d;font-weight:600;margin-top:6px;}
+.hw-action-popup{position:absolute;bottom:calc(100% + 8px);left:0;right:0;min-width:280px;
+  background:#fff5e3;border:1px solid #d5ccbd;border-radius:12px;padding:16px;
+  box-shadow:0 8px 24px rgba(45,42,39,0.14);z-index:200;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity 0.2s ease,transform 0.2s ease;transform:translateY(4px);}
+.hw-age-trigger:hover .hw-action-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
+.hw-action-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;}
+.hw-action-tag.crit{background:#fce8ee;color:#da4d72;border:1px solid rgba(218,77,114,0.25);}
+.hw-action-tag.low{background:#f7ece0;color:#bd673d;border:1px solid rgba(189,103,61,0.25);}
+.hw-action-tag.eol{background:#fce8ee;color:#da4d72;border:1px solid rgba(218,77,114,0.25);}
+
 /* topology */
 .topo-sites{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start;}
 .topo-site-card{background:#f0ece5;border:1px solid #e7e3dc;border-radius:12px;padding:12px 14px;display:inline-flex;flex-direction:column;gap:8px;}
@@ -917,19 +949,23 @@ body.modal-open{overflow:hidden;}
   <div class="modal-card" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div>
-        <div class="modal-title">Non-disruptive upgrades</div>
-        <div class="modal-sub">715 total NDUs · 2019–2026</div>
+        <div class="modal-title">Non-Disruptive Upgrades</div>
+        <div class="modal-sub">715 total NDUs · 2019–2026 · 100% success rate</div>
       </div>
       <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     </div>
+
+    <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
       <div class="detail-kpi"><div class="label">Total NDUs</div><div class="value" style="color:#2d2a27;">715</div></div>
       <div class="detail-kpi"><div class="label">Software (SwNDU)</div><div class="value" style="color:#5a6359;">620</div></div>
       <div class="detail-kpi"><div class="label">Hardware (HwNDU)</div><div class="value" style="color:#bd673d;">95</div></div>
+      <div class="detail-kpi"><div class="label">Hours Saved</div><div class="value" style="color:#ff7023;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2h per NDU · ~$165k labour</div></div>
       <div class="detail-kpi"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
     </div>
+
+    <!-- ── ANNUAL BAR CHART ── -->
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
-      <!-- reference lines -->
       <div style="position:absolute;left:0;right:0;top:0;pointer-events:none;">
         <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">223</span></div>
         <div style="position:absolute;left:0;right:0;top:40px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">167</span></div>
@@ -944,7 +980,128 @@ body.modal-open{overflow:hidden;}
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#bd673d;"></div><span style="font-size:11px;color:#73716f;">Hardware NDU</span><span style="font-size:11px;font-weight:700;color:#2d2a27;">95</span></div>
       <span style="font-size:10px;color:#73716f;margin-left:auto;">2019 – 2026 · 2026 YTD</span>
     </div>
-    <div id="ndu-tooltip" style="display:none;margin-top:10px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.1);display:inline-block;min-width:140px;"></div>
+    <div id="ndu-tooltip" style="display:none;margin-top:10px;background:#fff5e3;border:1px solid #d5ccbd;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.1);display:inline-block;min-width:140px;"></div>
+
+    <hr class="support-divider">
+
+    <!-- ── 2-COL: FLEET COMPOSITION + MODERNIZATION PATH ── -->
+    <div class="ndu-section-grid">
+
+      <!-- LEFT: Purity Version Mix + Hardware Age -->
+      <div>
+        <div class="chart-panel-label">Purity Version Mix</div>
+        <div class="dp-metric-item" style="margin-bottom:10px;">
+          <span class="dp-metric-label" style="width:140px;">Purity 6.4.x (Latest)</span>
+          <div class="dp-metric-track"><div class="dp-metric-fill" style="width:81.8%;background:#5a6359;"></div></div>
+          <span class="dp-metric-pct">81.8%</span>
+        </div>
+        <div class="dp-metric-item" style="margin-bottom:10px;">
+          <span class="dp-metric-label" style="width:140px;">Purity 6.3.x</span>
+          <div class="dp-metric-track"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
+          <span class="dp-metric-pct">14.2%</span>
+        </div>
+        <div class="dp-metric-item">
+          <span class="dp-metric-label" style="width:140px;">Purity ≤6.2.x</span>
+          <div class="dp-metric-track"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
+          <span class="dp-metric-pct">3.9%</span>
+        </div>
+
+        <div class="chart-panel-label" style="margin-top:28px;">Hardware Age
+          <span style="font-size:10px;font-weight:500;color:#bd673d;text-transform:none;letter-spacing:0;">Hover for action items</span>
+        </div>
+        <div class="hw-age-trigger">
+          <div class="hw-age-bar">
+            <div class="hw-age-seg" style="flex:3;background:#5a6359;border-radius:4px 0 0 4px;"></div>
+            <div class="hw-age-seg" style="flex:5;background:#8fa596;margin-left:2px;"></div>
+            <div class="hw-age-seg" style="flex:2;background:#bd673d;margin-left:2px;"></div>
+            <div class="hw-age-seg" style="flex:1;background:#da4d72;border-radius:0 4px 4px 0;margin-left:2px;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#73716f;">
+            <span>0–2 yrs (27%)</span><span>2–4 yrs (45%)</span><span>4–6 yrs (19%)</span><span>6+ yrs (9%)</span>
+          </div>
+          <!-- hover popup — uses rec-row from security for action items -->
+          <div class="hw-action-popup">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <span style="font-size:12px;font-weight:800;color:#2d2a27;">Action Required</span>
+              <span style="font-size:10px;font-weight:700;padding:2px 8px;background:#fce8ee;color:#da4d72;border-radius:10px;">9 Items</span>
+            </div>
+            <div class="rec-row">
+              <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">gf0-purefb024-01</div><div style="font-size:11px;color:#73716f;">Purity 6.3.8 · CVE exposure risk</div></div>
+              <span class="hw-action-tag crit">Critical</span>
+            </div>
+            <div class="rec-row">
+              <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">gf1-purefb042-01</div><div style="font-size:11px;color:#73716f;">Purity 6.4.0 · Performance patch</div></div>
+              <span class="hw-action-tag low">Low</span>
+            </div>
+            <div class="rec-row" style="border-bottom:none;">
+              <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#2d2a27;">p-prdc-pure05</div><div style="font-size:11px;color:#73716f;">Gen 3 controller · EoL shelf</div></div>
+              <span class="hw-action-tag eol">EoL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Modernization Recommendations -->
+      <div>
+        <div class="chart-panel-label">Modernization Path</div>
+
+        <div class="ndu-reco-card cx">
+          <div class="ndu-reco-title">CX Managed Services</div>
+          <div class="ndu-reco-desc">Let Pure's experts handle the heavy lifting. White-glove modernization for mission-critical arrays — from planning to execution with zero impact on production I/O.</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
+              <div class="stat-tile-label">Coverage</div>
+              <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">100%</div>
+              <div class="stat-tile-sub">NDU capable</div>
+            </div>
+            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#5a6359;">
+              <div class="stat-tile-label">Risk</div>
+              <div class="stat-tile-value" style="font-size:18px;color:#5a6359;">Zero</div>
+              <div class="stat-tile-sub">downtime</div>
+            </div>
+          </div>
+          <button class="ndu-reco-cta" style="border-color:#5a6359;color:#5a6359;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Request CX Sync →</button>
+        </div>
+
+        <div class="ndu-reco-card self">
+          <div class="ndu-reco-title">Self-Service Upgrade</div>
+          <div class="ndu-reco-desc">Take control with Purity Cloud-Edge. Orchestrate upgrades on your own timeline using Pure1 automation — full visibility, zero-touch execution.</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">
+            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
+              <div class="stat-tile-label">Arrays ready</div>
+              <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">14</div>
+              <div class="stat-tile-sub">to self-upgrade</div>
+            </div>
+            <div class="support-stat-tile" style="padding:10px 14px;min-width:80px;border-color:#bd673d;">
+              <div class="stat-tile-label">Avg time</div>
+              <div class="stat-tile-value" style="font-size:18px;color:#bd673d;">&lt;45m</div>
+              <div class="stat-tile-sub">per upgrade</div>
+            </div>
+          </div>
+          <button class="ndu-reco-cta" style="border-color:#bd673d;color:#bd673d;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Explore Tools →</button>
+        </div>
+      </div>
+    </div><!-- end ndu-section-grid -->
+
+    <hr class="support-divider">
+
+    <!-- ── BUSINESS VALUE SUMMARY ── -->
+    <div class="chart-panel-label" style="margin-top:4px;">Business Value Summary</div>
+    <div class="ndu-value-grid">
+      <div class="ndu-value-card">
+        <div class="ndu-value-title">Zero planned downtime</div>
+        <div class="ndu-value-desc">Every upgrade completes while arrays serve I/O. No maintenance windows, no app freezes, no change-control risk.</div>
+      </div>
+      <div class="ndu-value-card">
+        <div class="ndu-value-title">Always current, always secure</div>
+        <div class="ndu-value-desc">Apply security releases as they ship at zero operational cost. No deferred patches, no accumulated CVE exposure.</div>
+      </div>
+      <div class="ndu-value-card">
+        <div class="ndu-value-title">In-service capacity growth</div>
+        <div class="ndu-value-desc">Shelf additions happen while in production. 95 hardware events — zero migrations, zero workload disruption.</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
