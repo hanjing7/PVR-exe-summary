@@ -1332,27 +1332,94 @@ body.modal-open #deck-nav{opacity:0;pointer-events:none;}
             </div>
           </div>
 
-          <!-- 6.3.x row -->
-          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:130px;flex-shrink:0;">
-              <div style="font-size:12px;font-weight:700;color:#bd673d;white-space:nowrap;">⚠ Purity 6.3.x</div>
-              <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span></div>
+          <!-- 6.3.x row — hover for detail -->
+          <div class="purity-ver-trigger" style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:130px;flex-shrink:0;">
+                <div style="font-size:12px;font-weight:700;color:#bd673d;white-space:nowrap;">⚠ Purity 6.3.x</div>
+                <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span></div>
+              </div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
+              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
+              </div>
             </div>
-            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
-            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-              <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
+            <div class="hw-action-popup">
+              <div class="hw-popup-head">
+                <span style="font-size:13px;font-weight:700;color:#2d2a27;">Purity 6.3.x — 18 arrays</span>
+                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">⟳ Schedule Upgrade →</button>
+              </div>
+              <div class="hw-popup-body">
+                <div class="out-row">
+                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf1-purefb042-01</div>
+                    <div class="odet">Purity 6.4.0 · 1 minor behind · optimisation available in 6.4.2</div>
+                    <div class="oact">→ Schedule SwNDU — May window</div>
+                  </div>
+                  <span class="tag tag-low" style="flex-shrink:0;">Low risk</span>
+                </div>
+                <div class="out-row">
+                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf2-pureaz101-03</div>
+                    <div class="odet">Purity 6.4.0 · Performance patch available in 6.4.2</div>
+                    <div class="oact">→ Schedule SwNDU — May window</div>
+                  </div>
+                  <span class="tag tag-low" style="flex-shrink:0;">Low risk</span>
+                </div>
+                <div class="out-row">
+                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">~</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf1-purefb041-01</div>
+                    <div class="odet">Purity 6.3.10 · Recommend bundling with sibling arrays</div>
+                    <div class="oact">→ Bundle with May batch</div>
+                  </div>
+                  <span class="tag tag-low" style="flex-shrink:0;">Low risk</span>
+                </div>
+                <div style="padding:8px 0 2px;font-size:11px;color:#73716f;">+ 15 more arrays on 6.3.x — contact account team for batch upgrade schedule</div>
+              </div>
             </div>
           </div>
 
-          <!-- ≤6.2.x row -->
-          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
-            <div style="width:130px;flex-shrink:0;">
-              <div style="font-size:12px;font-weight:700;color:#da4d72;white-space:nowrap;">🚨 Purity ≤6.2.x</div>
-              <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span></div>
+          <!-- ≤6.2.x row — hover for detail -->
+          <div class="purity-ver-trigger" style="padding:8px 0;border-bottom:0.5px solid #f0ece5;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:130px;flex-shrink:0;">
+                <div style="font-size:12px;font-weight:700;color:#da4d72;white-space:nowrap;">🚨 Purity ≤6.2.x</div>
+                <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span></div>
+              </div>
+              <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
+              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+                <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
+              </div>
             </div>
-            <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
-            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
-              <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
+            <div class="hw-action-popup">
+              <div class="hw-popup-head">
+                <span style="font-size:13px;font-weight:700;color:#da4d72;">⚠ Purity ≤6.2.x — CVE exposure</span>
+                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">⟳ Schedule Upgrade →</button>
+              </div>
+              <div class="hw-popup-body">
+                <div class="out-row crit">
+                  <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf0-purefb024-01</div>
+                    <div class="odet">Purity 6.3.8 · 2 major versions behind · CVE exposure risk</div>
+                    <div class="oact">→ Schedule SwNDU immediately</div>
+                  </div>
+                  <span class="tag tag-urg" style="flex-shrink:0;">Overdue</span>
+                </div>
+                <div class="out-row crit">
+                  <div class="obadge" style="background:#fde8ed;color:#da4d72;border-color:#f5b0c2;">!</div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="oname">gf2-purefb061-01</div>
+                    <div class="odet">Purity 6.3.10 · Known CVE in 6.3.x branch</div>
+                    <div class="oact">→ Schedule SwNDU immediately</div>
+                  </div>
+                  <span class="tag tag-urg" style="flex-shrink:0;">Overdue</span>
+                </div>
+                <div style="padding:8px 0 2px;font-size:11px;color:#73716f;">+ 3 more arrays on ≤6.2.x — immediate upgrade required to close CVE exposure</div>
+              </div>
             </div>
           </div>
 
