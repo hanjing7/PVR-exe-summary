@@ -59,7 +59,6 @@ body{
   flex-direction:column;
   overflow:hidden;
   position:relative;
-  opacity:0; /* revealed by tile-visible animation */
 }
 .tile:hover{
   border-color:var(--accent-color);
@@ -127,12 +126,6 @@ body.modal-open{overflow:hidden;}
   box-sizing:border-box;
   /* shadow cast onto the ghost card at the top, communicating depth */
   box-shadow:0 -12px 36px rgba(18,14,11,0.30);
-  /* entrance animation support */
-  transition:transform 0.45s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease;
-}
-.modal-card.modal-entering{
-  opacity:0;
-  transform:scale(0.92);
 }
 .modal-header{
   display:flex;justify-content:space-between;align-items:flex-start;
@@ -636,20 +629,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 .deck-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;cursor:pointer;transition:background .2s,height .2s,border-radius .2s;flex-shrink:0;}
 .deck-dot.active{background:#2d2a27;height:16px;border-radius:4px;}
 .deck-dot:hover:not(.active){background:#aea9a0;}
-/* ── dashboard tile entrance ── */
-@keyframes tile-in{
-  from{opacity:0;transform:translateY(20px);}
-  to  {opacity:1;transform:translateY(0);}
-}
-.tile.tile-visible{animation:tile-in 0.55s cubic-bezier(0.22,1,0.36,1) both;}
-
-/* ── modal panel entrance ── */
-@keyframes panel-fade-up{
-  from{opacity:0;transform:translateY(14px);}
-  to  {opacity:1;transform:translateY(0);}
-}
-.modal-anim{animation:panel-fade-up 0.5s cubic-bezier(0.22,1,0.36,1) both;}
-
 /* ── hex background animation ── */
 @keyframes hex-sweep{
   0%  {clip-path:inset(0 0 0 100%);opacity:0;}
@@ -701,7 +680,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="tile-grid">
 
   <!-- TILE 1: UPTIME -->
-  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('uptime',event)">
+  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('uptime')">
     <div class="tile-label">Uptime <span class="info-trigger" onclick="event.stopPropagation()">i<span class="info-content">Uptime takes into consideration only those issues where Pure Storage is at fault.</span></span></div>
     <div class="tile-headline" style="color:#5a6359;">99.9997%</div>
     <div class="tile-sub">array uptime</div>
@@ -710,7 +689,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 2: TOPOLOGY -->
-  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('topology',event)">
+  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('topology')">
     <div class="tile-label">Deployments</div>
     <div class="tile-headline" style="color:#8fa596;">117</div>
     <div class="tile-sub">86 FlashArray · 23 FlashBlade · 8 EG1</div>
@@ -725,7 +704,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 3: FLEET -->
-  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('fleet',event)">
+  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('fleet')">
     <div class="tile-label">Fleet Utilization</div>
     <div class="tile-headline" style="color:#bd673d;">30.2%</div>
     <div class="tile-sub">avg utilization</div>
@@ -748,7 +727,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="tile-grid">
 
   <!-- TILE 4: SUPPORT -->
-  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('support',event)">
+  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('support')">
     <div class="tile-label">Support Health</div>
     <div class="tile-headline" style="color:#5a6359;">80.6%</div>
     <div class="tile-sub">proactive cases</div>
@@ -769,7 +748,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 5: SECURITY -->
-  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('security',event)">
+  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('security')">
     <div class="tile-label">Security Score</div>
     <div class="tile-headline" style="color:#bd673d;">19</div>
     <div class="tile-sub">improvement needed</div>
@@ -787,7 +766,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 6: NDU -->
-  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('ndu',event)">
+  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('ndu')">
     <div class="tile-label">Non-Disruptive Upgrade</div>
     <div class="tile-headline" style="color:#8fa596;">715</div>
     <div class="tile-sub">total NDUs since 2019</div>
@@ -810,7 +789,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="tile-grid">
 
   <!-- TILE 7: DATA PROTECTION -->
-  <div class="tile" style="--accent-color:#7c729c;" onclick="openModal('dp',event)">
+  <div class="tile" style="--accent-color:#7c729c;" onclick="openModal('dp')">
     <div class="tile-label">Data Protection</div>
     <div class="tile-headline" style="color:#7c729c;">41%</div>
     <div class="tile-sub">overall coverage</div>
@@ -820,7 +799,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 8: ESG IMPACT -->
-  <div class="tile" style="--accent-color:#3d7a56;" onclick="openModal('esg',event)">
+  <div class="tile" style="--accent-color:#3d7a56;" onclick="openModal('esg')">
     <div class="tile-label">ESG Impact</div>
     <div class="tile-headline" style="color:#3d7a56;">22K</div>
     <div class="tile-sub">tree equivalents · per year</div>
@@ -2845,34 +2824,9 @@ function initModalPager(id){
 // track which modals have been pager-initialised already
 const _pagerInited = new Set();
 
-function openModal(id, evt){
-  var backdrop = document.getElementById("modal-"+id);
-  var card = backdrop.querySelector(".modal-card");
-
-  // compute transform-origin from click position relative to the card
-  if(card && evt){
-    var r = card.getBoundingClientRect();
-    // card may not be measured yet (display:none), fall back to viewport centre
-    var ox = evt.clientX || window.innerWidth / 2;
-    var oy = evt.clientY || window.innerHeight / 2;
-    card.style.transformOrigin = ox+"px "+oy+"px";
-  } else if(card){
-    card.style.transformOrigin = "50% 50%";
-  }
-
-  // set entering state before display kicks in
-  if(card) card.classList.add("modal-entering");
-  backdrop.classList.add("open");
+function openModal(id){
+  document.getElementById("modal-"+id).classList.add("open");
   document.body.classList.add("modal-open");
-
-  // next frame: remove entering class to trigger transition to natural state
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      if(card) card.classList.remove("modal-entering");
-    });
-  });
-
-  requestAnimationFrame(function(){ animateModalPanels(id); });
   if(id==="support"){
     buildSupport();
     drawCaseVolumeChart();
@@ -3908,7 +3862,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
 })();
 
-/* ── dashboard tiles + hex background: replay on each slide visit ── */
+/* ── hex background: replay animation each time slide enters viewport ── */
 (function(){
   function restartHex(slide){
     var hex = slide.querySelector('.hex-bg-wrap');
@@ -3917,56 +3871,13 @@ document.addEventListener("DOMContentLoaded",()=>{
     void hex.offsetWidth;
     hex.classList.add('running');
   }
-  function animTiles(slide){
-    var tiles = slide.querySelectorAll('.tile');
-    tiles.forEach(function(t, i){
-      t.classList.remove('tile-visible');
-      void t.offsetWidth;
-      t.style.animationDelay = (i * 0.07) + 's';
-      t.classList.add('tile-visible');
-    });
-  }
   var slides = document.querySelectorAll('.deck-slide');
   var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting){
-        restartHex(e.target);
-        animTiles(e.target);
-      }
-    });
+    entries.forEach(function(e){ if(e.isIntersecting) restartHex(e.target); });
   }, {threshold: 0.15});
   slides.forEach(function(s){ io.observe(s); });
-
-  // Safety net: fire the entrance for slide-0 directly on load so tiles are
-  // never stuck at opacity:0 if the observer fails to report the initial
-  // intersection (some scroll-snap containers swallow the first callback).
-  if(slides[0]){
-    restartHex(slides[0]);
-    animTiles(slides[0]);
-  }
-  // And force-reveal every tile after 600ms as an absolute fallback.
-  setTimeout(function(){
-    document.querySelectorAll('.tile:not(.tile-visible)').forEach(function(t){
-      t.classList.add('tile-visible');
-    });
-  }, 600);
+  if(slides[0]) restartHex(slides[0]);
 })();
-
-/* ── modal panel entrance: stagger children of each pres-inner on open ── */
-function animateModalPanels(id){
-  var modal = document.getElementById('modal-'+id);
-  if(!modal) return;
-  var idx = 0;
-  modal.querySelectorAll('.pres-inner').forEach(function(inner){
-    Array.from(inner.children).forEach(function(child){
-      child.classList.remove('modal-anim');
-      void child.offsetWidth;
-      child.style.animationDelay = (idx * 0.08) + 's';
-      child.classList.add('modal-anim');
-      idx++;
-    });
-  });
-}
 
 
 </script>
