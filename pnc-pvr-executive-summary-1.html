@@ -564,11 +564,13 @@ body.modal-open{overflow:hidden;}
 .dp-cell{border-right:1px solid rgba(0,0,0,0.04);border-top:1px solid rgba(0,0,0,0.04);}
 .dp-cell-red{background:rgba(218,77,114,0.12);}
 .dp-cell-orange{background:rgba(189,103,61,0.07);}
-.dp-point{position:absolute;width:22px;height:24px;
-  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+.dp-point{position:absolute;width:22px;height:22px;
   transform:translate(-50%,50%);cursor:pointer;
   transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275);z-index:10;}
 .dp-point:hover{transform:translate(-50%,50%) scale(1.6);filter:brightness(1.1);}
+/* array → hexagon  |  subscription → circle */
+.dp-hex{clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);}
+.dp-circle{border-radius:50%;}
 .dp-y-ticks{position:absolute;top:20px;left:0;bottom:48px;width:58px;
   display:flex;flex-direction:column;justify-content:space-between;
   align-items:flex-end;padding-right:10px;font-size:11px;color:#73716f;font-weight:600;}
@@ -3552,16 +3554,16 @@ function buildProactiveYearBars(){
 
 // ─── DATA PROTECTION ─────────────────────────────────────────────────────────
 const DP_DATA=[
-  {name:'CLE-FA-01', x:8,  y:12, sn:10, rp:5,  sm:8,  c:'#da4d72'},
-  {name:'PIT-FB-05', x:12, y:18, sn:15, rp:2,  sm:12, c:'#da4d72'},
-  {name:'DET-FA-09', x:15, y:88, sn:95, rp:35, sm:15, c:'#bd673d'},
-  {name:'CHI-PROD-01',x:10,y:55, sn:52, rp:5,  sm:10, c:'#bd673d'},
-  {name:'ATL-DR-02', x:65, y:10, sn:8,  rp:5,  sm:65, c:'#bd673d'},
-  {name:'DAL-STAGE-A',x:85,y:15, sn:12, rp:10, sm:85, c:'#bd673d'},
-  {name:'NYC-CORP-1', x:55, y:65, sn:62, rp:60, sm:55, c:'#5a6359'},
-  {name:'NYC-CORP-2', x:75, y:82, sn:80, rp:72, sm:75, c:'#5a6359'},
-  {name:'SEA-BACKUP-04',x:92,y:45,sn:40,rp:95,sm:92, c:'#7c729c'},
-  {name:'PHL-FA-22', x:45, y:55, sn:52, rp:40, sm:45, c:'#5a6359'},
+  {name:'CLE-FA-01',    x:8,  y:12, sn:10, rp:5,  sm:8,  c:'#da4d72', type:'array'},
+  {name:'PIT-FB-05',    x:12, y:18, sn:15, rp:2,  sm:12, c:'#da4d72', type:'array'},
+  {name:'DET-FA-09',    x:15, y:88, sn:95, rp:35, sm:15, c:'#bd673d', type:'array'},
+  {name:'CHI-PROD-01',  x:10, y:55, sn:52, rp:5,  sm:10, c:'#bd673d', type:'subscription'},
+  {name:'ATL-DR-02',    x:65, y:10, sn:8,  rp:5,  sm:65, c:'#bd673d', type:'array'},
+  {name:'DAL-STAGE-A',  x:85, y:15, sn:12, rp:10, sm:85, c:'#bd673d', type:'subscription'},
+  {name:'NYC-CORP-1',   x:55, y:65, sn:62, rp:60, sm:55, c:'#5a6359', type:'subscription'},
+  {name:'NYC-CORP-2',   x:75, y:82, sn:80, rp:72, sm:75, c:'#5a6359', type:'array'},
+  {name:'SEA-BACKUP-04',x:92, y:45, sn:40, rp:95, sm:92, c:'#7c729c', type:'subscription'},
+  {name:'PHL-FA-22',    x:45, y:55, sn:52, rp:40, sm:45, c:'#5a6359', type:'array'},
 ];
 const DP_METRICS=[
   {label:'Snapshots',   pct:21, c:'#5a6359'},
@@ -3600,15 +3602,18 @@ function buildDPPlot(){
   const area=document.getElementById('dp-plot-area');if(!area)return;
   area.querySelectorAll('.dp-point').forEach(e=>e.remove());
   DP_DATA.forEach(d=>{
+    const isHex=d.type==='array';
+    const eyebrow=isHex?'Array':'Subscription';
     const pt=document.createElement('div');
-    pt.className='dp-point';
+    pt.className='dp-point '+(isHex?'dp-hex':'dp-circle');
     pt.style.left=d.x+'%';
     pt.style.bottom=d.y+'%';
     pt.style.background=d.c;
     pt.addEventListener('mouseenter',e=>{
       const vt=document.getElementById('viz-tooltip');if(!vt)return;
       vt.style.display='block';
-      vt.innerHTML=`<div class="tt-header">${d.name}</div>
+      vt.innerHTML=`<div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#73716f;margin-bottom:4px;">${eyebrow}</div>
+        <div class="tt-header">${d.name}</div>
         <div class="tt-row"><span class="tt-lbl">Protection Coverage</span><span class="tt-val">${d.y}%</span></div>
         <div class="tt-row"><span class="tt-lbl">SafeMode Adoption</span><span class="tt-val">${d.x}%</span></div>
         <div class="tt-row"><span class="tt-lbl">Snapshots Depth</span><span class="tt-val">${d.sn}%</span></div>
