@@ -3454,9 +3454,9 @@ const SUPPORT_REALISTIC_DATA=[
 ];
 
 function buildSupport(){
-  const data=[{t:"Total",v:"2,019"},{t:"Proactive",v:"1,627"},{t:"Open",v:"10",highlight:true},{t:"Closed",v:"2,009"}];
+  const data=[{t:"Total",v:"2,019"},{t:"Proactive",v:"1,627"},{t:"Open",v:"0",muted:true},{t:"Closed",v:"2,009"}];
   const c=document.getElementById("support-stat-tiles-container");if(!c)return;
-  c.innerHTML=data.map(s=>`<div class="support-stat-tile"><div class="stat-tile-label">${s.t}</div><div class="stat-tile-value${s.highlight?" highlight":""}">${s.v}</div></div>`).join("");
+  c.innerHTML=data.map(s=>`<div class="support-stat-tile"><div class="stat-tile-label">${s.t}</div><div class="stat-tile-value${s.highlight?" highlight":""}"${s.muted?' style="color:#b5afa8;"':''}>${s.v}</div></div>`).join("");
 }
 
 /* Equalize height of all tab views in a panel to prevent layout jumping on toggle.
