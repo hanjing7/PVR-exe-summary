@@ -577,10 +577,10 @@ body.modal-open{overflow:hidden;}
   align-items:flex-end;padding-right:10px;font-size:11px;color:#73716f;font-weight:600;}
 .dp-x-ticks{position:absolute;left:64px;right:20px;bottom:18px;
   display:flex;justify-content:space-between;font-size:11px;color:#73716f;font-weight:600;}
-.dp-y-axis-title{position:absolute;left:0;top:50%;
-  transform:rotate(-90deg) translateX(-50%);
-  font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;
-  white-space:nowrap;transform-origin:left center;}
+.dp-y-axis-title{position:absolute;left:0;top:20px;bottom:48px;width:18px;
+  display:flex;align-items:center;justify-content:center;
+  writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);
+  font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
 .dp-x-axis-title{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
   font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;}
 
@@ -2087,7 +2087,8 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <!-- x-axis ticks -->
         <div class="dp-x-ticks"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
         <!-- axis titles -->
-        <div class="dp-x-axis-title">SafeMode Adoption %</div>
+        <div class="dp-y-axis-title">Overall Data Protection</div>
+        <div class="dp-x-axis-title">SafeMode Coverage</div>
         <!-- plot area: zone grid + hex points injected by JS -->
         <div class="dp-plot-area" id="dp-plot-area">
           <div class="dp-zone-grid" id="dp-zone-grid"></div>
@@ -3692,7 +3693,7 @@ function buildDPPlot(){
       vt.innerHTML=`<div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#73716f;margin-bottom:4px;">${eyebrow}</div>
         <div class="tt-header">${d.name}</div>
         <div class="tt-row"><span class="tt-lbl">Protection Coverage</span><span class="tt-val">${d.y}%</span></div>
-        <div class="tt-row"><span class="tt-lbl">SafeMode Adoption</span><span class="tt-val">${d.x}%</span></div>
+        <div class="tt-row"><span class="tt-lbl">SafeMode Coverage</span><span class="tt-val">${d.x}%</span></div>
         <div class="tt-row"><span class="tt-lbl">Snapshots Depth</span><span class="tt-val">${d.sn}%</span></div>
         <div class="tt-row"><span class="tt-lbl">Replication</span><span class="tt-val">${d.rp}%</span></div>`;
     });
