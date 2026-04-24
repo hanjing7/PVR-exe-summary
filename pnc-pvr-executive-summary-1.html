@@ -3908,8 +3908,15 @@ document.addEventListener("DOMContentLoaded",()=>{
   });
 })();
 
-/* ── dashboard tiles: staggered entrance, replay on each slide visit ── */
+/* ── dashboard tiles + hex background: replay on each slide visit ── */
 (function(){
+  function restartHex(slide){
+    var hex = slide.querySelector('.hex-bg-wrap');
+    if(!hex) return;
+    hex.classList.remove('running');
+    void hex.offsetWidth;
+    hex.classList.add('running');
+  }
   function animTiles(slide){
     var tiles = slide.querySelectorAll('.tile');
     tiles.forEach(function(t, i){
@@ -3920,7 +3927,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
   }
   var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting) animTiles(e.target); });
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        restartHex(e.target);
+        animTiles(e.target);
+      }
+    });
   }, {threshold: 0.15});
   document.querySelectorAll('.deck-slide').forEach(function(s){ io.observe(s); });
 })();
@@ -3941,21 +3953,7 @@ function animateModalPanels(id){
   });
 }
 
-/* ── hex background: replay animation each time slide enters viewport ── */
-(function(){
-  function restartHex(el){
-    el.classList.remove('running');
-    void el.offsetWidth; // force reflow to reset animation
-    el.classList.add('running');
-  }
-  var hexEls = document.querySelectorAll('.hex-bg-wrap');
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting) restartHex(entry.target);
-    });
-  }, {threshold: 0.4});
-  hexEls.forEach(function(el){ io.observe(el); });
-})();
+
 </script>
 
 <!-- ── RIGHT-SIDE PAGE POSITION INDICATOR (last in body = always above all content) ── -->
