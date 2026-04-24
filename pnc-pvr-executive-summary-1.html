@@ -2137,20 +2137,24 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
       <!-- Section heading -->
       <div class="chart-panel-label" style="margin-bottom:10px;">Fleet Lifecycle Carbon Footprint</div>
 
-      <!-- Total Carbon Footprint row — flat, no container, part of the section -->
-      <div style="display:flex;align-items:center;gap:20px;padding:10px 0 14px;border-bottom:1px solid #e7e3dc;margin-bottom:14px;">
-        <svg width="52" height="42" viewBox="0 0 64 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-          <path d="M52 40H22C17.0 40 13 36.0 13 31c0-4.1 2.9-7.5 6.9-8.2C21.0 18.5 25.5 15 31 15c3.5 0 6.7 1.5 9.0 3.9C41.5 17.8 43.6 17 46 17c5.5 0 10 4.5 10 10 0 .5-.1 1-.2 1.5C58.8 30.0 61 33.2 61 37c0 1.7-.6 3.2-1.5 4.5" stroke="#c5bdb3" stroke-width="1.8" stroke-linecap="round" fill="#ece8e2"/>
-          <path d="M41 45H15C10.6 45 7 41.4 7 37c0-3.8 2.7-6.9 6.3-7.7C14.2 25.1 18.3 22 23 22c3.2 0 6.1 1.4 8.1 3.6C32.4 24.5 34.1 24 36 24c4.9 0 8.8 3.9 8.8 8.8 0 .4 0 .7-.1 1.1C47.5 34.8 49 37.2 49 40c0 2.8-2.2 5-5 5" stroke="#2d6347" stroke-width="1.8" stroke-linecap="round" fill="#3d7a56"/>
-        </svg>
-        <div style="min-width:0;">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#73716f;margin-bottom:3px;">Total Carbon Footprint · Fleet Lifetime (7 yr)</div>
-          <div style="display:flex;align-items:baseline;gap:6px;">
-            <span style="font-size:28px;font-weight:800;color:#2d2a27;line-height:1;">3,306</span>
-            <span style="font-size:13px;font-weight:600;color:#73716f;">tCO₂e</span>
+      <!-- Total Carbon Footprint row — 1/3 label + 2/3 stacked bar -->
+      <div style="display:grid;grid-template-columns:1fr 2fr;align-items:center;gap:20px;padding:10px 0 14px;border-bottom:1px solid #E2F1E5;margin-bottom:14px;">
+        <!-- 1/3: icon + label + number -->
+        <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+          <svg width="52" height="42" viewBox="0 0 64 52" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+            <path d="M52 40H22C17.0 40 13 36.0 13 31c0-4.1 2.9-7.5 6.9-8.2C21.0 18.5 25.5 15 31 15c3.5 0 6.7 1.5 9.0 3.9C41.5 17.8 43.6 17 46 17c5.5 0 10 4.5 10 10 0 .5-.1 1-.2 1.5C58.8 30.0 61 33.2 61 37c0 1.7-.6 3.2-1.5 4.5" stroke="#c5bdb3" stroke-width="1.8" stroke-linecap="round" fill="#ece8e2"/>
+            <path d="M41 45H15C10.6 45 7 41.4 7 37c0-3.8 2.7-6.9 6.3-7.7C14.2 25.1 18.3 22 23 22c3.2 0 6.1 1.4 8.1 3.6C32.4 24.5 34.1 24 36 24c4.9 0 8.8 3.9 8.8 8.8 0 .4 0 .7-.1 1.1C47.5 34.8 49 37.2 49 40c0 2.8-2.2 5-5 5" stroke="#2d6347" stroke-width="1.8" stroke-linecap="round" fill="#3d7a56"/>
+          </svg>
+          <div style="min-width:0;">
+            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:3px;">Total Carbon Footprint · Fleet Lifetime (7 yr)</div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <span style="font-size:28px;font-weight:800;color:#424C44;line-height:1;">3,306</span>
+              <span style="font-size:13px;font-weight:600;color:#839888;">tCO₂e</span>
+            </div>
           </div>
         </div>
-        <div style="flex:1;min-width:0;max-width:340px;">
+        <!-- 2/3: stacked bar + legend -->
+        <div style="min-width:0;">
           <div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:6px;">
             <div style="width:47%;background:#424C44;" title="Upstream 47%"></div>
             <div style="width:49%;background:#839888;" title="Use Phase 49%"></div>
@@ -2163,10 +2167,18 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           </div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;padding-bottom:18px;border-bottom:1px solid #e7e3dc;">
+      <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;padding-bottom:18px;border-bottom:1px solid #E2F1E5;">
+
+        <!-- direction chevrons on separator lines -->
+        <div style="position:absolute;left:calc(33.33% - 13px);top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:#F3FAF5;border:1px solid #C5E4CC;display:flex;align-items:center;justify-content:center;z-index:1;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#839888" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div style="position:absolute;left:calc(66.67% - 13px);top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:#F3FAF5;border:1px solid #C5E4CC;display:flex;align-items:center;justify-content:center;z-index:1;">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#839888" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
 
         <!-- UPSTREAM -->
-        <div style="padding-right:24px;border-right:1px solid #e7e3dc;">
+        <div style="padding-right:24px;border-right:1px solid #E2F1E5;">
           <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#424C44;margin-bottom:12px;">⬆ Upstream</div>
           <!-- Materials -->
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;">
@@ -2195,7 +2207,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         </div>
 
         <!-- USE PHASE -->
-        <div style="padding:0 24px;border-right:1px solid #e7e3dc;">
+        <div style="padding:0 24px;border-right:1px solid #E2F1E5;">
           <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#839888;margin-bottom:12px;">⚡ Use Phase</div>
           <!-- Direct Carbon -->
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;">
