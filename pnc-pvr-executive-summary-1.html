@@ -54,14 +54,18 @@ body{
   border-radius:14px;
   padding:20px 22px;
   cursor:pointer;
-  transition:border-color 0.15s;
+  transition:border-color 0.15s, box-shadow 0.35s cubic-bezier(0.22,1,0.36,1), transform 0.35s cubic-bezier(0.22,1,0.36,1);
   display:flex;
   flex-direction:column;
   overflow:hidden;
   position:relative;
   opacity:0; /* revealed by tile-visible animation */
 }
-.tile:hover{border-color:var(--accent-color);}
+.tile:hover{
+  border-color:var(--accent-color);
+  transform:translateY(-5px);
+  box-shadow:0 18px 48px rgba(160,110,60,0.18), 0 4px 16px rgba(160,110,60,0.10);
+}
 .tile-label{
   font-size:12px;font-weight:600;color:#73716f;
   letter-spacing:0.04em;text-transform:uppercase;margin-bottom:6px;
@@ -123,6 +127,12 @@ body.modal-open{overflow:hidden;}
   box-sizing:border-box;
   /* shadow cast onto the ghost card at the top, communicating depth */
   box-shadow:0 -12px 36px rgba(18,14,11,0.30);
+  /* entrance animation support */
+  transition:transform 0.45s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease;
+}
+.modal-card.modal-entering{
+  opacity:0;
+  transform:scale(0.92);
 }
 .modal-header{
   display:flex;justify-content:space-between;align-items:flex-start;
@@ -691,7 +701,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="tile-grid">
 
   <!-- TILE 1: UPTIME -->
-  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('uptime')">
+  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('uptime',event)">
     <div class="tile-label">Uptime <span class="info-trigger" onclick="event.stopPropagation()">i<span class="info-content">Uptime takes into consideration only those issues where Pure Storage is at fault.</span></span></div>
     <div class="tile-headline" style="color:#5a6359;">99.9997%</div>
     <div class="tile-sub">array uptime</div>
@@ -700,7 +710,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 2: TOPOLOGY -->
-  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('topology')">
+  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('topology',event)">
     <div class="tile-label">Deployments</div>
     <div class="tile-headline" style="color:#8fa596;">117</div>
     <div class="tile-sub">86 FlashArray · 23 FlashBlade · 8 EG1</div>
@@ -715,7 +725,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 3: FLEET -->
-  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('fleet')">
+  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('fleet',event)">
     <div class="tile-label">Fleet Utilization</div>
     <div class="tile-headline" style="color:#bd673d;">30.2%</div>
     <div class="tile-sub">avg utilization</div>
@@ -738,7 +748,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="tile-grid">
 
   <!-- TILE 4: SUPPORT -->
-  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('support')">
+  <div class="tile" style="--accent-color:#5a6359;" onclick="openModal('support',event)">
     <div class="tile-label">Support Health</div>
     <div class="tile-headline" style="color:#5a6359;">80.6%</div>
     <div class="tile-sub">proactive cases</div>
@@ -759,7 +769,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 5: SECURITY -->
-  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('security')">
+  <div class="tile" style="--accent-color:#bd673d;" onclick="openModal('security',event)">
     <div class="tile-label">Security Score</div>
     <div class="tile-headline" style="color:#bd673d;">19</div>
     <div class="tile-sub">improvement needed</div>
@@ -777,7 +787,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 6: NDU -->
-  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('ndu')">
+  <div class="tile" style="--accent-color:#8fa596;" onclick="openModal('ndu',event)">
     <div class="tile-label">Non-Disruptive Upgrade</div>
     <div class="tile-headline" style="color:#8fa596;">715</div>
     <div class="tile-sub">total NDUs since 2019</div>
@@ -800,7 +810,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <div class="tile-grid">
 
   <!-- TILE 7: DATA PROTECTION -->
-  <div class="tile" style="--accent-color:#7c729c;" onclick="openModal('dp')">
+  <div class="tile" style="--accent-color:#7c729c;" onclick="openModal('dp',event)">
     <div class="tile-label">Data Protection</div>
     <div class="tile-headline" style="color:#7c729c;">41%</div>
     <div class="tile-sub">overall coverage</div>
@@ -810,7 +820,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   </div>
 
   <!-- TILE 8: ESG IMPACT -->
-  <div class="tile" style="--accent-color:#3d7a56;" onclick="openModal('esg')">
+  <div class="tile" style="--accent-color:#3d7a56;" onclick="openModal('esg',event)">
     <div class="tile-label">ESG Impact</div>
     <div class="tile-headline" style="color:#3d7a56;">22K</div>
     <div class="tile-sub">tree equivalents · per year</div>
@@ -2835,9 +2845,33 @@ function initModalPager(id){
 // track which modals have been pager-initialised already
 const _pagerInited = new Set();
 
-function openModal(id){
-  document.getElementById("modal-"+id).classList.add("open");
+function openModal(id, evt){
+  var backdrop = document.getElementById("modal-"+id);
+  var card = backdrop.querySelector(".modal-card");
+
+  // compute transform-origin from click position relative to the card
+  if(card && evt){
+    var r = card.getBoundingClientRect();
+    // card may not be measured yet (display:none), fall back to viewport centre
+    var ox = evt.clientX || window.innerWidth / 2;
+    var oy = evt.clientY || window.innerHeight / 2;
+    card.style.transformOrigin = ox+"px "+oy+"px";
+  } else if(card){
+    card.style.transformOrigin = "50% 50%";
+  }
+
+  // set entering state before display kicks in
+  if(card) card.classList.add("modal-entering");
+  backdrop.classList.add("open");
   document.body.classList.add("modal-open");
+
+  // next frame: remove entering class to trigger transition to natural state
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      if(card) card.classList.remove("modal-entering");
+    });
+  });
+
   requestAnimationFrame(function(){ animateModalPanels(id); });
   if(id==="support"){
     buildSupport();
