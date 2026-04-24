@@ -660,7 +660,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="tile-label">Uptime <span class="info-trigger" onclick="event.stopPropagation()">i<span class="info-content">Uptime takes into consideration only those issues where Pure Storage is at fault.</span></span></div>
     <div class="tile-headline" style="color:#5a6359;">99.9997%</div>
     <div class="tile-sub">array uptime</div>
-    <div class="tile-viz" id="mini-heatmap-container"><!-- built by JS --></div>
+    <div class="tile-viz" id="mini-heatmap-container" style="margin-top:30px;"><!-- built by JS --></div>
     <div class="surface-tip" id="tip-uptime"></div>
   </div>
 
@@ -684,7 +684,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="tile-label">Fleet Utilization</div>
     <div class="tile-headline" style="color:#bd673d;">30.2%</div>
     <div class="tile-sub">avg utilization</div>
-    <div class="tile-viz fleet-bars-wrap" id="mini-fleet-container"><!-- built by JS --></div>
+    <div class="tile-viz fleet-bars-wrap" id="mini-fleet-container" style="margin-top:20px;"><!-- built by JS --></div>
     <div class="surface-tip" id="tip-fleet"></div>
   </div>
 
@@ -3204,7 +3204,7 @@ function buildMiniFleet(){
   const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
   svg.setAttribute("viewBox",`0 0 ${totalW} ${H}`);
   svg.setAttribute("width","100%");svg.setAttribute("height","100%");
-  svg.setAttribute("preserveAspectRatio","none");svg.style.display="block";svg.style.flex="1";
+  svg.setAttribute("preserveAspectRatio","none");svg.style.display="block";svg.style.flex="1";svg.style.borderRadius="8px";
   const tip=document.getElementById("tip-fleet");
   sorted.forEach((d,i)=>{
     const barH=Math.max(1,(d.u/100)*H);
