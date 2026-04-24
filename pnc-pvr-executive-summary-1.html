@@ -96,26 +96,19 @@ body{
 body.modal-open{overflow:hidden;}
 .modal-backdrop.open{display:block;}
 
-/* ── card stack: ghost layer 2 — full width, depth visible only at top ── */
+/* ── card stack: 1 ghost card — narrower than viewport, dimmed, card-shaped ── */
 .modal-backdrop.open::before{
   content:'';
   position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background:#ddd8cf;
+  top:0;left:40px;right:40px;bottom:0;
+  background:#ccc7be;
+  border-radius:14px 14px 0 0;
   z-index:0;
   pointer-events:none;
 }
-/* ── card stack: ghost layer 1 — full width, 8 px below layer 2 ── */
-.modal-backdrop.open::after{
-  content:'';
-  position:fixed;
-  top:8px;left:0;right:0;bottom:0;
-  background:#ece7de;
-  z-index:1;
-  pointer-events:none;
-}
+/* ::after removed — only one card behind the overlay */
 
-/* ── modal card: card #3 — full-width bg, content centred at 1200px ── */
+/* ── modal card: overlay — full-width, casts shadow onto ghost card below ── */
 .modal-card{
   position:fixed;
   top:16px;left:0;right:0;bottom:0;
@@ -127,6 +120,8 @@ body.modal-open{overflow:hidden;}
   /* auto-expand side padding so content never exceeds 1200px */
   padding:32px max(var(--grid-margin),calc((100% - 1200px)/2));
   box-sizing:border-box;
+  /* shadow cast onto the ghost card at the top, communicating depth */
+  box-shadow:0 -12px 36px rgba(18,14,11,0.30);
 }
 .modal-header{
   display:flex;justify-content:space-between;align-items:flex-start;
