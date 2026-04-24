@@ -948,8 +948,9 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <circle cx="50" cy="50" r="42" fill="none" stroke="#e7e3dc" stroke-width="10"/>
             <circle cx="50" cy="50" r="42" fill="none" stroke="#5a6359" stroke-width="10" stroke-dasharray="212.7 263.9" transform="rotate(-90 50 50)"/>
           </svg>
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-            <span style="font-size:14px;font-weight:800;color:#5a6359;">80.6%</span>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;">
+            <span style="font-size:15px;font-weight:800;color:#5a6359;line-height:1;">1,627</span>
+            <span style="font-size:9px;font-weight:600;color:#73716f;letter-spacing:0.04em;margin-top:2px;">proactive</span>
           </div>
         </div>
         <div class="donut-legend">
@@ -3522,7 +3523,7 @@ const SUPPORT_REALISTIC_DATA=[
 ];
 
 function buildSupport(){
-  const data=[{t:"Total",v:"2,019"},{t:"Proactive",v:"1,627"},{t:"Open",v:"0",muted:true},{t:"Closed",v:"2,009"}];
+  const data=[{t:"Total",v:"2,019"},{t:"Reactive",v:"392",highlight:true},{t:"Open",v:"0",muted:true},{t:"Closed",v:"2,009"}];
   const c=document.getElementById("support-stat-tiles-container");if(!c)return;
   c.innerHTML=data.map(s=>`<div class="support-stat-tile"><div class="stat-tile-label">${s.t}</div><div class="stat-tile-value${s.highlight?" highlight":""}"${s.muted?' style="color:#b5afa8;"':''}>${s.v}</div></div>`).join("");
 }
