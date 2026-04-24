@@ -62,13 +62,13 @@ body{
 }
 .tile:hover{border-color:var(--accent-color);}
 .tile-label{
-  font-size:11px;font-weight:600;color:#73716f;
+  font-size:12px;font-weight:600;color:#73716f;
   letter-spacing:0.04em;text-transform:uppercase;margin-bottom:6px;
 }
 .tile-headline{
   font-size:40px;font-weight:800;line-height:1;margin-bottom:4px;
 }
-.tile-sub{font-size:11px;color:#73716f;white-space:nowrap;margin-bottom:0;}
+.tile-sub{font-size:12px;color:#73716f;white-space:nowrap;margin-bottom:0;}
 .tile-viz{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column;margin-top:10px;}
 
 /* surface tooltip */
@@ -78,7 +78,7 @@ body{
   background:rgba(240,236,229,0.95);
   border:1px solid #e7e3dc;
   border-radius:6px;
-  font-size:11px;font-weight:600;
+  font-size:14px;font-weight:600;
   pointer-events:none;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   display:none;
@@ -130,11 +130,11 @@ body.modal-open{overflow:hidden;}
 /* all modal headers now live inside pres-inner / modal-page which own
    the 1200px-centred horizontal padding — no direct-child rule needed */
 .modal-title{font-size:26px;font-weight:700;color:#2d2a27;font-family:'Pure Sans','DM Sans',system-ui,sans-serif;letter-spacing:-0.01em;line-height:1.2;}
-.modal-sub{font-size:12px;color:#73716f;margin-top:4px;}
+.modal-sub{font-size:14px;color:#73716f;margin-top:4px;}
 .modal-close{
   position:fixed;top:40px;right:24px;z-index:10001;
   background:#fff5e3;border:1.5px solid #e7e3dc;border-radius:8px;
-  padding:6px 16px;font-size:13px;color:#73716f;cursor:pointer;
+  padding:6px 16px;font-size:14px;color:#73716f;cursor:pointer;
   font-family:inherit;flex-shrink:0;
   box-shadow:0 2px 8px rgba(45,42,39,0.08);
   transition:color 0.15s,border-color 0.15s;
@@ -146,12 +146,12 @@ body.modal-open{overflow:hidden;}
   background:#fff8ec;border:1px solid #d5ccbd;
   border-radius:10px;padding:14px 18px;flex:1 1 110px;
 }
-.kpi-label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.kpi-label{font-size:12px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
 .kpi-value{font-size:28px;font-weight:700;line-height:1.1;}
 
 /* ── heatmap (mini / tile) ── */
 .heatmap-row{display:flex;align-items:center;margin-bottom:2px;gap:3px;}
-.heatmap-month{width:22px;font-size:8px;color:#73716f;flex-shrink:0;text-align:right;padding-right:3px;}
+.heatmap-month{width:22px;font-size:12px;color:#73716f;flex-shrink:0;text-align:right;padding-right:3px;}
 .heatmap-cells{display:flex;gap:1.5px;flex-wrap:nowrap;}
 .heatmap-cell{
   width:8px;height:8px;border-radius:1.5px;flex-shrink:0;cursor:default;
@@ -162,7 +162,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── heatmap (detail / full-screen) ── */
 #full-heatmap .heatmap-row{margin-bottom:5px;gap:6px;}
-#full-heatmap .heatmap-month{width:36px;font-size:13px;font-weight:600;padding-right:6px;}
+#full-heatmap .heatmap-month{width:36px;font-size:14px;font-weight:600;padding-right:6px;}
 /* grid layout guarantees equal-width columns → aspect-ratio gives perfect squares */
 #full-heatmap .heatmap-cells{display:grid;grid-template-columns:repeat(31,1fr);gap:3px;flex:1;}
 #full-heatmap .heatmap-cell{
@@ -172,7 +172,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── legend ── */
 .legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:#73716f;}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:#73716f;}
 .legend-dot{width:10px;height:10px;border-radius:2px;}
 
 /* ── fleet bars ── */
@@ -184,14 +184,14 @@ body.modal-open{overflow:hidden;}
 /* ── ndu bars ── */
 .ndu-wrap{flex:1;min-height:0;display:flex;flex-direction:column;}
 .ndu-year-labels{display:flex;padding-top:4px;flex-shrink:0;}
-.ndu-year{flex:1;text-align:center;font-size:9px;color:#73716f;cursor:pointer;}
+.ndu-year{flex:1;text-align:center;font-size:12px;color:#73716f;cursor:pointer;}
 
 /* ── map ── */
 .map-wrap{flex:1;min-height:0;border-radius:8px;overflow:hidden;border:1px solid #e7e3dc;position:relative;}
 .map-tooltip{
   position:absolute;bottom:8px;left:8px;
   background:#fff5e3;border:1px solid #e7e3dc;border-radius:8px;
-  padding:8px 10px;font-size:11px;color:#2d2a27;
+  padding:8px 10px;font-size:14px;color:#2d2a27;
   box-shadow:0 4px 12px rgba(45,42,39,0.1);min-width:130px;
   pointer-events:none;display:none;
 }
@@ -205,7 +205,7 @@ body.modal-open{overflow:hidden;}
 /* ── detail modal content ── */
 .detail-kpi-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
 .detail-kpi{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;padding:14px 18px;flex:1 1 110px;}
-.detail-kpi .label{font-size:11px;font-weight:500;color:#73716f;margin-bottom:6px;}
+.detail-kpi .label{font-size:12px;font-weight:500;color:#73716f;margin-bottom:6px;}
 .detail-kpi .value{font-size:28px;font-weight:700;line-height:1.1;}
 .kpi-val--lg{font-size:32px;}
 
@@ -217,17 +217,17 @@ body.modal-open{overflow:hidden;}
 .sev-block{width:7px;height:7px;border-radius:1.5px;flex-shrink:0;cursor:pointer;transition:transform 0.1s;}
 .sev-block:hover{transform:scale(1.4);}
 .cat-tags{display:flex;flex-wrap:wrap;gap:3px 6px;margin-top:8px;}
-.cat-tag{font-size:9px;font-weight:600;padding:1px 5px;border-radius:3px;}
+.cat-tag{font-size:12px;font-weight:600;padding:1px 5px;border-radius:3px;}
 
 /* security */
 .sec-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 28px;align-items:start;}
 .sec-col-1{display:flex;flex-direction:column;}
-.sec-stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:0.5px solid #e7e3dc;font-size:13px;}
+.sec-stat-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:0.5px solid #e7e3dc;font-size:14px;}
 .sec-stat-label{color:#73716f;font-size:12px;}
 .sec-stat-val{font-weight:700;color:#2d2a27;font-size:14px;}
-.sec-stat-unit{font-size:11px;font-weight:400;color:#73716f;margin-left:3px;}
+.sec-stat-unit{font-size:12px;font-weight:400;color:#73716f;margin-left:3px;}
 .rec-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid #e7e3dc;}
-.rec-section-label{font-size:10px;font-weight:700;color:#73716f;letter-spacing:0.06em;text-transform:uppercase;margin:14px 0 6px;}
+.rec-section-label{font-size:12px;font-weight:700;color:#73716f;letter-spacing:0.06em;text-transform:uppercase;margin:14px 0 6px;}
 /* hex badge: two-layer so border colour shows on all 6 edges */
 .hex-frame{
   width:28px;height:30.8px;flex-shrink:0;
@@ -253,23 +253,23 @@ body.modal-open{overflow:hidden;}
 .ndu-reco-card{border-radius:12px;padding:20px 22px;margin-bottom:0;position:relative;overflow:hidden;}
 .ndu-reco-card.cx{background:linear-gradient(140deg,#1a2820 0%,#243329 100%);border:1px solid rgba(143,165,150,0.25);}
 .ndu-reco-card.self{background:linear-gradient(140deg,#2a1608 0%,#3d2010 100%);border:1px solid rgba(189,103,61,0.3);}
-.ndu-reco-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
+.ndu-reco-badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;}
 .ndu-reco-card.cx .ndu-reco-badge{color:#8fa596;background:rgba(143,165,150,0.15);border:1px solid rgba(143,165,150,0.35);}
 .ndu-reco-card.self .ndu-reco-badge{color:#d07a4e;background:rgba(189,103,61,0.15);border:1px solid rgba(189,103,61,0.35);}
 .ndu-reco-title{font-size:17px;font-weight:800;color:#fff8ec;margin-bottom:6px;letter-spacing:-0.3px;}
-.ndu-reco-desc{font-size:12px;color:rgba(255,245,220,0.62);line-height:1.6;margin-bottom:14px;}
+.ndu-reco-desc{font-size:14px;color:rgba(255,245,220,0.62);line-height:1.6;margin-bottom:14px;}
 .ndu-stat-row{display:flex;gap:10px;margin-bottom:16px;}
 .ndu-stat-box{background:rgba(0,0,0,0.28);border-radius:8px;padding:8px 12px;flex:1;min-width:0;}
 .ndu-stat-val{font-size:20px;font-weight:800;line-height:1;}
-.ndu-stat-sub{font-size:10px;color:rgba(255,245,220,0.45);margin-top:2px;}
-.ndu-reco-cta{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:7px 18px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;border:none;letter-spacing:.01em;}
+.ndu-stat-sub{font-size:12px;color:rgba(255,245,220,0.45);margin-top:2px;}
+.ndu-reco-cta{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:7px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity 0.15s;border:none;letter-spacing:.01em;}
 .ndu-reco-cta.cx-cta{background:#5a6359;color:#fff8ec;}
 .ndu-reco-cta.cx-cta:hover{opacity:0.82;}
 .ndu-reco-cta.self-cta{background:#bd673d;color:#fff8ec;}
 .ndu-reco-cta.self-cta:hover{opacity:0.82;}
 /* NDU learn-more secondary button */
 .ndu-btn-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.ndu-learn-btn{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:7px 16px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s,border-color .15s,color .15s;letter-spacing:.01em;background:transparent;}
+.ndu-learn-btn{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:7px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity .15s,border-color .15s,color .15s;letter-spacing:.01em;background:transparent;}
 .ndu-learn-btn.cx-learn{border:1.5px solid rgba(143,165,150,0.45);color:rgba(255,245,220,0.65);}
 .ndu-learn-btn.cx-learn:hover{border-color:#8fa596;color:#8fa596;}
 .ndu-learn-btn.self-learn{border:1.5px solid rgba(189,103,61,0.45);color:rgba(255,245,220,0.65);}
@@ -280,53 +280,53 @@ body.modal-open{overflow:hidden;}
 .ndu-sub-overlay.open{opacity:1;pointer-events:all;}
 .ndu-sub-overlay.cx-ov{background:linear-gradient(160deg,#111d16 0%,#1a2820 60%,#243329 100%);}
 .ndu-sub-overlay.self-ov{background:linear-gradient(160deg,#1e0e04 0%,#2a1608 60%,#3d2010 100%);}
-.ndu-sub-close{position:absolute;top:20px;right:24px;z-index:10;background:rgba(0,0,0,0.35);border:1.5px solid rgba(255,245,220,0.2);border-radius:8px;padding:6px 16px;font-size:13px;color:rgba(255,245,220,0.65);cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;}
+.ndu-sub-close{position:absolute;top:20px;right:24px;z-index:10;background:rgba(0,0,0,0.35);border:1.5px solid rgba(255,245,220,0.2);border-radius:8px;padding:6px 16px;font-size:14px;color:rgba(255,245,220,0.65);cursor:pointer;font-family:inherit;transition:color .15s,border-color .15s;}
 .ndu-sub-close:hover{color:#fff8ec;border-color:rgba(255,245,220,0.6);}
 .ndu-sub-section{margin-bottom:28px;}
 .ndu-sub-h{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:12px;}
 .ndu-sub-overlay.cx-ov .ndu-sub-h{color:#8fa596;}
 .ndu-sub-overlay.self-ov .ndu-sub-h{color:#d07a4e;}
-.ndu-sub-body{font-size:13px;color:rgba(255,245,220,0.72);line-height:1.7;}
+.ndu-sub-body{font-size:14px;color:rgba(255,245,220,0.72);line-height:1.7;}
 .ndu-sub-step-row{display:flex;gap:0;margin-top:8px;}
 .ndu-sub-step{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;}
 .ndu-sub-step:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:16px;font-size:14px;color:rgba(255,245,220,0.25);}
 .ndu-sub-step-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;margin-bottom:8px;}
 .cx-ov .ndu-sub-step-num{background:rgba(143,165,150,0.18);color:#8fa596;border:1.5px solid rgba(143,165,150,0.35);}
 .self-ov .ndu-sub-step-num{background:rgba(189,103,61,0.18);color:#d07a4e;border:1.5px solid rgba(189,103,61,0.35);}
-.ndu-sub-step-lbl{font-size:11px;font-weight:700;color:#fff8ec;margin-bottom:4px;}
-.ndu-sub-step-desc{font-size:10px;color:rgba(255,245,220,0.5);line-height:1.5;padding:0 6px;}
-.ndu-sub-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;}
-.ndu-sub-table th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:6px 10px;color:rgba(255,245,220,0.45);border-bottom:1px solid rgba(255,245,220,0.08);}
+.ndu-sub-step-lbl{font-size:14px;font-weight:700;color:#fff8ec;margin-bottom:4px;}
+.ndu-sub-step-desc{font-size:12px;color:rgba(255,245,220,0.5);line-height:1.5;padding:0 6px;}
+.ndu-sub-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;}
+.ndu-sub-table th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:6px 10px;color:rgba(255,245,220,0.45);border-bottom:1px solid rgba(255,245,220,0.08);}
 .ndu-sub-table td{padding:7px 10px;color:rgba(255,245,220,0.75);border-bottom:1px solid rgba(255,245,220,0.05);}
 .ndu-sub-table tr:last-child td{border-bottom:none;}
-.ndu-sub-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;}
+.ndu-sub-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700;}
 .ndu-sub-tag.risk-hi{background:rgba(218,77,114,0.2);color:#da4d72;}
 .ndu-sub-tag.risk-md{background:rgba(189,103,61,0.25);color:#d07a4e;}
 .ndu-sub-tag.risk-lo{background:rgba(143,165,150,0.2);color:#8fa596;}
 .ndu-sub-kpis{display:flex;gap:12px;margin-top:8px;}
 .ndu-sub-kpi{flex:1;background:rgba(0,0,0,0.28);border-radius:10px;padding:12px 14px;text-align:center;}
 .ndu-sub-kpi-val{font-size:22px;font-weight:800;line-height:1;}
-.ndu-sub-kpi-lbl{font-size:9px;color:rgba(255,245,220,0.45);margin-top:4px;}
+.ndu-sub-kpi-lbl{font-size:12px;color:rgba(255,245,220,0.45);margin-top:4px;}
 .cx-ov .ndu-sub-kpi-val{color:#8fa596;}
 .self-ov .ndu-sub-kpi-val{color:#d07a4e;}
 
 /* business value cards */
 .ndu-value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
 .ndu-value-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:18px;}
-.ndu-value-title{font-size:13px;font-weight:700;color:#2d2a27;margin-bottom:6px;}
-.ndu-value-desc{font-size:12px;color:#73716f;line-height:1.6;}
+.ndu-value-title{font-size:14px;font-weight:700;color:#2d2a27;margin-bottom:6px;}
+.ndu-value-desc{font-size:14px;color:#73716f;line-height:1.6;}
 /* hardware age bar */
 .hw-age-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:10px 0 5px;}
 .hw-age-seg{height:100%;}
 .hw-age-trigger{position:relative;cursor:pointer;padding-bottom:4px;}
-.hw-age-hint{font-size:10px;color:#bd673d;font-weight:600;margin-top:6px;}
+.hw-age-hint{font-size:12px;color:#bd673d;font-weight:600;margin-top:6px;}
 .hw-action-popup{position:absolute;top:calc(100% + 8px);left:0;width:500px;
   background:#fff5e3;border:1px solid #d5ccbd;border-radius:12px;padding:0;
   box-shadow:0 8px 32px rgba(45,42,39,0.18);z-index:500;
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity 0.2s ease,transform 0.2s ease;transform:translateY(-4px);}
 .hw-age-trigger:hover .hw-action-popup,.purity-ver-trigger:hover .hw-action-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
-.hw-action-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;}
+.hw-action-tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;margin-top:2px;}
 .hw-action-tag.crit{background:#fce8ee;color:#da4d72;border:1px solid rgba(218,77,114,0.25);}
 .hw-action-tag.low{background:#f7ece0;color:#bd673d;border:1px solid rgba(189,103,61,0.25);}
 .hw-action-tag.eol{background:#fce8ee;color:#da4d72;border:1px solid rgba(218,77,114,0.25);}
@@ -334,18 +334,18 @@ body.modal-open{overflow:hidden;}
 /* array-level upgrade rows inside popup */
 .hw-popup-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px;border-bottom:1px solid #e7e3dc;}
 .hw-popup-body{max-height:360px;overflow-y:auto;padding:0 16px 12px;}
-.out-section-label{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#73716f;padding:12px 0 4px;}
+.out-section-label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#73716f;padding:12px 0 4px;}
 .out-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid #e7e3dc;}
 .out-row:last-child{border-bottom:none;}
-.obadge{width:24px;height:24px;flex-shrink:0;border-radius:6px;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;margin-top:1px;}
-.oname{font-size:12px;font-weight:700;color:#2d2a27;margin-bottom:2px;}
-.odet{font-size:11px;color:#73716f;line-height:1.5;margin-bottom:3px;}
-.oact{font-size:11px;line-height:1.5;}
+.obadge{width:24px;height:24px;flex-shrink:0;border-radius:6px;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px;}
+.oname{font-size:14px;font-weight:700;color:#2d2a27;margin-bottom:2px;}
+.odet{font-size:12px;color:#73716f;line-height:1.5;margin-bottom:3px;}
+.oact{font-size:12px;line-height:1.5;}
 /* purity version row hover trigger */
 .purity-ver-trigger{position:relative;cursor:pointer;}
 .purity-ver-trigger .hw-action-popup{width:440px;}
 /* tag aliases (match reference code naming) */
-.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;border:1px solid transparent;}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;flex-shrink:0;border:1px solid transparent;}
 .tag-urg{background:#fce8ee;color:#da4d72;border-color:rgba(218,77,114,0.25);}
 .tag-low{background:#f7ece0;color:#bd673d;border-color:rgba(189,103,61,0.25);}
 .tag-ok{background:#eef5f0;color:#5a6359;border-color:rgba(90,99,89,0.25);}
@@ -363,19 +363,19 @@ body.modal-open{overflow:hidden;}
 
 /* ── ESG Impact modal ── */
 .esg-grove{display:flex;flex-wrap:wrap;gap:4px;align-items:flex-end;padding:6px 0 12px;}
-.esg-grove-caption{font-size:10px;color:#839888;margin-top:6px;line-height:1.5;}
+.esg-grove-caption{font-size:12px;color:#839888;margin-top:6px;line-height:1.5;}
 .esg-eff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px;}
 .esg-eff-card{background:#F3FAF5;border:1px solid #C5E4CC;border-radius:12px;padding:16px;}
-.esg-eff-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#839888;margin-bottom:10px;}
+.esg-eff-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#839888;margin-bottom:10px;}
 .esg-eff-compare{display:flex;flex-direction:column;gap:6px;}
-.esg-eff-row{display:flex;align-items:center;gap:8px;font-size:11px;color:#839888;}
+.esg-eff-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#839888;}
 .esg-eff-bar-wrap{flex:1;height:6px;background:#E2F1E5;border-radius:3px;overflow:hidden;}
 .esg-eff-bar{height:100%;border-radius:3px;}
-.esg-eff-val{font-size:11px;font-weight:700;width:38px;text-align:right;flex-shrink:0;}
+.esg-eff-val{font-size:12px;font-weight:700;width:38px;text-align:right;flex-shrink:0;}
 
 /* ── ESG Asset Library ── */
 .asset-lib-section{margin-top:22px;}
-.asset-lib-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#73716f;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.asset-lib-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#73716f;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
 .asset-lib-label::after{content:'';flex:1;height:1px;background:#e7e3dc;}
 .asset-lib-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
 .asset-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s;}
@@ -383,16 +383,16 @@ body.modal-open{overflow:hidden;}
 .asset-thumb{width:100%;height:88px;object-fit:cover;background:#e7e3dc;display:block;flex-shrink:0;}
 .asset-thumb-placeholder{width:100%;height:88px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#eef7ea,#e3f2dc);flex-shrink:0;}
 .asset-meta{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1;}
-.asset-type-tag{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:8px;width:fit-content;}
+.asset-type-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:8px;width:fit-content;}
 .asset-type-tag.tag-article{background:rgba(61,122,86,0.12);color:#3d7a56;}
 .asset-type-tag.tag-image{background:rgba(61,107,189,0.1);color:#3d5abd;}
 .asset-type-tag.tag-svg{background:rgba(189,103,61,0.12);color:#bd673d;}
-.asset-name{font-size:11px;font-weight:700;color:#2d2a27;line-height:1.4;}
-.asset-url-text{font-size:9px;color:#73716f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:monospace;}
+.asset-name{font-size:14px;font-weight:700;color:#2d2a27;line-height:1.4;}
+.asset-url-text{font-size:12px;color:#73716f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:monospace;}
 .asset-actions{display:flex;gap:6px;margin-top:auto;padding-top:6px;}
-.asset-open-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:5px 0;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s;background:#3d7a56;color:#fff;border:none;}
+.asset-open-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:4px;padding:5px 0;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .15s;background:#3d7a56;color:#fff;border:none;}
 .asset-open-btn:hover{opacity:.82;}
-.asset-copy-btn{display:inline-flex;align-items:center;justify-content:center;padding:5px 10px;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;background:transparent;border:1.5px solid #d5ccbd;color:#73716f;transition:border-color .15s,color .15s;}
+.asset-copy-btn{display:inline-flex;align-items:center;justify-content:center;padding:5px 10px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;background:transparent;border:1.5px solid #d5ccbd;color:#73716f;transition:border-color .15s,color .15s;}
 .asset-copy-btn:hover{border-color:#3d7a56;color:#3d7a56;}
 
 /* topology */
@@ -401,7 +401,7 @@ body.modal-open{overflow:hidden;}
 
 /* filter buttons */
 .filter-btn{
-  padding:2px 10px;border-radius:20px;font-size:11px;cursor:pointer;
+  padding:2px 10px;border-radius:20px;font-size:14px;cursor:pointer;
   font-family:inherit;font-weight:500;border:1px solid #e7e3dc;
   background:transparent;color:#73716f;
 }
@@ -413,7 +413,7 @@ body.modal-open{overflow:hidden;}
 /* header badge */
 .uptime-badge{
   display:flex;align-items:center;gap:6px;
-  background:#f0ece5;border-radius:8px;padding:6px 12px;font-size:12px;
+  background:#f0ece5;border-radius:8px;padding:6px 12px;font-size:14px;
 }
 .uptime-dot{width:8px;height:8px;border-radius:50%;}
 
@@ -429,7 +429,7 @@ body.modal-open{overflow:hidden;}
 
 /* ── info tooltip (tile label "i" badge) ── */
 .info-trigger{width:14px;height:14px;border:1px solid #73716f;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#73716f;cursor:help;position:relative;flex-shrink:0;}
-.info-content{position:absolute;top:100%;left:0;width:200px;background:#fffdf9;border:1px solid #e7e3dc;padding:10px;border-radius:8px;font-size:11px;font-weight:400;color:#2d2a27;box-shadow:0 4px 12px rgba(45,42,39,0.1);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:200;white-space:normal;text-transform:none;line-height:1.4;margin-top:5px;}
+.info-content{position:absolute;top:100%;left:0;width:200px;background:#fffdf9;border:1px solid #e7e3dc;padding:10px;border-radius:8px;font-size:14px;font-weight:400;color:#2d2a27;box-shadow:0 4px 12px rgba(45,42,39,0.1);opacity:0;visibility:hidden;transition:all 0.2s ease;z-index:200;white-space:normal;text-transform:none;line-height:1.4;margin-top:5px;}
 .info-trigger:hover .info-content{opacity:1;visibility:visible;}
 
 /* ── heatmap floating tooltip ── */
@@ -438,9 +438,9 @@ body.modal-open{overflow:hidden;}
 .incident-block{margin-bottom:16px;}
 .incident-divider{height:1px;background:#f1f5f9;margin:12px 0;}
 .tooltip-appliance{font-weight:600;font-size:15px;color:#1e293b;margin-bottom:4px;}
-.tooltip-desc{font-size:13px;color:#475569;line-height:1.5;margin-bottom:12px;}
+.tooltip-desc{font-size:14px;color:#475569;line-height:1.5;margin-bottom:12px;}
 .tooltip-footer{display:flex;align-items:center;gap:10px;}
-.category-pill{font-size:11px;font-weight:500;padding:2px 10px;border-radius:4px;}
+.category-pill{font-size:12px;font-weight:500;padding:2px 10px;border-radius:4px;}
 .pill-human{background:#fff1f2;color:#e11d48;}
 .pill-unplanned{background:#fef2f2;color:#dc2626;}
 .pill-planned{background:#f0fdf4;color:#16a34a;}
@@ -455,20 +455,20 @@ body.modal-open{overflow:hidden;}
 #fleet-hover-chip{position:absolute;top:-45px;background:#fff;border:1px solid #e7e3dc;border-radius:24px;padding:8px 16px;display:none;align-items:center;gap:12px;box-shadow:0 4px 12px rgba(45,42,39,0.08);z-index:100;white-space:nowrap;transform:translateX(-50%);pointer-events:none;}
 .chip-id{color:#bd673d;font-weight:600;font-size:14px;}
 .chip-sep{color:#e7e3dc;margin:0 4px;}
-.chip-model{color:#73716f;font-size:13px;}
+.chip-model{color:#73716f;font-size:14px;}
 .chip-val{color:#bd673d;font-weight:600;font-size:14px;}
 
 /* ── fleet KPI cards ── */
 .fleet-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
 .fleet-kpi-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;padding:14px 18px;min-height:80px;}
-.fleet-kpi-label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.fleet-kpi-label{font-size:12px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
 .fleet-kpi-value{font-size:28px;font-weight:700;line-height:1.1;}
 .kpi-avg-val{color:#5a6359;} .kpi-healthy-val{color:#8fa596;} .kpi-caution-val{color:#bd673d;} .kpi-critical-val{color:#da4d72;}
 
 /* ── fleet control bar ── */
 .fleet-control-bar{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
 .usage-toggle{background:#e0dad1;border-radius:20px;padding:4px;display:flex;gap:4px;flex-shrink:0;}
-.toggle-btn{padding:6px 16px;border-radius:18px;font-size:13px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;}
+.toggle-btn{padding:6px 16px;border-radius:18px;font-size:14px;font-weight:600;border:none;cursor:pointer;transition:all 0.2s;font-family:inherit;}
 .toggle-btn.active{background:#8b857c;color:#fff;}
 .toggle-btn.inactive{background:transparent;color:#5a6359;}
 .dropdown-container{position:relative;display:inline-block;}
@@ -476,7 +476,7 @@ body.modal-open{overflow:hidden;}
 .filter-dropdown:hover{background:#f0ece5;}
 .dropdown-menu{position:absolute;top:calc(100% + 4px);left:0;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:8px 0;min-width:140px;box-shadow:0 4px 12px rgba(45,42,39,0.1);display:none;z-index:60;}
 .dropdown-container:hover .dropdown-menu{display:block;}
-.dropdown-item{padding:8px 16px;font-size:13px;color:#5a6359;cursor:pointer;transition:background 0.1s;}
+.dropdown-item{padding:8px 16px;font-size:14px;color:#5a6359;cursor:pointer;transition:background 0.1s;}
 .dropdown-item:hover{background:#f0ece5;}
 
 /* ── fleet chart ── */
@@ -489,7 +489,7 @@ body.modal-open{overflow:hidden;}
 .fleet-bar-usage{width:100%;border-radius:2px;}
 .chart-line{position:absolute;left:0;right:0;border-top:1px dashed rgba(218,77,114,0.4);}
 .chart-line.avg{border-top:1.5px solid rgba(90,99,89,0.4);}
-.chart-label{position:absolute;font-size:11px;font-weight:500;padding:2px 6px;background:#fdfaf3;border:1px solid #e7e3dc;border-radius:4px;box-shadow:0 2px 4px rgba(0,0,0,0.05);transform:translateY(-50%);right:0;}
+.chart-label{position:absolute;font-size:12px;font-weight:500;padding:2px 6px;background:#fdfaf3;border:1px solid #e7e3dc;border-radius:4px;box-shadow:0 2px 4px rgba(0,0,0,0.05);transform:translateY(-50%);right:0;}
 .chart-label.threshold{color:#da4d72;}
 .chart-label.avg{color:#5a6359;}
 
@@ -500,10 +500,10 @@ body.modal-open{overflow:hidden;}
 .zone-red{flex:0 0 16.66%;background:rgba(218,77,114,0.08);border-right:1px dashed rgba(218,77,114,0.2);}
 .zone-amber{flex:0 0 16.66%;background:rgba(189,103,61,0.05);border-right:1px dashed rgba(189,103,61,0.2);}
 .zone-neutral{flex:1;background:transparent;}
-.y-axis-labels{position:absolute;left:10px;top:40px;bottom:60px;width:60px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:10px;font-size:11px;color:#73716f;}
-.x-axis-labels{position:absolute;bottom:10px;left:80px;right:60px;height:40px;display:flex;justify-content:space-between;font-size:11px;color:#73716f;}
-.axis-title-y{position:absolute;left:0;top:40px;bottom:60px;width:18px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;}
-.axis-title-x{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;}
+.y-axis-labels{position:absolute;left:10px;top:40px;bottom:60px;width:60px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:10px;font-size:12px;color:#73716f;}
+.x-axis-labels{position:absolute;bottom:10px;left:80px;right:60px;height:40px;display:flex;justify-content:space-between;font-size:12px;color:#73716f;}
+.axis-title-y{position:absolute;left:0;top:40px;bottom:60px;width:18px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);font-size:12px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;}
+.axis-title-x{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);font-size:12px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;}
 .scatter-point{position:absolute;width:24px;height:24px;cursor:pointer;transform:translate(-50%,-50%);transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275);z-index:2;}
 .scatter-point:hover{transform:translate(-50%,-50%) scale(1.4);z-index:10;}
 .scatter-hex{width:100%;height:100%;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0% 50%);opacity:0.8;}
@@ -515,10 +515,10 @@ body.modal-open{overflow:hidden;}
 .loc-card:first-child{padding-left:0;}
 .loc-card:last-child{border-right:none;border-left:2px solid #d5ccbd;padding-left:28px;} /* extra visual group — western site */
 .loc-title{font-size:14px;font-weight:700;color:#2d2a27;display:flex;align-items:baseline;gap:6px;}
-.loc-addr{font-size:10px;font-weight:400;color:#73716f;margin-top:2px;}
+.loc-addr{font-size:12px;font-weight:400;color:#73716f;margin-top:2px;}
 .loc-table{width:100%;border-collapse:collapse;margin-top:8px;}
-.loc-table th{text-align:left;font-size:9px;text-transform:uppercase;color:#73716f;padding-bottom:7px;border-bottom:1px solid rgba(0,0,0,0.05);font-weight:500;}
-.loc-table td{padding:10px 0;font-size:13px;color:#2d2a27;font-weight:400;border-bottom:0.5px solid #f0ece5;}
+.loc-table th{text-align:left;font-size:12px;text-transform:uppercase;color:#73716f;padding-bottom:7px;border-bottom:1px solid rgba(0,0,0,0.05);font-weight:500;}
+.loc-table td{padding:10px 0;font-size:14px;color:#2d2a27;font-weight:400;border-bottom:0.5px solid #f0ece5;}
 .loc-table .count-col{text-align:center;color:#5a6359;}
 .loc-table .cap-col{text-align:right;}
 
@@ -527,10 +527,10 @@ body.modal-open{overflow:hidden;}
 .support-chart-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:14px;padding:20px;flex:0 0 280px;display:flex;align-items:center;gap:16px;}
 .support-stat-tiles{display:flex;gap:10px;flex:1;flex-wrap:wrap;}
 .support-stat-tile{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:100px;}
-.stat-tile-label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.stat-tile-label{font-size:12px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
 .stat-tile-value{font-size:28px;font-weight:700;color:#2d2a27;line-height:1.1;}
 .stat-tile-value.highlight{color:#bd673d;}
-.stat-tile-sub{font-size:10px;color:#73716f;margin-top:4px;}
+.stat-tile-sub{font-size:12px;color:#73716f;margin-top:4px;}
 .donut-legend{display:flex;flex-direction:column;gap:8px;flex:1;}
 .legend-val{margin-left:auto;font-weight:700;color:#2d2a27;font-size:14px;}
 .support-divider{border:none;border-top:1px solid #e7e3dc;margin:24px 0 0;}
@@ -538,15 +538,15 @@ body.modal-open{overflow:hidden;}
 .bar-track{height:8px;background:#e7e3dc;border-radius:4px;overflow:hidden;}
 .support-year-select{background:#fdfaf3;border:1.5px solid #d1e5d9;border-radius:8px;padding:4px 10px;font-size:12px;color:#5a6359;font-weight:600;cursor:pointer;outline:none;font-family:inherit;}
 .chart-panel{background:transparent;border:none;border-radius:0;padding:24px 0;}
-.chart-panel-label{font-size:11px;font-weight:600;color:#73716f;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
+.chart-panel-label{font-size:12px;font-weight:600;color:#73716f;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;}
 
 /* ── data protection tile mini bars ── */
 .dp-metric-bars{display:flex;flex-direction:column;gap:9px;margin-top:6px;width:100%;}
 .dp-metric-item{display:flex;align-items:center;gap:8px;}
-.dp-metric-label{font-size:11px;color:#73716f;width:80px;flex-shrink:0;}
+.dp-metric-label{font-size:12px;color:#73716f;width:80px;flex-shrink:0;}
 .dp-metric-track{flex:1;height:6px;background:#e7e3dc;border-radius:3px;overflow:hidden;}
 .dp-metric-fill{height:100%;border-radius:3px;transition:width 0.4s ease;}
-.dp-metric-pct{font-size:11px;font-weight:700;color:#2d2a27;width:28px;text-align:right;}
+.dp-metric-pct{font-size:12px;font-weight:700;color:#2d2a27;width:28px;text-align:right;}
 
 /* ── data protection scatter plot ── */
 .dp-plot-wrap{position:relative;width:100%;height:400px;margin-top:8px;}
@@ -567,21 +567,21 @@ body.modal-open{overflow:hidden;}
 .dp-circle{border-radius:50%;}
 /* ── dp protection coverage widget ── */
 .dp-feat-row{display:flex;align-items:center;gap:6px;margin-bottom:7px;}
-.dp-feat-lbl{font-size:10px;color:#73716f;white-space:nowrap;min-width:80px;}
+.dp-feat-lbl{font-size:12px;color:#73716f;white-space:nowrap;min-width:80px;}
 .dp-feat-track{flex:1;height:4px;background:#e7e3dc;border-radius:2px;overflow:hidden;}
 .dp-feat-fill{height:100%;border-radius:2px;background:#8fa596;}
-.dp-feat-pct{font-size:10px;font-weight:700;min-width:24px;text-align:right;}
+.dp-feat-pct{font-size:12px;font-weight:700;min-width:24px;text-align:right;}
 .dp-y-ticks{position:absolute;top:20px;left:0;bottom:48px;width:58px;
   display:flex;flex-direction:column;justify-content:space-between;
-  align-items:flex-end;padding-right:10px;font-size:11px;color:#73716f;font-weight:600;}
+  align-items:flex-end;padding-right:10px;font-size:12px;color:#73716f;font-weight:600;}
 .dp-x-ticks{position:absolute;left:64px;right:20px;bottom:18px;
-  display:flex;justify-content:space-between;font-size:11px;color:#73716f;font-weight:600;}
+  display:flex;justify-content:space-between;font-size:12px;color:#73716f;font-weight:600;}
 .dp-y-axis-title{position:absolute;left:0;top:20px;bottom:48px;width:18px;
   display:flex;align-items:center;justify-content:center;
   writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);
-  font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
+  font-size:12px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;}
 .dp-x-axis-title{position:absolute;bottom:0;left:50%;transform:translateX(-50%);
-  font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;}
+  font-size:12px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.08em;}
 
 /* ── tooltip content (shared with dp and heatmap) ── */
 .tt-header{font-weight:700;font-size:14px;color:#2d2a27;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e7e3dc;}
@@ -643,7 +643,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
   <header class="col-12" style="margin-bottom:12px;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;">
     <div>
       <h1 style="font-size:22px;font-weight:700;color:#2d2a27;">PNC Financial Services Group</h1>
-      <p style="font-size:13px;color:#73716f;margin-top:4px;">Executive Summary · Pure Storage fleet overview</p>
+      <p style="font-size:14px;color:#73716f;margin-top:4px;">Executive Summary · Pure Storage fleet overview</p>
     </div>
     <div class="uptime-badge">
       <div class="uptime-dot" style="background:#8fa596;"></div>
@@ -712,7 +712,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           stroke-dasharray="222.9 276.5" stroke-dashoffset="0" stroke-linecap="round"
           transform="rotate(-90 60 60)"/>
         <text x="60" y="56" text-anchor="middle" font-size="15" font-weight="700" fill="#5a6359">80.6%</text>
-        <text x="60" y="70" text-anchor="middle" font-size="9" fill="#73716f">proactive</text>
+        <text x="60" y="70" text-anchor="middle" font-size="12" fill="#73716f">proactive</text>
       </svg>
     </div>
   </div>
@@ -730,7 +730,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <!-- 2.6/5.0 = 52% fill from bottom -->
         <rect x="0" y="77" width="140" height="83" fill="#bd673d" opacity="0.15" clip-path="url(#sc-tile)"/>
         <text x="70" y="82" text-anchor="middle" font-size="32" font-weight="800" fill="#bd673d">2.6</text>
-        <text x="70" y="100" text-anchor="middle" font-size="11" fill="#73716f">out of 5.0</text>
+        <text x="70" y="100" text-anchor="middle" font-size="12" fill="#73716f">out of 5.0</text>
       </svg>
     </div>
   </div>
@@ -839,7 +839,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div style="padding-top:4px;">
     <div class="pres-inner">
       <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center;">
-        <span style="font-size:11px;color:#73716f;">Filter:</span>
+        <span style="font-size:14px;color:#73716f;">Filter:</span>
         <button class="filter-btn active" onclick="topoFilter('all',this)">all</button>
         <button class="filter-btn" onclick="topoFilter('FA-XL',this)">FA-XL</button>
         <button class="filter-btn" onclick="topoFilter('FA-X',this)">FA-X</button>
@@ -946,7 +946,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <circle cx="50" cy="50" r="42" fill="none" stroke="#5a6359" stroke-width="10" stroke-dasharray="212.7 263.9" transform="rotate(-90 50 50)"/>
           </svg>
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-            <span style="font-size:13px;font-weight:800;color:#5a6359;">80.6%</span>
+            <span style="font-size:14px;font-weight:800;color:#5a6359;">80.6%</span>
           </div>
         </div>
         <div class="donut-legend">
@@ -1028,7 +1028,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <div class="support-stat-tile"><div class="stat-tile-label">Proactive avg</div><div class="stat-tile-value">11.6 days</div></div>
           <div class="support-stat-tile"><div class="stat-tile-label">Reactive avg</div><div class="stat-tile-value" style="color:#bd673d;">17.0 days</div></div>
         </div>
-        <div style="display:flex;gap:12px;margin-bottom:12px;font-size:11px;color:#73716f;justify-content:center;flex-wrap:wrap;">
+        <div style="display:flex;gap:12px;margin-bottom:12px;font-size:12px;color:#73716f;justify-content:center;flex-wrap:wrap;">
           <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#8fa596;display:inline-block;"></span>&lt;3 days</span>
           <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#5a6359;display:inline-block;"></span>3–7 days</span>
           <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#bd673d;display:inline-block;"></span>1–4 weeks</span>
@@ -1052,8 +1052,8 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <canvas id="frtChart" style="width:100%;height:100%;display:block;"></canvas>
         </div>
         <div style="background:#fce8ee;border:1px solid rgba(218,77,114,0.2);border-radius:8px;padding:10px 14px;margin-top:16px;display:flex;align-items:flex-start;gap:10px;">
-          <div style="width:16px;height:16px;background:#da4d72;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:2px;">!</div>
-          <p style="font-size:11px;color:#da4d72;margin:0;line-height:1.4;">Sev-1 median FRT of 7,774 min (~5.4 days) is anomalous — all 40 Sev-1 cases were opened in 2022 and may reflect batch-logged proactive alerts rather than live incidents.</p>
+          <div style="width:16px;height:16px;background:#da4d72;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:2px;">!</div>
+          <p style="font-size:14px;color:#da4d72;margin:0;line-height:1.4;">Sev-1 median FRT of 7,774 min (~5.4 days) is anomalous — all 40 Sev-1 cases were opened in 2022 and may reflect batch-logged proactive alerts rather than live incidents.</p>
         </div>
       </div>
     </div>
@@ -1095,15 +1095,15 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             </svg>
             <div style="position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);text-align:center;">
               <div style="font-size:34px;font-weight:800;color:#bd673d;line-height:1;">2.6</div>
-              <div style="font-size:10px;color:#73716f;margin-top:3px;">out of 5.0</div>
+              <div style="font-size:12px;color:#73716f;margin-top:3px;">out of 5.0</div>
             </div>
           </div>
-          <div style="font-size:11px;color:#73716f;margin-top:8px;">57% checks passing</div>
+          <div style="font-size:14px;color:#73716f;margin-top:8px;">57% checks passing</div>
         </div>
         <!-- category bars -->
         <div class="cat-bar-row">
           <span style="font-size:14px;color:#73716f;width:20px;flex-shrink:0;">⊙</span>
-          <span style="font-size:13px;font-weight:600;color:#2d2a27;flex:1;">Compliance</span>
+          <span style="font-size:14px;font-weight:600;color:#2d2a27;flex:1;">Compliance</span>
           <div class="cat-dots" style="gap:5px;">
             <div class="cat-dot" style="background:#bd673d;width:22px;height:6px;"></div>
             <div class="cat-dot" style="background:#bd673d;width:22px;height:6px;"></div>
@@ -1113,7 +1113,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         </div>
         <div class="cat-bar-row">
           <span style="font-size:14px;color:#73716f;width:20px;flex-shrink:0;">⚙</span>
-          <span style="font-size:13px;font-weight:600;color:#2d2a27;flex:1;">Operational</span>
+          <span style="font-size:14px;font-weight:600;color:#2d2a27;flex:1;">Operational</span>
           <div class="cat-dots" style="gap:5px;">
             <div class="cat-dot" style="background:#da4d72;width:22px;height:6px;"></div>
             <div class="cat-dot" style="background:#e7e3dc;width:22px;height:6px;"></div>
@@ -1143,32 +1143,32 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="rec-section-label">Basic</div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#8fa596;"><div class="hex-badge" style="background:#eef5f0;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Data at Rest Encryption</div><div style="font-size:12px;color:#73716f;">All appliances are encrypted with DARE</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Data at Rest Encryption</div><div style="font-size:12px;color:#73716f;">All appliances are encrypted with DARE</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#8fa596;"><div class="hex-badge" style="background:#eef5f0;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">End-of-Life Purity Version</div><div style="font-size:12px;color:#73716f;">No appliance is running an end-of-life Purity version</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">End-of-Life Purity Version</div><div style="font-size:12px;color:#73716f;">No appliance is running an end-of-life Purity version</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">CVEs Critical &amp; High</div><div style="font-size:12px;color:#da4d72;">Review 4 appliances for critical or high CVEs</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">CVEs Critical &amp; High</div><div style="font-size:12px;color:#da4d72;">Review 4 appliances for critical or high CVEs</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">4</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Purity Optimizations</div><div style="font-size:12px;color:#da4d72;">4 appliances need Purity optimizations</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Purity Optimizations</div><div style="font-size:12px;color:#da4d72;">4 appliances need Purity optimizations</div></div>
         </div>
         <div class="rec-section-label">Advanced</div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#bd673d;"><div class="hex-badge" style="background:#f7f0e0;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">5</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Access Control – Remote</div><div style="font-size:12px;color:#bd673d;">5 appliances need remote access control review</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Access Control – Remote</div><div style="font-size:12px;color:#bd673d;">5 appliances need remote access control review</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#bd673d;"><div class="hex-badge" style="background:#f7f0e0;"><span style="font-size:10.6px;font-weight:800;color:#bd673d;">8</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">NTP Server – Configured &amp; Synchronized</div><div style="font-size:12px;color:#bd673d;">8 appliances need NTP configuration</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">NTP Server – Configured &amp; Synchronized</div><div style="font-size:12px;color:#bd673d;">8 appliances need NTP configuration</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#d0c8ba;"><div class="hex-badge" style="background:#efede8;"><span style="font-size:10.6px;font-weight:800;color:#73716f;">0</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Rapid Data Locking (RDL) Enabled</div><div style="font-size:12px;color:#73716f;">No appliances with RDL enabled</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Rapid Data Locking (RDL) Enabled</div><div style="font-size:12px;color:#73716f;">No appliances with RDL enabled</div></div>
         </div>
       </div>
 
@@ -1177,19 +1177,19 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="chart-panel-label">⚙ Operational</div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">8</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Password Hygiene</div><div style="font-size:12px;color:#da4d72;">8 appliances have unsafe password configurations</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Password Hygiene</div><div style="font-size:12px;color:#da4d72;">8 appliances have unsafe password configurations</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">1</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Public or Open Access to Buckets</div><div style="font-size:12px;color:#da4d72;">1 appliance has open or public access to buckets</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Public or Open Access to Buckets</div><div style="font-size:12px;color:#da4d72;">1 appliance has open or public access to buckets</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#8fa596;"><div class="hex-badge" style="background:#eef5f0;"><span style="font-size:10.6px;font-weight:800;color:#5a6359;">✓</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Remote Assist Activity 8+ hrs</div><div style="font-size:12px;color:#73716f;">No appliance with remote assist exceeding 8 hrs</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Remote Assist Activity 8+ hrs</div><div style="font-size:12px;color:#73716f;">No appliance with remote assist exceeding 8 hrs</div></div>
         </div>
         <div class="rec-row">
           <div class="hex-frame" style="background:#da4d72;"><div class="hex-badge" style="background:#fce8ee;"><span style="font-size:10.6px;font-weight:800;color:#da4d72;">6</span></div></div>
-          <div style="flex:1;"><div style="font-size:13px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Critical Alerts</div><div style="font-size:12px;color:#da4d72;">6 appliances have active critical alerts</div></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:#2d2a27;margin-bottom:2px;">Critical Alerts</div><div style="font-size:12px;color:#da4d72;">6 appliances have active critical alerts</div></div>
         </div>
       </div>
 
@@ -1230,14 +1230,14 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <!-- ── CHART + MODERNIZATION PATH ROW ── -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
       <div>
-        <div class="chart-panel-label" style="margin-bottom:8px;">Annual NDU Volume<span style="display:flex;gap:14px;align-items:center;font-size:11px;font-weight:400;letter-spacing:0;text-transform:none;color:#73716f;"><span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#8fa596;display:inline-block;flex-shrink:0;"></span>Software NDU <strong>620</strong></span><span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#bd673d;display:inline-block;flex-shrink:0;"></span>Hardware NDU <strong>95</strong></span></span></div>
+        <div class="chart-panel-label" style="margin-bottom:8px;">Annual NDU Volume<span style="display:flex;gap:14px;align-items:center;font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;color:#73716f;"><span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#8fa596;display:inline-block;flex-shrink:0;"></span>Software NDU <strong>620</strong></span><span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#bd673d;display:inline-block;flex-shrink:0;"></span>Hardware NDU <strong>95</strong></span></span></div>
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
       <div style="position:absolute;left:0;right:0;top:0;pointer-events:none;">
-        <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">223</span></div>
-        <div style="position:absolute;left:0;right:0;top:40px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">167</span></div>
-        <div style="position:absolute;left:0;right:0;top:80px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">112</span></div>
-        <div style="position:absolute;left:0;right:0;top:120px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">56</span></div>
-        <div style="position:absolute;left:0;right:0;top:160px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">0</span></div>
+        <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">223</span></div>
+        <div style="position:absolute;left:0;right:0;top:40px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">167</span></div>
+        <div style="position:absolute;left:0;right:0;top:80px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">112</span></div>
+        <div style="position:absolute;left:0;right:0;top:120px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">56</span></div>
+        <div style="position:absolute;left:0;right:0;top:160px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">0</span></div>
       </div>
       <svg id="ndu-detail-svg" width="100%" height="188" style="display:block;overflow:visible;"></svg>
     </div>
@@ -1330,10 +1330,10 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
             <div style="width:130px;flex-shrink:0;">
               <div style="font-size:12px;font-weight:700;color:#5a6359;white-space:nowrap;">Purity 6.4.2</div>
-              <div style="margin-top:2px;"><span class="tag tag-ok" style="font-size:9px;padding:1px 6px;">Latest</span></div>
+              <div style="margin-top:2px;"><span class="tag tag-ok" style="font-size:12px;padding:1px 6px;">Latest</span></div>
             </div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:53.5%;background:#5a6359;"></div></div>
-            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+            <div style="width:80px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;">
               <strong style="color:#2d2a27;">68</strong><span style="color:#73716f;"> · 53.5%</span>
             </div>
           </div>
@@ -1344,7 +1344,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
               <div style="font-size:12px;font-weight:600;color:#73716f;white-space:nowrap;">Purity 6.4.0–6.4.1</div>
             </div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:28.3%;background:#8fa596;"></div></div>
-            <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+            <div style="width:80px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;">
               <strong style="color:#2d2a27;">36</strong><span style="color:#73716f;"> · 28.3%</span>
             </div>
           </div>
@@ -1354,17 +1354,17 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:130px;flex-shrink:0;">
                 <div style="font-size:12px;font-weight:700;color:#bd673d;white-space:nowrap;">⚠ Purity 6.3.x</div>
-                <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:9px;padding:1px 5px;">Upgrade needed</span></div>
+                <div style="margin-top:2px;"><span class="tag tag-low" style="font-size:12px;padding:1px 5px;">Upgrade needed</span></div>
               </div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:14.2%;background:#bd673d;"></div></div>
-              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <div style="width:80px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;">
                 <strong style="color:#bd673d;">18</strong><span style="color:#73716f;"> · 14.2%</span>
               </div>
             </div>
             <div class="hw-action-popup">
               <div class="hw-popup-head">
-                <span style="font-size:13px;font-weight:700;color:#2d2a27;">Purity 6.3.x — 18 arrays</span>
-                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">⟳ Schedule Upgrade →</button>
+                <span style="font-size:14px;font-weight:700;color:#2d2a27;">Purity 6.3.x — 18 arrays</span>
+                <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">⟳ Schedule Upgrade →</button>
               </div>
               <div class="hw-popup-body">
                 <div class="out-row">
@@ -1394,7 +1394,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   </div>
                   <span class="tag tag-low" style="flex-shrink:0;">Low risk</span>
                 </div>
-                <div style="padding:8px 0 2px;font-size:11px;color:#73716f;">+ 15 more arrays on 6.3.x — contact account team for batch upgrade schedule</div>
+                <div style="padding:8px 0 2px;font-size:14px;color:#73716f;">+ 15 more arrays on 6.3.x — contact account team for batch upgrade schedule</div>
               </div>
             </div>
           </div>
@@ -1404,17 +1404,17 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:130px;flex-shrink:0;">
                 <div style="font-size:12px;font-weight:700;color:#da4d72;white-space:nowrap;">🚨 Purity ≤6.2.x</div>
-                <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:9px;padding:1px 5px;">Critical</span></div>
+                <div style="margin-top:2px;"><span class="tag tag-urg" style="font-size:12px;padding:1px 5px;">Critical</span></div>
               </div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:3.9%;background:#da4d72;"></div></div>
-              <div style="width:80px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;">
+              <div style="width:80px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;">
                 <strong style="color:#da4d72;">5</strong><span style="color:#73716f;"> · 3.9%</span>
               </div>
             </div>
             <div class="hw-action-popup">
               <div class="hw-popup-head">
-                <span style="font-size:13px;font-weight:700;color:#da4d72;">⚠ Purity ≤6.2.x — CVE exposure</span>
-                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">⟳ Schedule Upgrade →</button>
+                <span style="font-size:14px;font-weight:700;color:#da4d72;">⚠ Purity ≤6.2.x — CVE exposure</span>
+                <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">⟳ Schedule Upgrade →</button>
               </div>
               <div class="hw-popup-body">
                 <div class="out-row crit">
@@ -1435,16 +1435,16 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   </div>
                   <span class="tag tag-urg" style="flex-shrink:0;">Overdue</span>
                 </div>
-                <div style="padding:8px 0 2px;font-size:11px;color:#73716f;">+ 3 more arrays on ≤6.2.x — immediate upgrade required to close CVE exposure</div>
+                <div style="padding:8px 0 2px;font-size:14px;color:#73716f;">+ 3 more arrays on ≤6.2.x — immediate upgrade required to close CVE exposure</div>
               </div>
             </div>
           </div>
 
           <!-- section-level action button -->
           <div style="margin-top:14px;display:flex;justify-content:flex-end;">
-            <button style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">
+            <button style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">
               ⟳ Schedule Upgrade
-              <span style="display:inline-flex;align-items:center;justify-content:center;background:#da4d72;color:#fff5e3;font-size:9px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;">23</span>
+              <span style="display:inline-flex;align-items:center;justify-content:center;background:#da4d72;color:#fff5e3;font-size:12px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;">23</span>
             </button>
           </div>
         </div>
@@ -1457,7 +1457,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid #f0ece5;">
             <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">0–2 yrs</div>
             <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:27%;background:#5a6359;"></div></div>
-            <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong>34</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
+            <div style="width:60px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;color:#2d2a27;"><strong>34</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
           </div>
 
           <!-- 2–4 years — hover for detail -->
@@ -1465,13 +1465,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">2–4 yrs</div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:45%;background:#8fa596;"></div></div>
-              <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong>58</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
+              <div style="width:60px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;color:#2d2a27;"><strong>58</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
             </div>
             <div class="hw-age-hint">↗ 14 Foundation eligible — hover for detail</div>
             <div class="hw-action-popup">
               <div class="hw-popup-head">
-                <span style="font-size:13px;font-weight:700;color:#2d2a27;">2–4 yr arrays · Controller Upgrade</span>
-                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
+                <span style="font-size:14px;font-weight:700;color:#2d2a27;">2–4 yr arrays · Controller Upgrade</span>
+                <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #5a6359;color:#5a6359;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#5a6359';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#5a6359'">Controller Upgrade →</button>
               </div>
               <div class="hw-popup-body">
                 <div class="out-row">
@@ -1493,12 +1493,12 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <span class="tag tag-ok" style="flex-shrink:0;">Entitled</span>
                 </div>
                 <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e7e3dc;">
-                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
-                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;margin-bottom:4px;">
+                  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#73716f;margin-bottom:4px;">
                     <span style="color:#3d7a56;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
                     <span><strong style="color:#3d7a56;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
                   </div>
-                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;">
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#73716f;">
                     <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
                     <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Path: convert to Evergreen//Forever (CapEx) to gain perpetual HwNDU rights.</span>
                   </div>
@@ -1512,13 +1512,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">4–6 yrs</div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:19%;background:#bd673d;"></div></div>
-              <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong>27</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
+              <div style="width:60px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;color:#2d2a27;"><strong>27</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
             </div>
             <div class="hw-age-hint">↗ 9 on Foundation — hover for detail</div>
             <div class="hw-action-popup">
               <div class="hw-popup-head">
-                <span style="font-size:13px;font-weight:700;color:#2d2a27;">4–6 yr arrays · Upgrade to Forever</span>
-                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
+                <span style="font-size:14px;font-weight:700;color:#2d2a27;">4–6 yr arrays · Upgrade to Forever</span>
+                <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Upgrade to Forever →</button>
               </div>
               <div class="hw-popup-body">
                 <div class="out-row">
@@ -1531,12 +1531,12 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <span class="tag tag-low" style="flex-shrink:0;">Upgrade path</span>
                 </div>
                 <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e7e3dc;">
-                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
-                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;margin-bottom:4px;">
+                  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#73716f;margin-bottom:4px;">
                     <span style="color:#3d7a56;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
                     <span><strong style="color:#3d7a56;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
                   </div>
-                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;">
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#73716f;">
                     <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
                     <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Path: convert to Evergreen//Forever (CapEx) to gain perpetual HwNDU rights.</span>
                   </div>
@@ -1550,13 +1550,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="width:80px;flex-shrink:0;font-size:12px;font-weight:700;color:#2d2a27;">6+ yrs</div>
               <div class="dp-metric-track" style="flex:1;"><div class="dp-metric-fill" style="width:9%;background:#da4d72;"></div></div>
-              <div style="width:60px;text-align:right;flex-shrink:0;font-size:11px;white-space:nowrap;color:#2d2a27;"><strong style="color:#da4d72;">8</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
+              <div style="width:60px;text-align:right;flex-shrink:0;font-size:14px;white-space:nowrap;color:#2d2a27;"><strong style="color:#da4d72;">8</strong><span style="color:#73716f;font-weight:400;"> arr</span></div>
             </div>
             <div class="hw-age-hint" style="color:#da4d72;">🚨 EoL risk — hover for detail</div>
             <div class="hw-action-popup">
               <div class="hw-popup-head">
-                <span style="font-size:13px;font-weight:700;color:#2d2a27;">6+ yr arrays · EoL Risk &amp; Consolidate</span>
-                <button style="font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
+                <span style="font-size:14px;font-weight:700;color:#2d2a27;">6+ yr arrays · EoL Risk &amp; Consolidate</span>
+                <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Consolidate →</button>
               </div>
               <div class="hw-popup-body">
                 <div class="out-row crit">
@@ -1569,12 +1569,12 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <span class="tag tag-urg" style="flex-shrink:0;">EoL risk</span>
                 </div>
                 <div style="margin-top:10px;padding-top:10px;border-top:1px solid #e7e3dc;">
-                  <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
-                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;margin-bottom:4px;">
+                  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:6px;">Controller upgrade entitlement key</div>
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#73716f;margin-bottom:4px;">
                     <span style="color:#3d7a56;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
                     <span><strong style="color:#3d7a56;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
                   </div>
-                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#73716f;">
+                  <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#73716f;">
                     <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
                     <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Path: convert to Evergreen//Forever (CapEx) to gain perpetual HwNDU rights.</span>
                   </div>
@@ -1606,7 +1606,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           </div>
           <div class="hw-action-popup">
             <div class="hw-popup-head" style="border-bottom-color:rgba(189,103,61,0.25);">
-              <span style="font-size:13px;font-weight:800;color:#2d2a27;">6.3.x — Schedule SwNDU to 6.4.x</span>
+              <span style="font-size:14px;font-weight:800;color:#2d2a27;">6.3.x — Schedule SwNDU to 6.4.x</span>
               <span class="tag tag-low">12 arrays</span>
             </div>
             <div class="hw-popup-body">
@@ -1638,7 +1638,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                 </div>
                 <span class="tag tag-low">Low</span>
               </div>
-              <div style="padding:8px 0;font-size:11px;color:#73716f;border-top:0.5px solid #e7e3dc;margin-top:4px;">+ 9 more arrays on 6.3.x — contact account team for batch upgrade schedule</div>
+              <div style="padding:8px 0;font-size:14px;color:#73716f;border-top:0.5px solid #e7e3dc;margin-top:4px;">+ 9 more arrays on 6.3.x — contact account team for batch upgrade schedule</div>
             </div>
           </div>
         </div>
@@ -1652,7 +1652,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           </div>
           <div class="hw-action-popup">
             <div class="hw-popup-head" style="border-bottom-color:rgba(218,77,114,0.3);">
-              <span style="font-size:13px;font-weight:800;color:#2d2a27;">≤6.2.x — Urgent SwNDU Required</span>
+              <span style="font-size:14px;font-weight:800;color:#2d2a27;">≤6.2.x — Urgent SwNDU Required</span>
               <span class="tag tag-urg">4 arrays · EoL</span>
             </div>
             <div class="hw-popup-body">
@@ -1675,13 +1675,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                 </div>
                 <span class="tag tag-urg">Critical</span>
               </div>
-              <div style="padding:8px 0;font-size:11px;color:#da4d72;font-weight:600;border-top:0.5px solid #e7e3dc;margin-top:4px;">+ 2 more arrays on ≤6.2.x — escalate to account team immediately</div>
+              <div style="padding:8px 0;font-size:14px;color:#da4d72;font-weight:600;border-top:0.5px solid #e7e3dc;margin-top:4px;">+ 2 more arrays on ≤6.2.x — escalate to account team immediately</div>
             </div>
           </div>
         </div>
 
         <div class="chart-panel-label" style="margin-top:28px;">Hardware Age
-          <span style="font-size:10px;font-weight:500;color:#bd673d;text-transform:none;letter-spacing:0;">Hover for action items</span>
+          <span style="font-size:12px;font-weight:500;color:#bd673d;text-transform:none;letter-spacing:0;">Hover for action items</span>
         </div>
         <div class="hw-age-trigger">
           <div class="hw-age-bar">
@@ -1690,13 +1690,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div class="hw-age-seg" style="flex:2;background:#bd673d;margin-left:2px;"></div>
             <div class="hw-age-seg" style="flex:1;background:#da4d72;border-radius:0 4px 4px 0;margin-left:2px;"></div>
           </div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#73716f;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:#73716f;">
             <span>0–2 yrs (27%)</span><span>2–4 yrs (45%)</span><span>4–6 yrs (19%)</span><span>6+ yrs (9%)</span>
           </div>
           <!-- hover popup — hardware age controller action items (reference spec) -->
           <div class="hw-action-popup">
             <div class="hw-popup-head">
-              <span style="font-size:13px;font-weight:800;color:#2d2a27;">Controller Action Items</span>
+              <span style="font-size:14px;font-weight:800;color:#2d2a27;">Controller Action Items</span>
               <div style="display:flex;gap:6px;">
                 <span class="tag tag-urg">1 EoL risk</span>
                 <span class="tag tag-low">1 Upgrade path</span>
@@ -1742,12 +1742,12 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
               </div>
               <!-- Entitlement key -->
               <div style="margin-top:14px;padding-top:12px;border-top:1px solid #d5ccbd;display:flex;flex-direction:column;gap:6px;">
-                <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:4px;">Controller upgrade entitlement key</div>
-                <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#2d2a27;">
+                <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#73716f;margin-bottom:4px;">Controller upgrade entitlement key</div>
+                <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#2d2a27;">
                   <span style="color:#5a6359;font-weight:800;flex-shrink:0;margin-top:1px;">✦</span>
                   <span><strong style="color:#5a6359;">Evergreen//Forever or Foundation</strong> — controller upgrade included as HwNDU. No additional CapEx. Schedule with Pure.</span>
                 </div>
-                <div style="display:flex;align-items:flex-start;gap:7px;font-size:11px;color:#2d2a27;">
+                <div style="display:flex;align-items:flex-start;gap:7px;font-size:14px;color:#2d2a27;">
                   <span style="color:#bd673d;font-weight:800;flex-shrink:0;margin-top:1px;">→</span>
                   <span><strong style="color:#bd673d;">Standard subscription</strong> — not entitled. Convert to Evergreen//Forever (CapEx trade-in) to gain perpetual HwNDU rights.</span>
                 </div>
@@ -1796,9 +1796,9 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
       <!-- Header -->
       <div style="margin-bottom:28px;">
-        <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 12px;border-radius:20px;color:#8fa596;background:rgba(143,165,150,0.12);border:1px solid rgba(143,165,150,0.3);margin-bottom:12px;">⟡ White-Glove Modernization</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 12px;border-radius:20px;color:#8fa596;background:rgba(143,165,150,0.12);border:1px solid rgba(143,165,150,0.3);margin-bottom:12px;">⟡ White-Glove Modernization</div>
         <div style="font-size:26px;font-weight:800;color:#fff8ec;letter-spacing:-.4px;margin-bottom:8px;">Professional Service Engagement</div>
-        <div style="font-size:13px;color:rgba(255,245,220,0.6);line-height:1.6;max-width:680px;">Pure's Professional Services team owns the full upgrade lifecycle for your most critical arrays — from discovery and risk assessment through zero-impact execution and sign-off validation. No runbooks to maintain, no change-control risk.</div>
+        <div style="font-size:14px;color:rgba(255,245,220,0.6);line-height:1.6;max-width:680px;">Pure's Professional Services team owns the full upgrade lifecycle for your most critical arrays — from discovery and risk assessment through zero-impact execution and sign-off validation. No runbooks to maintain, no change-control risk.</div>
       </div>
 
       <!-- KPIs -->
@@ -1868,9 +1868,9 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
       <!-- Header -->
       <div style="margin-bottom:28px;">
-        <div style="display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 12px;border-radius:20px;color:#d07a4e;background:rgba(189,103,61,0.12);border:1px solid rgba(189,103,61,0.3);margin-bottom:12px;">⚡ Self-Directed Upgrade</div>
+        <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 12px;border-radius:20px;color:#d07a4e;background:rgba(189,103,61,0.12);border:1px solid rgba(189,103,61,0.3);margin-bottom:12px;">⚡ Self-Directed Upgrade</div>
         <div style="font-size:26px;font-weight:800;color:#fff8ec;letter-spacing:-.4px;margin-bottom:8px;">Self-Service NDU via Pure1</div>
-        <div style="font-size:13px;color:rgba(255,245,220,0.6);line-height:1.6;max-width:680px;">Pure1 AutoUpgrade lets PNC's storage team schedule and execute NDUs entirely on your own timeline — no Pure engineer on the call. The portal validates prerequisites, sequences the upgrade safely, and reports status in real time.</div>
+        <div style="font-size:14px;color:rgba(255,245,220,0.6);line-height:1.6;max-width:680px;">Pure1 AutoUpgrade lets PNC's storage team schedule and execute NDUs entirely on your own timeline — no Pure engineer on the call. The portal validates prerequisites, sequences the upgrade safely, and reports status in real time.</div>
       </div>
 
       <!-- KPIs -->
@@ -1965,8 +1965,8 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
           <!-- Basic Protection -->
           <div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#5a6359;">Basic Protection</div>
-            <div style="font-size:11px;font-weight:600;color:#2d2a27;margin:2px 0 10px;">11/19 appliances</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#5a6359;">Basic Protection</div>
+            <div style="font-size:14px;font-weight:600;color:#2d2a27;margin:2px 0 10px;">11/19 appliances</div>
             <!-- Local Snapshots 29% -->
             <div class="dp-feat-row">
               <svg width="13" height="13" viewBox="0 0 512 512" fill="#73716f" style="flex-shrink:0;"><path d="M64 480l224 0c17.7 0 32-14.3 32-32l0-64 32 0 0 64c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 224c0-35.3 28.7-64 64-64l64 0 0 32-64 0c-17.7 0-32 14.3-32 32l0 224c0 17.7 14.3 32 32 32zM224 320l224 0c17.7 0 32-14.3 32-32l0-224c0-17.7-14.3-32-32-32L224 32c-17.7 0-32 14.3-32 32l0 224c0 17.7 14.3 32 32 32zm-64-32l0-224c0-35.3 28.7-64 64-64L448 0c35.3 0 64 28.7 64 64l0 224c0 35.3-28.7 64-64 64l-224 0c-35.3 0-64-28.7-64-64z"/></svg>
@@ -2006,8 +2006,8 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
           <!-- Advanced Protection -->
           <div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#73716f;">Advanced Protection</div>
-            <div style="font-size:11px;font-weight:600;color:#73716f;margin:2px 0 10px;">0/19 appliances</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#73716f;">Advanced Protection</div>
+            <div style="font-size:14px;font-weight:600;color:#73716f;margin:2px 0 10px;">0/19 appliances</div>
             <!-- ActiveCluster 0% -->
             <div class="dp-feat-row">
               <svg width="13" height="13" viewBox="0 0 512 512" fill="#73716f" style="flex-shrink:0;"><path d="M64 64C46.3 64 32 78.3 32 96l0 64c0 17.7 14.3 32 32 32l384 0c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32L64 64zM0 96C0 60.7 28.7 32 64 32l384 0c35.3 0 64 28.7 64 64l0 64c0 35.3-28.7 64-64 64L64 224c-35.3 0-64-28.7-64-64L0 96zM64 320c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32l384 0c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32L64 320zM0 352c0-35.3 28.7-64 64-64l384 0c35.3 0 64 28.7 64 64l0 64c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64l0-64z"/></svg>
@@ -2127,10 +2127,10 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <path d="M41 45H15C10.6 45 7 41.4 7 37c0-3.8 2.7-6.9 6.3-7.7C14.2 25.1 18.3 22 23 22c3.2 0 6.1 1.4 8.1 3.6C32.4 24.5 34.1 24 36 24c4.9 0 8.8 3.9 8.8 8.8 0 .4 0 .7-.1 1.1C47.5 34.8 49 37.2 49 40c0 2.8-2.2 5-5 5" stroke="#2d6347" stroke-width="1.8" stroke-linecap="round" fill="#3d7a56"/>
           </svg>
           <div style="min-width:0;">
-            <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:3px;">Total Carbon Footprint · Fleet Lifetime (7 yr)</div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:3px;">Total Carbon Footprint · Fleet Lifetime (7 yr)</div>
             <div style="display:flex;align-items:baseline;gap:6px;">
               <span style="font-size:28px;font-weight:800;color:#424C44;line-height:1;">3,306</span>
-              <span style="font-size:13px;font-weight:600;color:#839888;">tCO₂e</span>
+              <span style="font-size:14px;font-weight:600;color:#839888;">tCO₂e</span>
             </div>
           </div>
         </div>
@@ -2142,9 +2142,9 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <div style="width:4%;background:#C5E4CC;" title="Downstream 4%"></div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <span style="font-size:9px;color:#424C44;font-weight:600;">■ Upstream 47% · 1,543 tCO₂e</span>
-            <span style="font-size:9px;color:#839888;font-weight:600;">■ Use Phase 49% · 1,621 tCO₂e</span>
-            <span style="font-size:9px;color:#637266;font-weight:600;">■ Downstream 4% · 142 tCO₂e</span>
+            <span style="font-size:12px;color:#424C44;font-weight:600;">■ Upstream 47% · 1,543 tCO₂e</span>
+            <span style="font-size:12px;color:#839888;font-weight:600;">■ Use Phase 49% · 1,621 tCO₂e</span>
+            <span style="font-size:12px;color:#637266;font-weight:600;">■ Downstream 4% · 142 tCO₂e</span>
           </div>
         </div>
       </div>
@@ -2160,58 +2160,58 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
         <!-- UPSTREAM -->
         <div style="padding-right:24px;border-right:1px solid #E2F1E5;">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#424C44;margin-bottom:12px;">⬆ Upstream</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#424C44;margin-bottom:12px;">⬆ Upstream</div>
           <!-- Materials -->
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424C44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Materials</div><div style="font-size:10px;color:#839888;">Raw material extraction</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">1,240</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Materials</div><div style="font-size:12px;color:#839888;">Raw material extraction</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">1,240</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
           <!-- Transportation -->
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424C44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Transportation</div><div style="font-size:10px;color:#839888;">Factory to customer freight</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">186</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Transportation</div><div style="font-size:12px;color:#839888;">Factory to customer freight</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">186</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
           <!-- Assembly -->
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424C44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Assembly &amp; Testing</div><div style="font-size:10px;color:#839888;">Manufacturing energy use</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">94</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Assembly &amp; Testing</div><div style="font-size:12px;color:#839888;">Manufacturing energy use</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">94</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
           <!-- Packaging -->
           <div style="display:flex;align-items:flex-start;gap:10px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424C44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Packaging</div><div style="font-size:10px;color:#839888;">Materials &amp; prep</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">23</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Packaging</div><div style="font-size:12px;color:#839888;">Materials &amp; prep</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">23</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
         </div>
 
         <!-- USE PHASE -->
         <div style="padding:0 24px;border-right:1px solid #E2F1E5;">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#839888;margin-bottom:12px;">⚡ Use Phase</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#839888;margin-bottom:12px;">⚡ Use Phase</div>
           <!-- Direct Carbon -->
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:11px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#839888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Direct Carbon Usage</div><div style="font-size:10px;color:#839888;">Fleet electricity · 7 yr</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">1,267</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Direct Carbon Usage</div><div style="font-size:12px;color:#839888;">Fleet electricity · 7 yr</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">1,267</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
           <!-- Cooling -->
           <div style="display:flex;align-items:flex-start;gap:10px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#839888" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><line x1="12" y1="2" x2="12" y2="22"/><path d="M12 7l-3 3 3 3 3-3-3-3z"/><path d="M12 13l-3 3 3 3 3-3-3-3z" style="opacity:.4"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M7 12l3-3 3 3-3 3-3-3z"/><path d="M13 12l3-3 3 3-3 3-3-3z" style="opacity:.4"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Cooling</div><div style="font-size:10px;color:#839888;">PUE 1.28 overhead · 7 yr</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">354</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">Cooling</div><div style="font-size:12px;color:#839888;">PUE 1.28 overhead · 7 yr</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">354</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
         </div>
 
         <!-- DOWNSTREAM -->
         <div style="padding-left:24px;">
-          <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#637266;margin-bottom:12px;">↩ Downstream</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#637266;margin-bottom:12px;">↩ Downstream</div>
           <!-- End-of-life -->
           <div style="display:flex;align-items:flex-start;gap:10px;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#637266" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">End-of-life Treatment</div><div style="font-size:10px;color:#839888;">Decommission &amp; recycling</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">142</div><div style="font-size:9px;color:#839888;">tCO₂e</div></div>
+            <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;color:#424C44;">End-of-life Treatment</div><div style="font-size:12px;color:#839888;">Decommission &amp; recycling</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:12px;font-weight:700;color:#424C44;">142</div><div style="font-size:12px;color:#839888;">tCO₂e</div></div>
           </div>
         </div>
 
@@ -2263,16 +2263,16 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <canvas id="esgCO2Chart" style="width:100%;height:200px;display:block;"></canvas>
         </div>
         <div style="display:flex;gap:16px;margin-top:10px;align-items:center;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#637266;"></div><span style="font-size:11px;color:#839888;">Annual CO₂ avoided (tCO₂)</span></div>
-          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#A4BEAA;"></div><span style="font-size:11px;color:#839888;">2026 YTD</span></div>
-          <span style="font-size:10px;color:#839888;margin-left:auto;">Baseline: equivalent traditional all-flash array fleet</span>
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#637266;"></div><span style="font-size:12px;color:#839888;">Annual CO₂ avoided (tCO₂)</span></div>
+          <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#A4BEAA;"></div><span style="font-size:12px;color:#839888;">2026 YTD</span></div>
+          <span style="font-size:12px;color:#839888;margin-left:auto;">Baseline: equivalent traditional all-flash array fleet</span>
         </div>
       </div>
 
       <!-- RIGHT: Tree Grove -->
       <div style="flex:2;min-width:0;">
         <div class="chart-panel-label">Equivalent Forest Saved / yr
-          <span style="font-size:10px;font-weight:500;color:#637266;text-transform:none;letter-spacing:0;">🌲 = 500 trees</span>
+          <span style="font-size:12px;font-weight:500;color:#637266;text-transform:none;letter-spacing:0;">🌲 = 500 trees</span>
         </div>
         <div class="esg-grove" id="esg-grove"><!-- built by JS --></div>
         <div class="esg-grove-caption" id="esg-grove-caption"></div>
@@ -2303,7 +2303,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <span class="esg-eff-val">1.67</span>
           </div>
         </div>
-        <div style="font-size:10px;color:#637266;font-weight:700;margin-top:10px;">23% better than industry avg</div>
+        <div style="font-size:12px;color:#637266;font-weight:700;margin-top:10px;">23% better than industry avg</div>
       </div>
 
       <div class="esg-eff-card">
@@ -2320,7 +2320,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <span class="esg-eff-val">12.3 W</span>
           </div>
         </div>
-        <div style="font-size:10px;color:#637266;font-weight:700;margin-top:10px;">94% reduction in energy per TB</div>
+        <div style="font-size:12px;color:#637266;font-weight:700;margin-top:10px;">94% reduction in energy per TB</div>
       </div>
 
       <div class="esg-eff-card">
@@ -2337,7 +2337,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
             <span class="esg-eff-val">1,900+</span>
           </div>
         </div>
-        <div style="font-size:10px;color:#637266;font-weight:700;margin-top:10px;">94% fewer rack units required</div>
+        <div style="font-size:12px;color:#637266;font-weight:700;margin-top:10px;">94% fewer rack units required</div>
       </div>
 
     </div>
@@ -2351,11 +2351,11 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <text x="20" y="27" text-anchor="middle" font-size="20" fill="#637266">🌿</text>
       </svg>
       <div style="flex:1;min-width:0;">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:3px;">Equivalent CO₂ Savings — EPA Calculator Basis</div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:3px;">Equivalent CO₂ Savings — EPA Calculator Basis</div>
         <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
           <span style="font-size:30px;font-weight:800;color:#637266;line-height:1.1;">3,290</span>
           <span style="font-size:14px;font-weight:700;color:#637266;">tCO₂e</span>
-          <span style="font-size:11px;color:#839888;">avoided vs traditional enterprise storage · fleet lifetime cumulative</span>
+          <span style="font-size:12px;color:#839888;">avoided vs traditional enterprise storage · fleet lifetime cumulative</span>
         </div>
       </div>
     </div>
@@ -2363,7 +2363,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <!-- ── TOTAL PROJECTED EFFICIENCY + PURE IMPACT REPORT ── -->
     <div style="display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;background:linear-gradient(135deg,#F3FAF5,#ECF6EE);border:1.5px solid #A4BEAA;border-radius:14px;padding:18px 22px;">
       <div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:14px;">Total Projected Efficiency — vs Industry Baseline</div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#839888;margin-bottom:14px;">Total Projected Efficiency — vs Industry Baseline</div>
         <div style="display:flex;gap:32px;">
           <!-- FlashArray -->
           <div style="display:flex;align-items:center;gap:14px;">
@@ -2371,9 +2371,9 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
             </div>
             <div>
-              <div style="font-size:10px;font-weight:700;color:#839888;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1px;">FlashArray</div>
+              <div style="font-size:12px;font-weight:700;color:#839888;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1px;">FlashArray</div>
               <div style="font-size:26px;font-weight:800;color:#637266;line-height:1.05;">85%</div>
-              <div style="font-size:10px;color:#839888;">more efficient</div>
+              <div style="font-size:12px;color:#839888;">more efficient</div>
             </div>
           </div>
           <!-- FlashBlade -->
@@ -2382,9 +2382,9 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
             </div>
             <div>
-              <div style="font-size:10px;font-weight:700;color:#839888;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1px;">FlashBlade</div>
+              <div style="font-size:12px;font-weight:700;color:#839888;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1px;">FlashBlade</div>
               <div style="font-size:26px;font-weight:800;color:#637266;line-height:1.05;">67%</div>
-              <div style="font-size:10px;color:#839888;">more efficient</div>
+              <div style="font-size:12px;color:#839888;">more efficient</div>
             </div>
           </div>
         </div>
@@ -2408,7 +2408,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <line x1="22.1" y1="28.3" x2="17.5" y2="31" stroke="#3d7a56" stroke-width="1.4"/>
           <line x1="22.1" y1="23.7" x2="17.5" y2="21" stroke="#3d7a56" stroke-width="1.4"/>
         </svg>
-        <a href="#" onclick="return false;" style="font-size:11px;font-weight:700;color:#3d7a56;text-decoration:none;text-align:center;line-height:1.4;border-bottom:1.5px solid rgba(61,122,86,0.4);padding-bottom:1px;">Pure Impact<br>Report →</a>
+        <a href="#" onclick="return false;" style="font-size:14px;font-weight:700;color:#3d7a56;text-decoration:none;text-align:center;line-height:1.4;border-bottom:1.5px solid rgba(61,122,86,0.4);padding-bottom:1px;">Pure Impact<br>Report →</a>
       </div>
     </div>
 
@@ -2811,8 +2811,8 @@ function buildESGTile(){
   el.innerHTML=`
     <div style="display:flex;align-items:flex-end;flex-wrap:nowrap;overflow:hidden;">${trees}</div>
     <div style="margin-top:8px;display:flex;gap:14px;">
-      <div style="font-size:11px;color:#73716f;">CO₂ avoided <span style="font-weight:700;color:#3d7a56;">470 t/yr</span></div>
-      <div style="font-size:11px;color:#73716f;">Energy <span style="font-weight:700;color:#3d7a56;">1,217 MWh</span></div>
+      <div style="font-size:14px;color:#73716f;">CO₂ avoided <span style="font-weight:700;color:#3d7a56;">470 t/yr</span></div>
+      <div style="font-size:14px;color:#73716f;">Energy <span style="font-weight:700;color:#3d7a56;">1,217 MWh</span></div>
     </div>`;
 }
 
@@ -2876,7 +2876,7 @@ function drawESGCO2Chart(){
   [100,200,300,400,500].forEach(v=>{
     const y=padT+chartH-(v/maxVal)*chartH;
     ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(padL+chartW,y);ctx.stroke();
-    ctx.fillStyle='#839888';ctx.font='9px system-ui';ctx.textAlign='right';
+    ctx.fillStyle='#839888';ctx.font='12px system-ui';ctx.textAlign='right';
     ctx.fillText(v,padL-4,y+3);
   });
 
@@ -2896,11 +2896,11 @@ function drawESGCO2Chart(){
 
     // value label above bar
     ctx.fillStyle=isYTD?'#A4BEAA':'#424C44';
-    ctx.font=`bold 10px system-ui`;ctx.textAlign='center';
+    ctx.font=`bold 12px system-ui`;ctx.textAlign='center';
     ctx.fillText(d.co2,bx+bw/2,by-4);
 
     // x axis label
-    ctx.fillStyle='#839888';ctx.font='9px system-ui';ctx.textAlign='center';
+    ctx.fillStyle='#839888';ctx.font='12px system-ui';ctx.textAlign='center';
     ctx.fillText(isYTD?'2026 YTD':d.y,bx+bw/2,padT+chartH+14);
   });
 
@@ -2921,7 +2921,7 @@ function buildLocationCards(){
   const c=document.getElementById("location-cards-container");if(!c)return;
   c.innerHTML=SITES_DEPLOY.map(s=>`
     <div class="loc-card">
-      <div class="loc-title">${s.id} <span style="font-weight:400;font-size:13px;color:#73716f;">${s.city}</span></div>
+      <div class="loc-title">${s.id} <span style="font-weight:400;font-size:14px;color:#73716f;">${s.city}</span></div>
       <div class="loc-addr">${s.addr}</div>
       <table class="loc-table">
         <thead><tr><th>Type</th><th class="count-col">Count</th><th class="cap-col">Total Cap</th></tr></thead>
@@ -3078,9 +3078,9 @@ function buildDetailMap(){
       const card=document.createElement("div");
       card.className="site-card"+(critN>0?" has-critical":"");
       card.innerHTML=`<div style="font-size:12px;font-weight:700;color:#2d2a27;margin-bottom:2px;">${s.abbr}</div>
-        <div style="font-size:10px;color:#73716f;margin-bottom:8px;">${s.site}</div>
-        ${[["Arrays",apps.length,"#2d2a27"],["FA",fa,"#8fa596"],["FB",fb,"#5a6359"]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:2px;"><span style="color:#73716f;">${l}</span><span style="font-weight:600;color:${c};">${v}</span></div>`).join("")}
-        ${critN>0?`<div style="margin-top:6px;font-size:10px;font-weight:700;color:#da4d72;">${critN} critical</div>`:""}`;
+        <div style="font-size:12px;color:#73716f;margin-bottom:8px;">${s.site}</div>
+        ${[["Arrays",apps.length,"#2d2a27"],["FA",fa,"#8fa596"],["FB",fb,"#5a6359"]].map(([l,v,c])=>`<div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:2px;"><span style="color:#73716f;">${l}</span><span style="font-weight:600;color:${c};">${v}</span></div>`).join("")}
+        ${critN>0?`<div style="margin-top:6px;font-size:12px;font-weight:700;color:#da4d72;">${critN} critical</div>`:""}`;
       cardsRow.appendChild(card);
     });
   }
@@ -3124,9 +3124,9 @@ function buildTopoHex(filterVal){
     header.style.cssText="display:flex;align-items:center;justify-content:space-between;gap:8px;";
     header.innerHTML=`<span style="font-size:12px;font-weight:600;color:#2d2a27;">${s.site}</span>
       <div style="display:flex;gap:6px;">
-        ${critN>0?`<span style="font-size:10px;background:#fce8ee;color:#da4d72;border-radius:20px;padding:1px 7px;font-weight:600;">${critN} down</span>`:""}
-        ${cauN>0?`<span style="font-size:10px;background:#f7ece0;color:#bd673d;border-radius:20px;padding:1px 7px;font-weight:500;">${cauN} caution</span>`:""}
-        <span style="font-size:10px;color:#73716f;">${apps.length} total</span>
+        ${critN>0?`<span style="font-size:12px;background:#fce8ee;color:#da4d72;border-radius:20px;padding:1px 7px;font-weight:600;">${critN} down</span>`:""}
+        ${cauN>0?`<span style="font-size:12px;background:#f7ece0;color:#bd673d;border-radius:20px;padding:1px 7px;font-weight:500;">${cauN} caution</span>`:""}
+        <span style="font-size:12px;color:#73716f;">${apps.length} total</span>
       </div>`;
     card.appendChild(header);
     const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
@@ -3170,15 +3170,15 @@ function buildTopoHex(filterVal){
         if(tip){
           tip.style.display="block";
           const outage=OUTAGES.find(o=>o.id===app.id);
-          tip.innerHTML=`<div style="font-weight:700;font-size:13px;margin-bottom:8px;color:#d55d1d;">${app.name}</div>
-            <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:11px;">
+          tip.innerHTML=`<div style="font-weight:700;font-size:14px;margin-bottom:8px;color:#d55d1d;">${app.name}</div>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:14px;">
               <span style="color:#73716f;">Hardware</span><span style="font-weight:600;">${app.hw}</span>
               <span style="color:#73716f;">Subscription</span><span>${app.sub}</span>
               <span style="color:#73716f;">Status</span><span style="font-weight:600;color:${app.status==="critical"?"#da4d72":app.status==="caution"?"#bd673d":"#5a6359"};">${app.status}</span>
             </div>
             ${outage?`<div style="padding-top:8px;border-top:0.5px solid #e7e3dc;margin-top:8px;">
-              <div style="color:#da4d72;font-weight:700;font-size:11px;margin-bottom:4px;">⚠ Outage on record</div>
-              <div style="font-size:11px;color:#73716f;">${outage.cause} · ${outage.date}</div>
+              <div style="color:#da4d72;font-weight:700;font-size:14px;margin-bottom:4px;">⚠ Outage on record</div>
+              <div style="font-size:14px;color:#73716f;">${outage.cause} · ${outage.date}</div>
               <div style="font-size:12px;font-weight:700;color:#bd673d;margin-top:2px;">${fmtM(outage.minutes)} downtime</div>
             </div>`:""}`;
         }
@@ -3244,11 +3244,11 @@ function buildFleetDetailBars(){
     const y=H-(t/100)*H;
     const line=svgEl("line",{x1:0,y1:y,x2:sorted.length*STEP,y2:y,stroke:t===80?"#da4d72":"#bd673d","stroke-width":"1","stroke-dasharray":"3,3",opacity:"0.4"});
     svg.appendChild(line);
-    const lt=svgEl("text",{x:sorted.length*STEP-2,y:y-3,"text-anchor":"end","font-size":"9",fill:t===80?"#da4d72":"#bd673d"});lt.textContent=t+"%";svg.appendChild(lt);
+    const lt=svgEl("text",{x:sorted.length*STEP-2,y:y-3,"text-anchor":"end","font-size":"12",fill:t===80?"#da4d72":"#bd673d"});lt.textContent=t+"%";svg.appendChild(lt);
   });
   // avg line
   const avgLine=svgEl("line",{x1:0,y1:avgY,x2:sorted.length*STEP,y2:avgY,stroke:"#5a6359","stroke-width":"1.5",opacity:"0.5"});svg.appendChild(avgLine);
-  const avgT=svgEl("text",{x:4,y:avgY-4,"font-size":"9",fill:"#5a6359"});avgT.textContent=`avg ${avg}%`;svg.appendChild(avgT);
+  const avgT=svgEl("text",{x:4,y:avgY-4,"font-size":"12",fill:"#5a6359"});avgT.textContent=`avg ${avg}%`;svg.appendChild(avgT);
   sorted.forEach((d,i)=>{
     const barH=Math.max(2,(d.u/100)*H);
     const x=i*STEP;
@@ -3279,7 +3279,7 @@ function buildFleetDetailBars(){
       row.style.cssText="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(143,165,150,0.13);";
       row.innerHTML=`<div style="width:38px;font-size:12px;font-weight:700;color:#8fa596;text-align:center;background:#fff5e3;border-radius:4px;border:1px solid rgba(143,165,150,0.25);padding:3px 0;flex-shrink:0;">${d.u}%</div>
         <div style="flex:1;min-width:0;">
-          <div style="font-size:13px;font-weight:600;color:#2d2a27;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.n}</div>
+          <div style="font-size:14px;font-weight:600;color:#2d2a27;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${d.n}</div>
           <div style="font-size:12px;color:#73716f;">${d.hw}</div>
         </div>
         <div style="font-size:12px;color:#5a6359;background:rgba(90,99,89,0.1);border-radius:4px;padding:3px 8px;flex-shrink:0;font-weight:600;">→ EG//Found.</div>`;
@@ -3363,14 +3363,14 @@ function buildNDUDetail(){
     if(d.hw>0)g.appendChild(svgEl("rect",{x,y:H-hwH,width:BW,height:hwH,rx:"4",fill:"#bd673d",opacity:"0.8"}));
     if(d.sw>0)g.appendChild(svgEl("rect",{x,y:H-hwH-swH,width:BW,height:swH,rx:"4",fill:"#8fa596",opacity:"0.8"}));
     if(d.sw>0&&d.hw>0)g.appendChild(svgEl("rect",{x,y:H-hwH-4,width:BW,height:8,fill:"#8fa596",opacity:"0.8"}));
-    if(total>0){const lt=svgEl("text",{x:x+BW/2,y:H-hwH-swH-5,"text-anchor":"middle","font-size":"10","font-weight":"600",fill:"#73716f"});lt.textContent=total;g.appendChild(lt);}
-    const yl=svgEl("text",{x:x+BW/2,y:H+16,"text-anchor":"middle","font-size":"11","font-weight":"400",fill:"#73716f"});yl.textContent=d.year;g.appendChild(yl);
+    if(total>0){const lt=svgEl("text",{x:x+BW/2,y:H-hwH-swH-5,"text-anchor":"middle","font-size":"12","font-weight":"600",fill:"#73716f"});lt.textContent=total;g.appendChild(lt);}
+    const yl=svgEl("text",{x:x+BW/2,y:H+16,"text-anchor":"middle","font-size":"12","font-weight":"400",fill:"#73716f"});yl.textContent=d.year;g.appendChild(yl);
     if(d.year==="2026"){const ytd=svgEl("text",{x:x+BW/2,y:H+26,"text-anchor":"middle","font-size":"8",fill:"#73716f"});ytd.textContent="YTD";g.appendChild(ytd);}
     g.addEventListener("mouseenter",(e)=>{
       g.querySelector("rect").setAttribute("fill","#efede8");
       if(tip){
-        tip.innerHTML=`<div style="font-weight:700;font-size:13px;color:#d55d1d;margin-bottom:6px;">${d.year}</div>
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:11px;">
+        tip.innerHTML=`<div style="font-weight:700;font-size:14px;color:#d55d1d;margin-bottom:6px;">${d.year}</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:14px;">
             <span style="color:#73716f;">SW</span><span style="font-weight:700;color:#5a6359;">${d.sw}</span>
             <span style="color:#73716f;">HW</span><span style="font-weight:700;color:#bd673d;">${d.hw}</span>
             <span style="color:#73716f;">Total</span><span style="font-weight:700;">${total}</span>
@@ -3544,7 +3544,7 @@ function drawCaseVolumeChart(filter="all"){
     ctx.fillStyle="#da4d72";ctx.fillRect(x,H-m.bottom-pH-rH,bW,rH);
   });
   // x-axis labels (every label if space, else every other)
-  ctx.fillStyle="#73716f";ctx.textAlign="center";ctx.font=`11px DM Sans`;
+  ctx.fillStyle="#73716f";ctx.textAlign="center";ctx.font=`12px DM Sans`;
   const step=slots>18?3:slots>12?2:1;
   labels.forEach((l,i)=>{if(i%step===0){const x=m.left+i*slotW+slotW/2;ctx.fillText(l,x,H-m.bottom+16);}});
   // x-axis baseline
@@ -3576,14 +3576,14 @@ function drawSevChart(){
   ctx.beginPath();ctx.arc(cx,cy,inner,0,Math.PI*2);ctx.fillStyle="#f0ece5";ctx.fill();
   // centre label
   ctx.fillStyle="#2d2a27";ctx.font=`bold 20px DM Sans`;ctx.textAlign="center";ctx.fillText("2,019",cx,cy+4);
-  ctx.fillStyle="#73716f";ctx.font=`11px DM Sans`;ctx.fillText("total cases",cx,cy+18);
+  ctx.fillStyle="#73716f";ctx.font=`12px DM Sans`;ctx.fillText("total cases",cx,cy+18);
   // legend on right
   const lX=W*0.62,lStartY=cy-(segs.length*22)/2+10;
   segs.forEach((s,i)=>{
     const y=lStartY+i*28;
     const pct=((s.v/total)*100).toFixed(1)+"%";
     ctx.fillStyle=s.color;ctx.beginPath();ctx.arc(lX+8,y,7,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle="#2d2a27";ctx.font=`bold 13px DM Sans`;ctx.textAlign="left";ctx.fillText(s.label,lX+22,y+5);
+    ctx.fillStyle="#2d2a27";ctx.font=`bold 14px DM Sans`;ctx.textAlign="left";ctx.fillText(s.label,lX+22,y+5);
     ctx.fillStyle="#73716f";ctx.font=`12px DM Sans`;
     ctx.fillText(`${s.v.toLocaleString()} · ${pct}`,lX+22,y+19);
   });
@@ -3600,7 +3600,7 @@ function drawResolutionChart(){
   const barW=W-lX-20;
   rows.forEach((r,i)=>{
     const y=40+i*(barH+barGap);
-    ctx.fillStyle="#73716f";ctx.font=`bold 13px DM Sans`;ctx.textAlign="right";ctx.fillText(r.label,lX-8,y+barH/2+5);
+    ctx.fillStyle="#73716f";ctx.font=`bold 14px DM Sans`;ctx.textAlign="right";ctx.fillText(r.label,lX-8,y+barH/2+5);
     let cX=lX;
     r.s.forEach((v,j)=>{const w=(v/100)*barW;ctx.fillStyle=colors[j];ctx.fillRect(cX,y,w,barH);cX+=w;});
   });
@@ -3609,7 +3609,7 @@ function drawResolutionChart(){
   let legX=lX;
   lbls.forEach((l,i)=>{
     ctx.fillStyle=colors[i];ctx.fillRect(legX,legY-10,12,12);
-    ctx.fillStyle="#73716f";ctx.font=`11px DM Sans`;ctx.textAlign="left";ctx.fillText(l,legX+15,legY+1);
+    ctx.fillStyle="#73716f";ctx.font=`12px DM Sans`;ctx.textAlign="left";ctx.fillText(l,legX+15,legY+1);
     legX+=ctx.measureText(l).width+34;
   });
 }
@@ -3623,7 +3623,7 @@ function drawFRTChart(){
   const maxNorm=100,barW=W-lX-90;
   rows.forEach((r,i)=>{
     const y=20+i*(barH+barGap);
-    ctx.fillStyle="#73716f";ctx.font=`bold 13px DM Sans`;ctx.textAlign="right";ctx.fillText(r.l,lX-8,y+barH/2+5);
+    ctx.fillStyle="#73716f";ctx.font=`bold 14px DM Sans`;ctx.textAlign="right";ctx.fillText(r.l,lX-8,y+barH/2+5);
     const isAnomaly=r.v>maxNorm;
     const w=isAnomaly?barW:(r.v/maxNorm)*barW;
     ctx.fillStyle=r.c;ctx.fillRect(lX,y,w,barH);
@@ -3639,7 +3639,7 @@ function drawFRTChart(){
 function buildProactiveYearBars(){
   const data=[{y:"2021",v:63,c:"#8fa596"},{y:"2022",v:85,c:"#5a6359"},{y:"2023",v:87,c:"#5a6359"},{y:"2024",v:87,c:"#5a6359"},{y:"2025",v:71,c:"#bd673d"},{y:"2026",v:40,c:"#da4d72"}];
   const c=document.getElementById("proactive-year-bars");if(!c)return;
-  c.innerHTML=data.map(d=>`<div class="bar-row"><span style="font-size:12px;color:#73716f;">${d.y}</span><div class="bar-track"><div style="width:${d.v}%;height:100%;background:${d.c};border-radius:4px;"></div></div><span style="font-size:11px;font-weight:700;color:#2d2a27;">${d.v}%</span></div>`).join("");
+  c.innerHTML=data.map(d=>`<div class="bar-row"><span style="font-size:12px;color:#73716f;">${d.y}</span><div class="bar-track"><div style="width:${d.v}%;height:100%;background:${d.c};border-radius:4px;"></div></div><span style="font-size:14px;font-weight:700;color:#2d2a27;">${d.v}%</span></div>`).join("");
 }
 
 // ─── DATA PROTECTION ─────────────────────────────────────────────────────────
@@ -3702,7 +3702,7 @@ function buildDPPlot(){
     pt.addEventListener('mouseenter',e=>{
       const vt=document.getElementById('viz-tooltip');if(!vt)return;
       vt.style.display='block';
-      vt.innerHTML=`<div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#73716f;margin-bottom:4px;">${eyebrow}</div>
+      vt.innerHTML=`<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#73716f;margin-bottom:4px;">${eyebrow}</div>
         <div class="tt-header">${d.name}</div>
         <div class="tt-row"><span class="tt-lbl">Protection Coverage</span><span class="tt-val">${d.y}%</span></div>
         <div class="tt-row"><span class="tt-lbl">SafeMode Coverage</span><span class="tt-val">${d.x}%</span></div>
