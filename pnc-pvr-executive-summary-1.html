@@ -59,6 +59,7 @@ body{
   flex-direction:column;
   overflow:hidden;
   position:relative;
+  opacity:0; /* revealed by tile-visible animation */
 }
 .tile:hover{border-color:var(--accent-color);}
 .tile-label{
@@ -625,6 +626,20 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 .deck-dot{width:6px;height:6px;border-radius:50%;background:#d5ccbd;cursor:pointer;transition:background .2s,height .2s,border-radius .2s;flex-shrink:0;}
 .deck-dot.active{background:#2d2a27;height:16px;border-radius:4px;}
 .deck-dot:hover:not(.active){background:#aea9a0;}
+/* ── dashboard tile entrance ── */
+@keyframes tile-in{
+  from{opacity:0;transform:translateY(20px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+.tile.tile-visible{animation:tile-in 0.55s cubic-bezier(0.22,1,0.36,1) both;}
+
+/* ── modal panel entrance ── */
+@keyframes panel-fade-up{
+  from{opacity:0;transform:translateY(14px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+.modal-anim{animation:panel-fade-up 0.5s cubic-bezier(0.22,1,0.36,1) both;}
+
 /* ── hex background animation ── */
 @keyframes hex-sweep{
   0%  {clip-path:inset(0 0 0 100%);opacity:0;}
@@ -2823,6 +2838,7 @@ const _pagerInited = new Set();
 function openModal(id){
   document.getElementById("modal-"+id).classList.add("open");
   document.body.classList.add("modal-open");
+  requestAnimationFrame(function(){ animateModalPanels(id); });
   if(id==="support"){
     buildSupport();
     drawCaseVolumeChart();
@@ -3857,6 +3873,39 @@ document.addEventListener("DOMContentLoaded",()=>{
     }
   });
 })();
+
+/* ── dashboard tiles: staggered entrance, replay on each slide visit ── */
+(function(){
+  function animTiles(slide){
+    var tiles = slide.querySelectorAll('.tile');
+    tiles.forEach(function(t, i){
+      t.classList.remove('tile-visible');
+      void t.offsetWidth;
+      t.style.animationDelay = (i * 0.07) + 's';
+      t.classList.add('tile-visible');
+    });
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) animTiles(e.target); });
+  }, {threshold: 0.15});
+  document.querySelectorAll('.deck-slide').forEach(function(s){ io.observe(s); });
+})();
+
+/* ── modal panel entrance: stagger children of each pres-inner on open ── */
+function animateModalPanels(id){
+  var modal = document.getElementById('modal-'+id);
+  if(!modal) return;
+  var idx = 0;
+  modal.querySelectorAll('.pres-inner').forEach(function(inner){
+    Array.from(inner.children).forEach(function(child){
+      child.classList.remove('modal-anim');
+      void child.offsetWidth;
+      child.style.animationDelay = (idx * 0.08) + 's';
+      child.classList.add('modal-anim');
+      idx++;
+    });
+  });
+}
 
 /* ── hex background: replay animation each time slide enters viewport ── */
 (function(){
