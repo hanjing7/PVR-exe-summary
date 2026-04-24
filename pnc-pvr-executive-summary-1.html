@@ -839,7 +839,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="legend" style="margin-top:12px;">
       <div class="legend-item"><div class="legend-dot" style="background:#8fa596;"></div>Operational</div>
       <div class="legend-item"><div class="legend-dot" style="background:#da4d72;"></div>Outage</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#5a6359;"></div>Planned maintenance</div>
       <div class="legend-item"><div class="legend-dot" style="background:#e7e3dc;"></div>Outside window</div>
     </div>
     <div id="uptime-tooltip" style="display:none;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:10px 13px;font-size:12px;color:#2d2a27;margin-top:12px;max-width:280px;box-shadow:0 4px 16px rgba(45,42,39,0.1);"></div>
@@ -3034,7 +3033,7 @@ function buildHeatmap(containerId, isDetail){
       } else if(OUTAGE_MAP[ds]){
         const o=OUTAGE_MAP[ds];
         const isPlanned=o.cause==="Planned maintenance";
-        cell.style.background=isPlanned?"#5a6359":"#da4d72";
+        cell.style.background="#da4d72";
         cell.classList.add("outage");
         cell.addEventListener("mouseenter",(e)=>{
           const dt=new Date(ds+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
@@ -3056,7 +3055,7 @@ function buildHeatmap(containerId, isDetail){
             }
           } else {
             const tip=document.getElementById("tip-uptime");
-            if(tip){tip.style.display="block";tip.style.color=isPlanned?"#5a6359":"#da4d72";tip.textContent=`${dt} · ${o.name} · ${o.cause}`;}
+            if(tip){tip.style.display="block";tip.style.color="#da4d72";tip.textContent=`${dt} · ${o.name} · ${o.cause}`;}
           }
         });
         cell.addEventListener("mousemove",(e)=>{
