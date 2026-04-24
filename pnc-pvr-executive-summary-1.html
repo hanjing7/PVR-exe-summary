@@ -3926,6 +3926,7 @@ document.addEventListener("DOMContentLoaded",()=>{
       t.classList.add('tile-visible');
     });
   }
+  var slides = document.querySelectorAll('.deck-slide');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
@@ -3934,7 +3935,21 @@ document.addEventListener("DOMContentLoaded",()=>{
       }
     });
   }, {threshold: 0.15});
-  document.querySelectorAll('.deck-slide').forEach(function(s){ io.observe(s); });
+  slides.forEach(function(s){ io.observe(s); });
+
+  // Safety net: fire the entrance for slide-0 directly on load so tiles are
+  // never stuck at opacity:0 if the observer fails to report the initial
+  // intersection (some scroll-snap containers swallow the first callback).
+  if(slides[0]){
+    restartHex(slides[0]);
+    animTiles(slides[0]);
+  }
+  // And force-reveal every tile after 600ms as an absolute fallback.
+  setTimeout(function(){
+    document.querySelectorAll('.tile:not(.tile-visible)').forEach(function(t){
+      t.classList.add('tile-visible');
+    });
+  }, 600);
 })();
 
 /* ── modal panel entrance: stagger children of each pres-inner on open ── */
