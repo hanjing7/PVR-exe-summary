@@ -147,10 +147,10 @@ body.modal-open{overflow:hidden;}
 /* ── kpi card ── */
 .kpi-card{
   background:#fff8ec;border:1px solid #d5ccbd;
-  border-radius:8px;padding:10px 16px;flex:1 1 110px;
+  border-radius:10px;padding:14px 18px;flex:1 1 110px;
 }
-.kpi-label{font-size:11px;color:#73716f;margin-bottom:4px;}
-.kpi-value{font-size:20px;font-weight:600;}
+.kpi-label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.kpi-value{font-size:28px;font-weight:700;line-height:1.1;}
 
 /* ── heatmap (mini / tile) ── */
 .heatmap-row{display:flex;align-items:center;margin-bottom:2px;gap:3px;}
@@ -207,9 +207,10 @@ body.modal-open{overflow:hidden;}
 
 /* ── detail modal content ── */
 .detail-kpi-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;}
-.detail-kpi{background:#fff8ec;border:1px solid #d5ccbd;border-radius:8px;padding:10px 16px;flex:1 1 110px;}
-.detail-kpi .label{font-size:11px;color:#73716f;margin-bottom:4px;}
-.detail-kpi .value{font-size:20px;font-weight:600;}
+.detail-kpi{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;padding:14px 18px;flex:1 1 110px;}
+.detail-kpi .label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.detail-kpi .value{font-size:28px;font-weight:700;line-height:1.1;}
+.kpi-val--lg{font-size:32px;}
 
 /* support quadrants */
 .quad-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;position:relative;margin-top:24px;}
@@ -462,9 +463,9 @@ body.modal-open{overflow:hidden;}
 
 /* ── fleet KPI cards ── */
 .fleet-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
-.fleet-kpi-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:12px;padding:16px 20px;min-height:80px;}
-.fleet-kpi-label{font-size:13px;color:#73716f;margin-bottom:8px;font-weight:400;}
-.fleet-kpi-value{font-size:28px;font-weight:600;}
+.fleet-kpi-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;padding:14px 18px;min-height:80px;}
+.fleet-kpi-label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
+.fleet-kpi-value{font-size:28px;font-weight:700;line-height:1.1;}
 .kpi-avg-val{color:#5a6359;} .kpi-healthy-val{color:#8fa596;} .kpi-caution-val{color:#bd673d;} .kpi-critical-val{color:#da4d72;}
 
 /* ── fleet control bar ── */
@@ -527,8 +528,8 @@ body.modal-open{overflow:hidden;}
 .support-hero-row{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;}
 .support-chart-card{background:#fff8ec;border:1px solid #d5ccbd;border-radius:14px;padding:20px;flex:0 0 280px;display:flex;align-items:center;gap:16px;}
 .support-stat-tiles{display:flex;gap:10px;flex:1;flex-wrap:wrap;}
-.support-stat-tile{background:#fff8ec;border:1px solid #d5ccbd;border-radius:14px;padding:18px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:100px;}
-.stat-tile-label{font-size:11px;color:#73716f;margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.02em;}
+.support-stat-tile{background:#fff8ec;border:1px solid #d5ccbd;border-radius:10px;padding:14px 18px;flex:1;display:flex;flex-direction:column;justify-content:space-between;min-width:100px;}
+.stat-tile-label{font-size:11px;font-weight:500;color:#73716f;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px;}
 .stat-tile-value{font-size:28px;font-weight:700;color:#2d2a27;line-height:1.1;}
 .stat-tile-value.highlight{color:#bd673d;}
 .stat-tile-sub{font-size:10px;color:#73716f;margin-top:4px;}
@@ -1216,14 +1217,14 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="detail-kpi-row">
       <div class="detail-kpi" style="flex:1 1 0;min-width:0;">
         <div class="label">NDUs Achieved</div>
-        <div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#2d2a27;margin:4px 0;">715</div>
+        <div class="value kpi-val--lg" style="color:#2d2a27;margin:4px 0;">715</div>
         <div class="label" style="margin-top:4px;">successful upgrades since 2019</div>
       </div>
-      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Hours Saved</div><div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#ff7023;margin:4px 0;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2hrs per NDU saved | ~$165k labour total</div></div>
-      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Since inception</div><div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#73716f;margin:4px 0;">8 yrs</div></div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Hours Saved</div><div class="value kpi-val--lg" style="color:#ff7023;margin:4px 0;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2hrs per NDU saved | ~$165k labour total</div></div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Since inception</div><div class="value kpi-val--lg" style="color:#73716f;margin:4px 0;">8 yrs</div></div>
       <div class="detail-kpi" style="flex:1 1 0;min-width:0;">
         <div class="label">Success Rate</div>
-        <div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#5a6359;margin:4px 0;">100%</div>
+        <div class="value kpi-val--lg" style="color:#5a6359;margin:4px 0;">100%</div>
         <div class="label" style="margin-top:4px;">zero failures across all 715 NDUs</div>
       </div>
     </div>
@@ -2044,27 +2045,27 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
       <div class="support-stat-tiles">
         <div class="support-stat-tile">
           <div class="stat-tile-label">Snapshots</div>
-          <div class="stat-tile-value" style="font-size:26px;color:#5a6359;">21%</div>
+          <div class="stat-tile-value" style="color:#5a6359;">21%</div>
           <div class="stat-tile-sub">arrays with snapshot policy</div>
         </div>
         <div class="support-stat-tile">
           <div class="stat-tile-label">Replication</div>
-          <div class="stat-tile-value" style="font-size:26px;color:#5a6359;">21%</div>
+          <div class="stat-tile-value" style="color:#5a6359;">21%</div>
           <div class="stat-tile-sub">replication-enabled arrays</div>
         </div>
         <div class="support-stat-tile">
           <div class="stat-tile-label">Async</div>
-          <div class="stat-tile-value" style="font-size:26px;color:#bd673d;">16%</div>
+          <div class="stat-tile-value" style="color:#bd673d;">16%</div>
           <div class="stat-tile-sub">async replication active</div>
         </div>
         <div class="support-stat-tile">
           <div class="stat-tile-label">SafeMode</div>
-          <div class="stat-tile-value" style="font-size:26px;color:#8fa596;">82%</div>
+          <div class="stat-tile-value" style="color:#8fa596;">82%</div>
           <div class="stat-tile-sub">arrays with SafeMode on</div>
         </div>
         <div class="support-stat-tile">
           <div class="stat-tile-label">ActiveCluster</div>
-          <div class="stat-tile-value" style="font-size:26px;color:#da4d72;">8%</div>
+          <div class="stat-tile-value" style="color:#da4d72;">8%</div>
           <div class="stat-tile-sub">arrays in ActiveCluster</div>
         </div>
       </div>
