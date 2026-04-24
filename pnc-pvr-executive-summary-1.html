@@ -3010,8 +3010,8 @@ function buildMiniMap(){
   const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
   svg.setAttribute("viewBox",`0 0 ${W} ${H}`);svg.setAttribute("width","100%");svg.style.display="block";
   // bg + state outlines
-  svg.appendChild(svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#ddd4c4"}));
-  svg.appendChild(svgEl("path",{d:US_STATES_MINI_D,fill:"#ccc5b9",stroke:"#bfb5a7","stroke-width":"0.5","stroke-linejoin":"round"}));
+  svg.appendChild(svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#e0dad1"}));
+  svg.appendChild(svgEl("path",{d:US_STATES_MINI_D,fill:"#e7e3dc",stroke:"#d0cbc3","stroke-width":"0.5","stroke-linejoin":"round"}));
   const maxC=Math.max(...SITES.map(s=>s.appliances.length));
   SITES.forEach(s=>{
     const apps=s.appliances;
@@ -3038,8 +3038,8 @@ function buildDetailMap(){
   function proj(lat,lng){return{x:((lng-minLng)/(maxLng-minLng))*W,y:H-((lat-minLat)/(maxLat-minLat))*H};}
   const svg=document.getElementById("detail-map-svg");if(!svg)return;
   svg.innerHTML="";
-  svg.appendChild(svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#ddd4c4"}));
-  svg.appendChild(svgEl("path",{d:US_STATES_D,fill:"#ccc5b9",stroke:"#bfb5a7","stroke-width":"0.6","stroke-linejoin":"round"}));
+  svg.appendChild(svgEl("rect",{x:0,y:0,width:W,height:H,fill:"#e0dad1"}));
+  svg.appendChild(svgEl("path",{d:US_STATES_D,fill:"#e7e3dc",stroke:"#d0cbc3","stroke-width":"0.6","stroke-linejoin":"round"}));
   const maxC=Math.max(...SITES.map(s=>s.appliances.length));
   SITES.forEach(s=>{
     const apps=s.appliances;
@@ -3210,7 +3210,7 @@ function buildMiniFleet(){
     const barH=Math.max(1,(d.u/100)*H);
     const x=i*STEP;
     const g=svgEl("g",{style:"cursor:pointer;"});
-    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,fill:"#ded5c8",rx:"1"}));
+    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,fill:"#e0dad1",rx:"1"}));
     g.appendChild(svgEl("rect",{x,y:H-barH,width:BW,height:barH,fill:utilColor(d.u),opacity:"0.82",rx:"1"}));
     g.addEventListener("mouseenter",()=>{if(tip){tip.style.display="block";tip.style.color=utilColor(d.u);tip.textContent=`${d.n} · ${d.u}%`;}});
     g.addEventListener("mouseleave",()=>{if(tip)tip.style.display="none";});
@@ -3242,7 +3242,7 @@ function buildFleetDetailBars(){
     const barH=Math.max(2,(d.u/100)*H);
     const x=i*STEP;
     const g=svgEl("g",{style:"cursor:pointer;"});
-    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,fill:"#ded5c8",rx:"2"}));
+    g.appendChild(svgEl("rect",{x,y:0,width:BW,height:H,fill:"#e0dad1",rx:"2"}));
     g.appendChild(svgEl("rect",{x,y:H-barH,width:BW,height:barH,fill:utilColor(d.u),opacity:"0.85",rx:"2"}));
     g.addEventListener("mouseenter",()=>{
       if(chip){chip.innerHTML=`<div style="display:inline-flex;align-items:center;gap:10px;padding:5px 14px;background:#fffdf9;border:1px solid #e7e3dc;border-radius:20px;font-size:14px;box-shadow:0 2px 8px rgba(45,42,39,0.1);">
