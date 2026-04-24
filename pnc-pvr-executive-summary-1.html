@@ -491,6 +491,9 @@ body.modal-open{overflow:hidden;}
 .fleet-bar-wrapper{flex:0 0 10px;height:100%;background:#e7e3dc;border-radius:2px;position:relative;display:flex;align-items:flex-end;cursor:pointer;}
 .fleet-bar-wrapper:hover{background:#d0c8ba;}
 .fleet-bar-usage{width:100%;border-radius:2px;}
+.fleet-reco-dot{position:absolute;left:50%;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:#8fa596;border:1.5px solid #5a6359;cursor:pointer;z-index:3;transition:transform 0.15s;}
+.fleet-reco-dot:hover{transform:translateX(-50%) scale(1.5);}
+#fleet-reco-tip{position:fixed;background:#fff5e3;border:1.5px solid #5a6359;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:600;color:#2d2a27;z-index:20000;display:none;box-shadow:0 4px 16px rgba(45,42,39,0.14);white-space:nowrap;pointer-events:none;}
 .chart-line{position:absolute;left:0;right:0;border-top:1px dashed rgba(218,77,114,0.4);}
 .chart-line.avg{border-top:1.5px solid rgba(90,99,89,0.4);}
 .chart-label{position:absolute;font-size:12px;font-weight:500;padding:2px 6px;background:#fdfaf3;border:1px solid #e7e3dc;border-radius:4px;box-shadow:0 2px 4px rgba(0,0,0,0.05);transform:translateY(-50%);right:0;}
@@ -856,7 +859,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="modal-header">
       <div>
         <div class="modal-title">Deployments</div>
-        <div class="modal-sub">86 FlashArray · 23 FlashBlade · 8 EG1 · 4 data center sites</div>
+        <div class="modal-sub">123 Total Arrays ·  86 FlashArray · 23 FlashBlade · 8 EG1 · 4 data center sites</div>
       </div>
     </div>
     <!-- site map -->
@@ -2980,7 +2983,7 @@ function drawESGCO2Chart(){
 const SITES_DEPLOY=[
   {id:"PIT",city:"Pittsburgh, PA",addr:"35 Summit Park Dr, Pittsburgh, PA 15275",fa:8,fb:4,eg:2,tfa:"1,200 TB",tfb:"600 TB",teg:"480 TB"},
   {id:"SAN",city:"Sandston, VA",addr:"6000 Technology Blvd, Sandston, VA 23150",fa:4,fb:3,eg:1,tfa:"700 TB",tfb:"340 TB",teg:"190 TB"},
-  {id:"ASH",city:"Ashburn, VA",addr:"44060 Digital Loudoun Plaza, Ashburn, VA 20147",fa:0,fb:2,eg:0,tfa:"—",tfb:"600 TB",teg:"—"},
+  {id:"ASH",city:"Ashburn, VA",addr:"44060 Digital Plaza, Ashburn, VA 20147",fa:0,fb:2,eg:0,tfa:"—",tfb:"600 TB",teg:"—"},
   {id:"ROG",city:"Rogers, AR",addr:"1701 W Commerce Dr, Rogers, AR 72756",fa:2,fb:1,eg:4,tfa:"360 TB",tfb:"410 TB",teg:"820 TB"},
 ];
 
@@ -3476,7 +3479,10 @@ function buildFullFleet(){
     const color=h>80?"#da4d72":h>60?"#bd673d":"#8fa596";
     return{id:`gf${i%3}-pure${150+i}-0${(i%2)+1}`,type:i%2===0?"FA-X":"FB-S",usage:h,color};
   });
-  full.innerHTML=bars.map(b=>`<div class="fleet-bar-wrapper" onmouseenter="showFleetChip(event,'${b.id}','${b.type}','${b.usage.toFixed(1)}%')" onmouseleave="hideFleetChip()"><div class="fleet-bar-usage" style="height:${b.usage}%;background:${b.color};"></div></div>`).join("");
+  full.innerHTML=bars.map(b=>{
+    const badge=b.usage<30?`<div class="fleet-reco-dot" style="bottom:${b.usage}%" onclick="showFleetReco(event)" title="Consolidation opportunity"></div>`:"";
+    return `<div class="fleet-bar-wrapper" onmouseenter="showFleetChip(event,'${b.id}','${b.type}','${b.usage.toFixed(1)}%')" onmouseleave="hideFleetChip()">${badge}<div class="fleet-bar-usage" style="height:${b.usage}%;background:${b.color};"></div></div>`;
+  }).join("");
 }
 
 function switchFleetTab(tab){
@@ -3521,6 +3527,16 @@ function showFleetChip(e,id,model,val){
   chip.querySelector(".chip-val").textContent=val;
 }
 function hideFleetChip(){const c=document.getElementById("fleet-hover-chip");if(c)c.style.display="none";}
+function showFleetReco(e){
+  e.stopPropagation();
+  let tip=document.getElementById("fleet-reco-tip");
+  if(!tip){tip=document.createElement("div");tip.id="fleet-reco-tip";tip.textContent="💡 More savings if consolidated to EG//One";document.body.appendChild(tip);}
+  tip.style.display="block";
+  tip.style.left=(e.clientX+14)+"px";
+  tip.style.top=(e.clientY-44)+"px";
+  const dismiss=()=>{tip.style.display="none";document.removeEventListener("click",dismiss);};
+  setTimeout(()=>document.addEventListener("click",dismiss),0);
+}
 
 // ─── SUPPORT HEALTH ──────────────────────────────────────────────────────────
 const SUPPORT_REALISTIC_DATA=[
