@@ -831,14 +831,15 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <!-- KPI row -->
     <div class="detail-kpi-row">
       <div class="detail-kpi"><div class="label">Array Uptime</div><div class="value" style="color:#5a6359;">99.9997%</div></div>
-      <div class="detail-kpi"><div class="label">Total Outage Time</div><div class="value" style="color:#da4d72;">25h 57m</div></div>
-      <div class="detail-kpi"><div class="label">Outage Events</div><div class="value" style="color:#bd673d;">5</div></div>
+      <div class="detail-kpi"><div class="label">Total Outage Time</div><div class="value" style="color:#da4d72;">5h 57m</div></div>
+      <div class="detail-kpi"><div class="label">Outage Events</div><div class="value" style="color:#bd673d;">3</div></div>
     </div>
     <!-- full heatmap -->
     <div id="full-heatmap"><!-- built by JS --></div>
     <div class="legend" style="margin-top:12px;">
       <div class="legend-item"><div class="legend-dot" style="background:#8fa596;"></div>Operational</div>
       <div class="legend-item"><div class="legend-dot" style="background:#da4d72;"></div>Outage</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#5a6359;"></div>Planned maintenance</div>
       <div class="legend-item"><div class="legend-dot" style="background:#e7e3dc;"></div>Outside window</div>
     </div>
     <div id="uptime-tooltip" style="display:none;background:#fffdf9;border:1px solid #e7e3dc;border-radius:10px;padding:10px 13px;font-size:12px;color:#2d2a27;margin-top:12px;max-width:280px;box-shadow:0 4px 16px rgba(45,42,39,0.1);"></div>
@@ -1578,13 +1579,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                 <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #bd673d;color:#bd673d;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#bd673d';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#bd673d'">Schedule HwNDU →</button>
               </div>
               <div class="hw-popup-body">
-                <div class="out-section-label">✦ Already on Forever — free controller upgrade</div>
+                <!-- <div class="out-section-label">✦ Already on Forever — free controller upgrade</div> -->
                 <div class="out-row">
                   <div class="obadge" style="background:#eef5f0;color:#3d7a56;border-color:#a8d5a0;">✦</div>
                   <div style="flex:1;min-width:0;">
                     <div class="oname">gf1-purefl-fa55</div>
                     <div class="odet">FA-X90R3 · 5 yrs · Gen 3 controller · Evergreen//Forever</div>
-                    <div class="oact" style="color:#3d7a56;">→ Entitled to HwNDU refresh — schedule controller swap, zero extra CapEx</div>
+                    <div class="oact" style="color:#3d7a56;">Free Controller Upgrade for //Forever</div>
                   </div>
                   <span class="tag tag-ok">Free upgrade</span>
                 </div>
@@ -1593,7 +1594,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <div style="flex:1;min-width:0;">
                     <div class="oname">dc2-prdc-pure11</div>
                     <div class="odet">FA-X50R3 · 4.5 yrs · Evergreen//Foundation</div>
-                    <div class="oact" style="color:#3d7a56;">→ Foundation entitles free controller upgrade — coordinate with account team</div>
+                    <div class="oact" style="color:#3d7a56;">Free Controller Upgrade for //Forever</div>
                   </div>
                   <span class="tag tag-ok">Free upgrade</span>
                 </div>
@@ -1603,29 +1604,12 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <div style="flex:1;min-width:0;">
                     <div class="oname">gf0-nas02 (FB-S)</div>
                     <div class="odet">FlashBlade-S · 2018 shelf · capacity expansion blocked · Standard subscription</div>
-                    <div class="oact" style="color:#bd673d;">→ Convert to Forever (pay delta) → unlock perpetual free controller refresh</div>
+                    <div class="oact" style="color:#bd673d;">Upgrade to Forever (pay delta), unlock perpetual free controller refresh</div>
                   </div>
                   <span class="tag tag-low">Pay delta</span>
                 </div>
-                <div class="out-row">
-                  <div class="obadge" style="background:#fff0e9;color:#bd673d;border-color:#ffd4b0;">→</div>
-                  <div style="flex:1;min-width:0;">
-                    <div class="oname">gf2-pureaz105-01</div>
-                    <div class="odet">FA-X70R3 · 5.5 yrs · Standard subscription · refresh overdue</div>
-                    <div class="oact" style="color:#bd673d;">→ Trade-up to Evergreen//Forever to unlock HwNDU entitlement</div>
-                  </div>
-                  <span class="tag tag-low">Pay delta</span>
-                </div>
-                <div class="out-section-label">⟲ Consolidate into Evergreen//One</div>
-                <div class="out-row">
-                  <div class="obadge" style="background:#e4f0fa;color:#2d6fa4;border-color:rgba(45,111,164,0.3);">⟲</div>
-                  <div style="flex:1;min-width:0;">
-                    <div class="oname">gf3-dr-pure04</div>
-                    <div class="odet">FA-X20R2 · 5 yrs · DR workload · 22% avg utilization</div>
-                    <div class="oact" style="color:#2d6fa4;">→ Pool into EG//One — OpEx model + next-gen refresh on renewal cycle</div>
-                  </div>
-                  <span class="tag" style="background:#e4f0fa;color:#2d6fa4;border-color:rgba(45,111,164,0.25);">EG//One</span>
-                </div>
+
+                
                 <div style="padding:8px 0 2px;font-size:14px;color:#73716f;">+ 22 more arrays — see full fleet report for complete breakdown</div>
               </div>
             </div>
@@ -1644,13 +1628,13 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                 <button style="font-size:14px;font-weight:700;padding:4px 14px;border-radius:20px;border:1.5px solid #da4d72;color:#da4d72;background:transparent;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;" onmouseover="this.style.background='#da4d72';this.style.color='#fff5e3'" onmouseout="this.style.background='transparent';this.style.color='#da4d72'">Act Now →</button>
               </div>
               <div class="hw-popup-body">
-                <div class="out-section-label">✦ Already on Forever — free controller upgrade (urgent)</div>
+                <!-- <div class="out-section-label">✦ Already on Forever — free controller upgrade (urgent)</div> -->
                 <div class="out-row crit">
                   <div class="obadge" style="background:#eef5f0;color:#3d7a56;border-color:#a8d5a0;">✦</div>
                   <div style="flex:1;min-width:0;">
                     <div class="oname">gf0-purefb024-01</div>
                     <div class="odet">FA-X50R2 · 7 yrs · Gen 3 controller · EoL shelf · Evergreen//Foundation</div>
-                    <div class="oact" style="color:#3d7a56;">→ Entitled to HwNDU refresh — schedule controller swap immediately, zero extra CapEx</div>
+                    <div class="oact" style="color:#3d7a56;">Consolidate to EG//One with better flexibility and efficiency before EoL</div>
                   </div>
                   <span class="tag tag-urg">Urgent</span>
                 </div>
@@ -1659,7 +1643,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <div style="flex:1;min-width:0;">
                     <div class="oname">p-leg-pure02</div>
                     <div class="odet">FA-X70R2 · 6.5 yrs · Gen 3 · EoL approach · Evergreen//Forever</div>
-                    <div class="oact" style="color:#3d7a56;">→ HwNDU entitlement active — open refresh case with Pure immediately</div>
+                    <div class="oact" style="color:#3d7a56;">Consolidate to EG//One with better flexibility and efficiency before EoL</div>
                   </div>
                   <span class="tag tag-urg">Urgent</span>
                 </div>
@@ -1669,20 +1653,11 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
                   <div style="flex:1;min-width:0;">
                     <div class="oname">gf1-arc-fa09</div>
                     <div class="odet">FA-X20R2 · 6 yrs · Standard subscription · Gen 3 EoL imminent</div>
-                    <div class="oact" style="color:#bd673d;">→ Trade up to Forever (pay delta) to unlock HwNDU entitlement before EoL</div>
+                    <div class="oact" style="color:#bd673d;">Upgrade to Forever (pay delta), unlock perpetual free controller refresh</div>
                   </div>
                   <span class="tag tag-low">Pay delta</span>
                 </div>
-                <div class="out-section-label">⟲ Consolidate into Evergreen//One</div>
-                <div class="out-row crit">
-                  <div class="obadge" style="background:#e4f0fa;color:#2d6fa4;border-color:rgba(45,111,164,0.3);">⟲</div>
-                  <div style="flex:1;min-width:0;">
-                    <div class="oname">gf2-bkp-pure07</div>
-                    <div class="odet">FA-X20R1 · 8 yrs · backup workload · 14% avg utilization · EoL</div>
-                    <div class="oact" style="color:#2d6fa4;">→ Retire into EG//One pool — consolidate workload, eliminate EoL risk on renewal</div>
-                  </div>
-                  <span class="tag" style="background:#e4f0fa;color:#2d6fa4;border-color:rgba(45,111,164,0.25);">EG//One</span>
-                </div>
+                
                 <div style="padding:8px 0 2px;font-size:14px;color:#73716f;">+ 4 more arrays — immediate action required to close EoL exposure</div>
               </div>
             </div>
@@ -2597,11 +2572,11 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <script>
 // ─── DATA ────────────────────────────────────────────────────────────────────
 const OUTAGES = [
-  {id:"579d7a17",     name:"gf1-purefb041-01", date:"2025-04-24", cause:"SW – Configuration",    summary:"CH4 went down while awaiting FB11 replacement",                    minutes:15},
-  {id:"9ae6638f-feb", name:"gf0-purefb024-01", date:"2023-02-10", cause:"SW – Purity / Firmware", summary:"FlashRecovery outage – FPGA causing CH6 to exceed N-2",             minutes:60},
-  {id:"1014397",      name:"gf2-pureaz101-03", date:"2025-11-07", cause:"Human – Partner",        summary:"CT0 offline – wrong cables pulled during controller replacement",   minutes:106.25},
-  {id:"a5f5bf2d",     name:"gf2-purefb061-01", date:"2025-05-29", cause:"SW – Purity / Firmware", summary:"Upgrade failed – congo-up etcd conversion issue",                  minutes:145},
-  {id:"9ae6638f-jan", name:"gf0-purefb024-01", date:"2023-01-18", cause:"SW – Purity / Firmware", summary:"No authorities running on all blades – CH6-FM2 failed boot drive", minutes:1231},
+  {id:"579d7a17",     name:"gf1-purefb041-01", date:"2025-04-24", cause:"Planned maintenance",    summary:"Customer or ops team intentionally pauses host I/O to the array or a set of volumes during a maintenance window ",                    minutes:15},
+
+  {id:"1014397",      name:"gf2-pureaz101-03", date:"2025-11-07", cause:"Hardware failure ",        summary:"Simultaneous or cascading failures of redundant components",   minutes:106.25},
+  {id:"a5f5bf2d",     name:"gf2-purefb061-01", date:"2025-05-29", cause:"Planned maintenance", summary:"Customer or ops team intentionally pauses host I/O to the array or a set of volumes during a maintenance window ",                  minutes:145},
+
 ];
 const OUTAGE_MAP = {};
 OUTAGES.forEach(o => { OUTAGE_MAP[o.date] = o; });
@@ -3057,13 +3032,15 @@ function buildHeatmap(containerId, isDetail){
       if(cd>today||cd<startDate){
         cell.style.background="#e7e3dc";cell.style.opacity="0.5";
       } else if(OUTAGE_MAP[ds]){
-        cell.style.background="#da4d72";cell.classList.add("outage");
+        const o=OUTAGE_MAP[ds];
+        const isPlanned=o.cause==="Planned maintenance";
+        cell.style.background=isPlanned?"#5a6359":"#da4d72";
+        cell.classList.add("outage");
         cell.addEventListener("mouseenter",(e)=>{
-          const o=OUTAGE_MAP[ds];
           const dt=new Date(ds+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
           if(isDetail){
             // rich floating viz-tooltip
-            const pillClass=o.cause.startsWith("Human")?"pill-human":o.cause.startsWith("SW")?"pill-sw":"pill-unplanned";
+            const pillClass=isPlanned?"pill-planned":o.cause.startsWith("Human")?"pill-human":o.cause.startsWith("SW")?"pill-sw":"pill-unplanned";
             const vtip=document.getElementById("viz-tooltip");
             if(vtip){
               vtip.style.display="block";
@@ -3079,7 +3056,7 @@ function buildHeatmap(containerId, isDetail){
             }
           } else {
             const tip=document.getElementById("tip-uptime");
-            if(tip){tip.style.display="block";tip.style.color="#da4d72";tip.textContent=`${dt} · ${o.name} · ${o.cause}`;}
+            if(tip){tip.style.display="block";tip.style.color=isPlanned?"#5a6359":"#da4d72";tip.textContent=`${dt} · ${o.name} · ${o.cause}`;}
           }
         });
         cell.addEventListener("mousemove",(e)=>{
