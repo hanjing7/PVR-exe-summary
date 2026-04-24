@@ -784,6 +784,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: UPTIME -->
 <div class="modal-backdrop" id="modal-uptime" onclick="closeModal(event,'uptime')">
   <div class="modal-card pres-slide" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('uptime')">✕ close</button>
     <div class="pres-body vflex">
     <div class="pres-inner">
     <div class="modal-header">
@@ -791,7 +792,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">Daily uptime heatmap</div>
         <div class="modal-sub">Red = outage day · Past 12 months</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('uptime')">✕ close</button>
     </div>
     <!-- KPI row -->
     <div class="detail-kpi-row">
@@ -815,6 +815,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: TOPOLOGY -->
 <div class="modal-backdrop" id="modal-topology" onclick="closeModal(event,'topology')">
   <div class="modal-card has-pages" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('topology')">✕ close</button>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
     <div class="pres-inner">
     <div class="modal-header">
@@ -822,7 +823,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">Deployments</div>
         <div class="modal-sub">86 FlashArray · 23 FlashBlade · 8 EG1 · 4 data center sites</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('topology')">✕ close</button>
     </div>
     <!-- site map -->
     <div style="position:relative;background:#f0ece5;border-radius:10px;overflow:hidden;border:1px solid #e7e3dc;margin-bottom:10px;height:420px;">
@@ -865,6 +865,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: FLEET -->
 <div class="modal-backdrop" id="modal-fleet" onclick="closeModal(event,'fleet')">
   <div class="modal-card pres-slide" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('fleet')">✕ close</button>
     <div class="pres-body vflex">
     <div class="pres-inner">
     <div class="modal-header">
@@ -872,7 +873,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">Array fleet utilization</div>
         <div class="modal-sub">127 appliances · sorted by utilization</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('fleet')">✕ close</button>
     </div>
     <!-- KPI grid -->
     <div class="fleet-kpi-grid">
@@ -931,6 +931,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: SUPPORT -->
 <div class="modal-backdrop" id="modal-support" onclick="closeModal(event,'support')">
   <div class="modal-card has-pages" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('support')">✕ close</button>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
     <!-- hero row: donut + stat tiles -->
     <div class="pres-inner">
@@ -939,7 +940,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">Support Health</div>
         <div class="modal-sub">2,019 cases · executive fleet summary</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('support')">✕ close</button>
     </div>
     <div class="support-hero-row">
       <div class="support-chart-card">
@@ -1075,6 +1075,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: SECURITY -->
 <div class="modal-backdrop" id="modal-security" onclick="closeModal(event,'security')">
   <div class="modal-card pres-slide" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('security')">✕ close</button>
     <div class="pres-body vflex">
     <div class="pres-inner">
     <div class="modal-header">
@@ -1082,7 +1083,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">Security Score</div>
         <div class="modal-sub">Compliance · Operational · recommendations</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('security')">✕ close</button>
     </div>
     <div class="sec-3col">
 
@@ -1205,6 +1205,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: NDU -->
 <div class="modal-backdrop" id="modal-ndu" onclick="closeModal(event,'ndu')">
   <div class="modal-card has-pages" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
 
     <div class="pres-inner">
@@ -1212,7 +1213,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
       <div>
         <div class="modal-title">Non-Disruptive Upgrade</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('ndu')">✕ close</button>
     </div>
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
@@ -2019,6 +2019,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: DATA PROTECTION -->
 <div class="modal-backdrop" id="modal-dp" onclick="closeModal(event,'dp')">
   <div class="modal-card pres-slide" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('dp')">✕ close</button>
     <div class="pres-body vflex">
     <div class="pres-inner">
     <div class="modal-header">
@@ -2026,7 +2027,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">Data Protection</div>
         <div class="modal-sub">Snapshots · SafeMode · Replication coverage across the fleet</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('dp')">✕ close</button>
     </div>
 
     <!-- hero: composite score + 5 metric stat tiles -->
@@ -2161,6 +2161,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 <!-- MODAL: ESG IMPACT -->
 <div class="modal-backdrop" id="modal-esg" onclick="closeModal(event,'esg')">
   <div class="modal-card has-pages" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModalById('esg')">✕ close</button>
     <div class="modal-pager"><div class="modal-pages"><div class="modal-page">
 
     <div class="pres-inner">
@@ -2169,7 +2170,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
         <div class="modal-title">ESG Impact</div>
         <div class="modal-sub">Carbon avoidance · Energy efficiency · Environmental equivalents · PNC fleet · 2019–2026</div>
       </div>
-      <button class="modal-close" onclick="closeModalById('esg')">✕ close</button>
     </div>
     <!-- ── LIFECYCLE CARBON FOOTPRINT ── -->
     <div style="margin-bottom:6px;">
