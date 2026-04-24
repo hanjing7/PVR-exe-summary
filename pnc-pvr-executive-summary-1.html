@@ -1256,7 +1256,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#bd673d;"></div><span style="font-size:11px;color:#73716f;">Hardware NDU</span><span style="font-size:11px;font-weight:700;color:#2d2a27;">95</span></div>
       <span style="font-size:10px;color:#73716f;margin-left:auto;">2019 – 2026 · 2026 YTD</span>
     </div>
-    <div id="ndu-tooltip" style="display:none;margin-top:10px;background:#fff5e3;border:1px solid #d5ccbd;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.1);display:inline-block;min-width:140px;"></div>
+    <div id="ndu-tooltip" style="position:fixed;display:none;z-index:20000;pointer-events:none;background:#fff5e3;border:1px solid #d5ccbd;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.12);min-width:140px;"></div>
       </div><!-- end chart col -->
 
       <!-- RIGHT: Modernization Path carousel -->
@@ -3278,16 +3278,28 @@ function buildNDUDetail(){
     if(total>0){const lt=svgEl("text",{x:x+BW/2,y:H-hwH-swH-5,"text-anchor":"middle","font-size":"10","font-weight":"600",fill:"#73716f"});lt.textContent=total;g.appendChild(lt);}
     const yl=svgEl("text",{x:x+BW/2,y:H+16,"text-anchor":"middle","font-size":"11","font-weight":"400",fill:"#73716f"});yl.textContent=d.year;g.appendChild(yl);
     if(d.year==="2026"){const ytd=svgEl("text",{x:x+BW/2,y:H+26,"text-anchor":"middle","font-size":"8",fill:"#73716f"});ytd.textContent="YTD";g.appendChild(ytd);}
-    g.addEventListener("mouseenter",()=>{
+    g.addEventListener("mouseenter",(e)=>{
       g.querySelector("rect").setAttribute("fill","#efede8");
       if(tip){
-        tip.style.display="inline-block";
         tip.innerHTML=`<div style="font-weight:700;font-size:13px;color:#d55d1d;margin-bottom:6px;">${d.year}</div>
           <div style="display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:11px;">
             <span style="color:#73716f;">SW</span><span style="font-weight:700;color:#5a6359;">${d.sw}</span>
             <span style="color:#73716f;">HW</span><span style="font-weight:700;color:#bd673d;">${d.hw}</span>
             <span style="color:#73716f;">Total</span><span style="font-weight:700;">${total}</span>
           </div>`;
+        tip.style.display="block";
+        /* position next to bar using viewport coords */
+        const svgEl=document.getElementById("ndu-detail-svg");
+        const svgRect=svgEl.getBoundingClientRect();
+        const vb=svgEl.viewBox.baseVal;
+        const scaleX=svgRect.width/vb.width;
+        const barX=i*(BW+GAP);
+        const tipW=tip.offsetWidth||150;
+        let left=svgRect.left+barX*scaleX+BW*scaleX+8;
+        if(left+tipW>window.innerWidth-8) left=svgRect.left+barX*scaleX-tipW-8;
+        const top=svgRect.top+Math.max(0,(svgRect.height/2)-40);
+        tip.style.left=left+"px";
+        tip.style.top=top+"px";
       }
     });
     g.addEventListener("mouseleave",()=>{
