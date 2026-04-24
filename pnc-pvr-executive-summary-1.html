@@ -497,7 +497,7 @@ body.modal-open{overflow:hidden;}
 .chart-label.avg{color:#5a6359;}
 
 /* ── scatter plot ── */
-.projected-viz-container{width:100%;height:400px;position:relative;display:none;background:#fffdf9;border:1px solid #e7e3dc;border-radius:14px;overflow:hidden;margin-top:20px;}
+.projected-viz-container{width:100%;height:400px;position:relative;display:none;background:transparent;border:none;border-radius:14px;overflow:hidden;margin-top:20px;}
 .scatter-grid{position:absolute;inset:40px 60px 60px 80px;}
 .grid-zones{position:absolute;inset:0;display:flex;pointer-events:none;}
 .zone-red{flex:0 0 16.66%;background:rgba(218,77,114,0.08);border-right:1px dashed rgba(218,77,114,0.2);}
@@ -505,11 +505,12 @@ body.modal-open{overflow:hidden;}
 .zone-neutral{flex:1;background:transparent;}
 .y-axis-labels{position:absolute;left:10px;top:40px;bottom:60px;width:60px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding-right:10px;font-size:11px;color:#73716f;}
 .x-axis-labels{position:absolute;bottom:10px;left:80px;right:60px;height:40px;display:flex;justify-content:space-between;font-size:11px;color:#73716f;}
-.axis-title-y{position:absolute;top:50%;left:0;transform:rotate(-90deg) translateY(-30px);font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;width:300px;text-align:center;}
+.axis-title-y{position:absolute;left:0;top:40px;bottom:60px;width:18px;display:flex;align-items:center;justify-content:center;writing-mode:vertical-lr;text-orientation:mixed;transform:rotate(180deg);font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap;}
 .axis-title-x{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:#73716f;text-transform:uppercase;letter-spacing:0.05em;}
 .scatter-point{position:absolute;width:24px;height:24px;cursor:pointer;transform:translate(-50%,-50%);transition:transform 0.2s cubic-bezier(0.175,0.885,0.32,1.275);z-index:2;}
 .scatter-point:hover{transform:translate(-50%,-50%) scale(1.4);z-index:10;}
-.scatter-hex{width:100%;height:100%;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0% 50%);}
+.scatter-hex{width:100%;height:100%;clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0% 50%);opacity:0.8;}
+.scatter-circle{width:100%;height:100%;border-radius:50%;opacity:0.8;}
 
 /* ── location cards (deployments modal) ── */
 .location-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:12px;}
@@ -3417,14 +3418,15 @@ function buildProjectedScatter(){
   const c=document.getElementById("scatter-plot-points");if(!c)return;
   c.innerHTML="";
   const pts=[];
-  for(let i=0;i<8;i++)pts.push({x:Math.random()*16,y:65+Math.random()*30,color:"#da4d72"});
+  for(let i=0;i<8;i++)pts.push({x:Math.random()*16,y:65+Math.random()*30,color:"#ff7023"});
   for(let i=0;i<12;i++)pts.push({x:16+Math.random()*16,y:35+Math.random()*55,color:"#bd673d"});
   for(let i=0;i<40;i++)pts.push({x:32+Math.random()*40,y:15+Math.random()*60,color:"#8fa596"});
   for(let i=0;i<20;i++)pts.push({x:72+Math.random()*25,y:5+Math.random()*45,color:"#7c729c"});
-  pts.forEach(p=>{
+  pts.forEach((p,i)=>{
+    const isHex=i%3!==0;
     const pt=document.createElement("div");pt.className="scatter-point";
     pt.style.left=`${p.x}%`;pt.style.bottom=`${p.y}%`;
-    pt.innerHTML=`<div class="scatter-hex" style="background:${p.color};"></div>`;
+    pt.innerHTML=`<div class="${isHex?'scatter-hex':'scatter-circle'}" style="background:${p.color};"></div>`;
     c.appendChild(pt);
   });
 }
