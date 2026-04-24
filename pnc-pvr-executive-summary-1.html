@@ -1237,12 +1237,12 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
       <div style="position:absolute;left:0;right:0;top:0;pointer-events:none;">
         <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">223</span></div>
-        <div style="position:absolute;left:0;right:0;top:40px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">167</span></div>
-        <div style="position:absolute;left:0;right:0;top:80px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">112</span></div>
-        <div style="position:absolute;left:0;right:0;top:120px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">56</span></div>
-        <div style="position:absolute;left:0;right:0;top:160px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">0</span></div>
+        <div style="position:absolute;left:0;right:0;top:70px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">167</span></div>
+        <div style="position:absolute;left:0;right:0;top:140px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">112</span></div>
+        <div style="position:absolute;left:0;right:0;top:210px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">56</span></div>
+        <div style="position:absolute;left:0;right:0;top:280px;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:12px;color:#73716f;">0</span></div>
       </div>
-      <svg id="ndu-detail-svg" width="100%" height="188" style="display:block;overflow:visible;"></svg>
+      <svg id="ndu-detail-svg" width="100%" height="308" style="display:block;overflow:visible;"></svg>
     </div>
 
     <div id="ndu-tooltip" style="position:fixed;display:none;z-index:20000;pointer-events:none;background:#fff5e3;border:1px solid #d5ccbd;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.12);min-width:140px;"></div>
@@ -3353,7 +3353,7 @@ function buildNDUDetail(){
   const svg=document.getElementById("ndu-detail-svg");if(!svg)return;
   svg.innerHTML="";
   const maxT=Math.max(...NDU_BY_YEAR.map(d=>d.sw+d.hw));
-  const H=160,BW=48,GAP=12;
+  const H=280,BW=48,GAP=12;
   const totalW=NDU_BY_YEAR.length*(BW+GAP);
   svg.setAttribute("viewBox",`0 0 ${totalW} ${H+28}`);
   const tip=document.getElementById("ndu-tooltip");
