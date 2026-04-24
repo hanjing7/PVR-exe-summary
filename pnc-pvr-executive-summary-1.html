@@ -2037,7 +2037,14 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
           <!-- Basic Protection -->
           <div>
-            <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#5a6359;">Basic Protection</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#5a6359;">Basic Protection</div>
+              <span class="info-trigger" style="border-color:#5a6359;color:#5a6359;">i
+                <div class="info-content" style="width:240px;">
+                  <strong style="color:#5a6359;">Basic Protection</strong> covers local snapshot schedules, snapshot policies, async replication, retention locks, and SafeMode immutability — the foundational layer defending against accidental deletion and ransomware.
+                </div>
+              </span>
+            </div>
             <div style="font-size:14px;font-weight:600;color:#2d2a27;margin:2px 0 10px;">11/19 appliances</div>
             <!-- Local Snapshots 29% -->
             <div class="dp-feat-row">
@@ -2078,7 +2085,14 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
           <!-- Advanced Protection -->
           <div>
-            <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#73716f;">Advanced Protection</div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#73716f;">Advanced Protection</div>
+              <span class="info-trigger" style="border-color:#73716f;color:#73716f;">i
+                <div class="info-content" style="width:240px;">
+                  <strong style="color:#73716f;">Advanced Protection</strong> adds ActiveCluster (zero-RPO sync replication), ActiveDR (continuous async DR), and cloud backup — enabling business continuity and site-level resilience beyond local snapshot coverage.
+                </div>
+              </span>
+            </div>
             <div style="font-size:14px;font-weight:600;color:#73716f;margin:2px 0 10px;">0/19 appliances</div>
             <!-- ActiveCluster 0% -->
             <div class="dp-feat-row">
@@ -2112,33 +2126,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
 
         </div>
       </div>
-      <div class="support-stat-tiles">
-        <div class="support-stat-tile">
-          <div class="stat-tile-label">Snapshots</div>
-          <div class="stat-tile-value" style="color:#5a6359;">21%</div>
-          <div class="stat-tile-sub">arrays with snapshot policy</div>
-        </div>
-        <div class="support-stat-tile">
-          <div class="stat-tile-label">Replication</div>
-          <div class="stat-tile-value" style="color:#5a6359;">21%</div>
-          <div class="stat-tile-sub">replication-enabled arrays</div>
-        </div>
-        <div class="support-stat-tile">
-          <div class="stat-tile-label">Async</div>
-          <div class="stat-tile-value" style="color:#bd673d;">16%</div>
-          <div class="stat-tile-sub">async replication active</div>
-        </div>
-        <div class="support-stat-tile">
-          <div class="stat-tile-label">SafeMode</div>
-          <div class="stat-tile-value" style="color:#8fa596;">82%</div>
-          <div class="stat-tile-sub">arrays with SafeMode on</div>
-        </div>
-        <div class="support-stat-tile">
-          <div class="stat-tile-label">ActiveCluster</div>
-          <div class="stat-tile-value" style="color:#da4d72;">8%</div>
-          <div class="stat-tile-sub">arrays in ActiveCluster</div>
-        </div>
-      </div>
+
     </div>
 
     <!-- scatter plot -->
@@ -2149,7 +2137,6 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
           <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#da4d72;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Critical</span>
           <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#bd673d;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Alerted</span>
           <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#5a6359;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Safe</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#7c729c;clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:inline-block;"></span>Outlier</span>
         </span>
       </div>
       <div class="dp-plot-wrap">
@@ -3724,7 +3711,7 @@ const DP_DATA=[
   {name:'DAL-STAGE-A',  x:85, y:15, sn:12, rp:10, sm:85, c:'#bd673d', type:'subscription'},
   {name:'NYC-CORP-1',   x:55, y:65, sn:62, rp:60, sm:55, c:'#5a6359', type:'subscription'},
   {name:'NYC-CORP-2',   x:75, y:82, sn:80, rp:72, sm:75, c:'#5a6359', type:'array'},
-  {name:'SEA-BACKUP-04',x:92, y:45, sn:40, rp:95, sm:92, c:'#7c729c', type:'subscription'},
+
   {name:'PHL-FA-22',    x:45, y:55, sn:52, rp:40, sm:45, c:'#5a6359', type:'array'},
 ];
 const DP_METRICS=[
