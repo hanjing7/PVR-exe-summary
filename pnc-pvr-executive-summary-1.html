@@ -1208,31 +1208,16 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <div class="pres-inner">
     <!-- ── HERO KPIs ── -->
     <div class="detail-kpi-row">
-      <!-- Combined NDU achievement card with Sw/Hw legend -->
       <div class="detail-kpi" style="flex:1 1 0;min-width:0;">
         <div class="label">NDUs Achieved</div>
-        <div class="value" style="font-size:40px;font-weight:800;line-height:1;color:#2d2a27;margin:4px 0;">715</div>
-        <div class="label" style="margin-bottom:10px;">successful upgrades since 2019</div>
-        <div style="border-top:1px solid #e7e3dc;padding-top:8px;display:flex;gap:20px;">
-          <div>
-            <div class="label">SwNDU</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:16px;font-weight:700;color:#5a6359;">
-              <span style="width:8px;height:8px;border-radius:2px;background:#8fa596;display:inline-block;flex-shrink:0;"></span>620
-            </div>
-          </div>
-          <div>
-            <div class="label">HwNDU</div>
-            <div style="display:flex;align-items:center;gap:5px;font-size:16px;font-weight:700;color:#bd673d;">
-              <span style="width:8px;height:8px;border-radius:2px;background:#bd673d;display:inline-block;flex-shrink:0;"></span>95
-            </div>
-          </div>
-        </div>
+        <div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#2d2a27;margin:4px 0;">715</div>
+        <div class="label" style="margin-top:4px;">successful upgrades since 2019</div>
       </div>
-      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Hours Saved</div><div class="value" style="color:#ff7023;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2h per NDU · ~$165k labour</div></div>
-      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Since inception</div><div class="value" style="color:#73716f;">8 yrs</div></div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Hours Saved</div><div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#ff7023;margin:4px 0;">1,430 hrs</div><div class="label" style="margin-top:4px;">est. 2h per NDU · ~$165k labour</div></div>
+      <div class="detail-kpi" style="flex:1 1 0;min-width:0;"><div class="label">Since inception</div><div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#73716f;margin:4px 0;">8 yrs</div></div>
       <div class="detail-kpi" style="flex:1 1 0;min-width:0;">
         <div class="label">Success Rate</div>
-        <div class="value" style="font-size:36px;font-weight:800;line-height:1;color:#5a6359;margin:4px 0;">100%</div>
+        <div class="value" style="font-size:32px;font-weight:700;line-height:1;color:#5a6359;margin:4px 0;">100%</div>
         <div class="label" style="margin-top:4px;">zero failures across all 715 NDUs</div>
       </div>
     </div>
@@ -1240,7 +1225,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
     <!-- ── CHART + MODERNIZATION PATH ROW ── -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
       <div>
-        <div class="chart-panel-label" style="margin-bottom:8px;">Annual NDU Volume</div>
+        <div class="chart-panel-label" style="margin-bottom:8px;">Annual NDU Volume<span style="display:flex;gap:14px;align-items:center;font-size:11px;font-weight:400;letter-spacing:0;text-transform:none;color:#73716f;"><span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#8fa596;display:inline-block;flex-shrink:0;"></span>Software NDU</span><span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#bd673d;display:inline-block;flex-shrink:0;"></span>Hardware NDU</span></span></div>
     <div class="ndu-bar-wrap" style="position:relative;min-width:100%;">
       <div style="position:absolute;left:0;right:0;top:0;pointer-events:none;">
         <div style="position:absolute;left:0;right:0;top:0;border-top:0.5px dashed #e7e3dc;"><span style="position:absolute;right:0;top:-9px;font-size:9px;color:#73716f;">223</span></div>
@@ -1251,11 +1236,7 @@ body.modal-open #deck-container{transform:scale(.91) translateY(-22px);border-ra
       </div>
       <svg id="ndu-detail-svg" width="100%" height="188" style="display:block;overflow:visible;"></svg>
     </div>
-    <div style="display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;align-items:center;">
-      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#8fa596;"></div><span style="font-size:11px;color:#73716f;">Software NDU</span><span style="font-size:11px;font-weight:700;color:#2d2a27;">620</span></div>
-      <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#bd673d;"></div><span style="font-size:11px;color:#73716f;">Hardware NDU</span><span style="font-size:11px;font-weight:700;color:#2d2a27;">95</span></div>
-      <span style="font-size:10px;color:#73716f;margin-left:auto;">2019 – 2026 · 2026 YTD</span>
-    </div>
+
     <div id="ndu-tooltip" style="position:fixed;display:none;z-index:20000;pointer-events:none;background:#fff5e3;border:1px solid #d5ccbd;border-radius:10px;padding:10px 14px;font-size:12px;color:#2d2a27;box-shadow:0 4px 16px rgba(45,42,39,0.12);min-width:140px;"></div>
       </div><!-- end chart col -->
 
